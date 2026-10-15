@@ -2884,6 +2884,14 @@ local EXTRA32 = {
     ["○ Change 1 ○ Nice Change"] = "○ 变化 1 ○ 不错的变化",
 }
 for k, v in pairs(EXTRA32) do MAP[k] = v end
+
+-- ===== 批次33：错译纠正 + 定向修正（v57）=====
+local EXTRA33 = {
+    ["将军"] = "通用",                 -- 物品分类 General 的历史错译，兜住任何残留路径
+    ["将军 "] = "通用",
+    ["确定要销毁吗？"] = "确定要这样做吗？",   -- 通用确认弹窗的历史错译
+}
+for k, v in pairs(EXTRA33) do MAP[k] = v end
 -- 【v32 修正】PREFIX/LOWER/COMPACT 原来在各 EXTRA 批次合并「之前」就建好了（文件上方），
 -- 导致批次 2~20 的词条享受不到忽略大小写/空白/标点的兜底匹配（多行文本尤其吃亏：
 -- 游戏里长文本用 \r\n，而日志收割时按 \n 记录，键就差一个字符）。
@@ -3662,3 +3670,62 @@ ExecuteWithDelay(5000, function()
         print(string.format("%s[HK4] %s : %s\n", MOD, path, ok and "已挂载" or "不可用(跳过)"))
     end
 end)
+
+-- ===== v56：定位「将军」来源（一次性、只读：找文本等于目标值的 TextBlock 并打印其宿主控件）=====
+local TB_TARGETS = { "将军", "确定要销毁吗" }
+ExecuteWithDelay(90000, function()
+    local all = safe(function() return FindAllOf("TextBlock") end)
+    print(string.format("%s[TBX] TextBlock 实例 %d 个\n", MOD, all and #all or 0))
+    local hit = 0
+    if all then
+        for i = 1, #all do
+            local o = all[i]
+            local ft = safe(function() return o.Text end)
+            local s = nil
+            if ft ~= nil then s = safe(function() return ft:ToString() end) end
+            if type(s) == "string" and #s > 0 then
+                for _, want in ipairs(TB_TARGETS) do
+                    if s == want then
+                        hit = hit + 1
+                        if hit <= 20 then
+                            local owner = safe(function() return o:GetFullName() end) or "?"
+                            print(string.format("%s[TBX] 命中「%s」→ %s\n", MOD, want, tostring(owner)))
+                        end
+                    end
+                end
+            end
+        end
+    end
+    print(string.format("%s[TBX] 命中 %d 个（只读，未做任何写入）\n", MOD, hit))
+end)
+
+-- ===== v58：极小范围纠正（只修已知错译值；低频、少轮次）=====
+local BAD_FIX = {
+    ["将军"] = "通用",
+    ["将军 "] = "通用",
+    ["确定要销毁吗？"] = "确定要这样做吗？",
+}
+local fix_rounds = 0
+local function fix_scan()
+    fix_rounds = fix_rounds + 1
+    local all = safe(function() return FindAllOf("TextBlock") end)
+    local changed = 0
+    if all then
+        for i = 1, #all do
+            local o = all[i]
+            local ft = safe(function() return o.Text end)
+            local s = nil
+            if ft ~= nil then s = safe(function() return ft:ToString() end) end
+            local zh = (type(s) == "string") and BAD_FIX[s] or nil
+            if zh ~= nil then
+                local nt = nil
+                local ok1, t1 = pcall(function() return FText(zh) end)
+                if ok1 then nt = t1 end
+                if nt ~= nil and pcall(function() o:SetText(nt) end) then changed = changed + 1 end
+            end
+        end
+    end
+    print(string.format("%s[FIX] 第%d轮：纠正 %d 处\n", MOD, fix_rounds, changed))
+    if fix_rounds < 6 then ExecuteWithDelay(10000, fix_scan) end
+end
+ExecuteWithDelay(150000, fix_scan)
