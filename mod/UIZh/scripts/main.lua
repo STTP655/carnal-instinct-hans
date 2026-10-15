@@ -3090,12 +3090,12 @@ read_text = function(obj)
         c.no_text = true
         return nil, cls
     end
-    for _, p in ipairs(TEXT_PROPS) do
-        local v = safe(function() return obj[p] end)
+    -- v59：只读标准属性 obj.Text（原版会挨个探测 21 个属性名，是 0xC0000005 的典型来源）
+    do
+        local v = safe(function() return obj.Text end)
         if is_ftext(v) then
-            c.prop = p                                    -- 该类固定使用这个属性名
-            stat_props[p] = (stat_props[p] or 0) + 1
-            safe(function() obj.__uizh_prop = p end)      -- 记住命中的属性名，写入时复用
+            c.prop = "Text"
+            stat_props["Text"] = (stat_props["Text"] or 0) + 1
             local s = safe(function() return v:ToString() end)
             if s and #s > 0 then return s, cls end
             return nil, cls
@@ -3108,26 +3108,9 @@ end
 
 write_text = function(obj, cls)
     return function(ftext)
-        -- 1) 标准路径：UFunction SetText（必须走它才能通知 Slate 刷新）
+        -- v59：只走安全路径（SetText / Text 属性），移除"挨个试写 21 个属性名"的探测
         if safe(function() obj:SetText(ftext); return true end) then return true end
         if safe(function() obj.Text = ftext; return true end) then return true end
-        -- 2) 复用类级缓存 / 读取时命中的属性名
-        local c = cls and CACHE[cls]
-        local p = (c and c.prop) or safe(function() return obj.__uizh_prop end)
-        if p and p ~= "Text" and safe(function() obj[p] = ftext; return true end) then
-            safe(function() obj.__uizh_prop = p end)
-            return true
-        end
-        -- 3) 兜底：仅在该类属性名尚未确定时逐个试写（21 次写入只发生一次/类）
-        if not (c and c.prop) then
-            for _, q in ipairs(TEXT_PROPS) do
-                if safe(function() obj[q] = ftext; return true end) then
-                    if c then c.prop = q end
-                    safe(function() obj.__uizh_prop = q end)
-                    return true
-                end
-            end
-        end
         return false
     end
 end
@@ -3488,7 +3471,7 @@ end)
 --   热区：每 0.7 秒只扫标准文本控件（约 780 个对象，开销极小）→ 物品/交互提示最多 0.7 秒变中文
 --   全量：每 12 个 tick（约 8.4 秒）扫全部控件（约 4.5 万对象）→ 兜底覆盖自定义控件
 -- v55：关闭轮询写入（崩溃时间线与 v50 恢复轮询后的高频 SetText 写入高度相关；hook 通道已验证稳定）
-local TICK_MS, FULL_EVERY, TICKS = 700, 12, 0
+local TICK_MS, FULL_EVERY, TICKS = 2000, 12, 900
 local tick = 0
 local function tick_fn()
     tick = tick + 1
@@ -3698,34 +3681,3 @@ ExecuteWithDelay(90000, function()
     end
     print(string.format("%s[TBX] 命中 %d 个（只读，未做任何写入）\n", MOD, hit))
 end)
-
--- ===== v58：极小范围纠正（只修已知错译值；低频、少轮次）=====
-local BAD_FIX = {
-    ["将军"] = "通用",
-    ["将军 "] = "通用",
-    ["确定要销毁吗？"] = "确定要这样做吗？",
-}
-local fix_rounds = 0
-local function fix_scan()
-    fix_rounds = fix_rounds + 1
-    local all = safe(function() return FindAllOf("TextBlock") end)
-    local changed = 0
-    if all then
-        for i = 1, #all do
-            local o = all[i]
-            local ft = safe(function() return o.Text end)
-            local s = nil
-            if ft ~= nil then s = safe(function() return ft:ToString() end) end
-            local zh = (type(s) == "string") and BAD_FIX[s] or nil
-            if zh ~= nil then
-                local nt = nil
-                local ok1, t1 = pcall(function() return FText(zh) end)
-                if ok1 then nt = t1 end
-                if nt ~= nil and pcall(function() o:SetText(nt) end) then changed = changed + 1 end
-            end
-        end
-    end
-    print(string.format("%s[FIX] 第%d轮：纠正 %d 处\n", MOD, fix_rounds, changed))
-    if fix_rounds < 6 then ExecuteWithDelay(10000, fix_scan) end
-end
-ExecuteWithDelay(150000, fix_scan)
