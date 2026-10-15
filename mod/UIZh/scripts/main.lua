@@ -3480,7 +3480,7 @@ end)
 --   热区：每 0.7 秒只扫标准文本控件（约 780 个对象，开销极小）→ 物品/交互提示最多 0.7 秒变中文
 --   全量：每 12 个 tick（约 8.4 秒）扫全部控件（约 4.5 万对象）→ 兜底覆盖自定义控件
 -- v55：关闭轮询写入（崩溃时间线与 v50 恢复轮询后的高频 SetText 写入高度相关；hook 通道已验证稳定）
-local TICK_MS, FULL_EVERY, TICKS = 2000, 12, 900
+local TICK_MS, FULL_EVERY, TICKS = 2000, 12, 0
 local tick = 0
 local function tick_fn()
     tick = tick + 1
