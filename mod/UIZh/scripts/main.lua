@@ -3479,7 +3479,8 @@ end)
 -- v39：快慢双层轮询
 --   热区：每 0.7 秒只扫标准文本控件（约 780 个对象，开销极小）→ 物品/交互提示最多 0.7 秒变中文
 --   全量：每 12 个 tick（约 8.4 秒）扫全部控件（约 4.5 万对象）→ 兜底覆盖自定义控件
-local TICK_MS, FULL_EVERY, TICKS = 700, 12, 1700
+-- v55：关闭轮询写入（崩溃时间线与 v50 恢复轮询后的高频 SetText 写入高度相关；hook 通道已验证稳定）
+local TICK_MS, FULL_EVERY, TICKS = 700, 12, 0
 local tick = 0
 local function tick_fn()
     tick = tick + 1
@@ -3489,7 +3490,8 @@ end
 for i = 1, TICKS do
     ExecuteWithDelay(i * TICK_MS, tick_fn)
 end
-print(string.format("%s双层轮询已启动：热区 %dms，全量每 %d 轮\n", MOD, TICK_MS, FULL_EVERY))
+if TICKS > 0 then print(string.format("%s双层轮询已启动：热区 %dms，全量每 %d 轮\n", MOD, TICK_MS, FULL_EVERY))
+else print(string.format("%s轮询已关闭（v55）：仅使用 SetText hook 通道\n", MOD)) end
 
 -- 【诊断】报告从"非标准文本控件"里读到的文本样例，确认自定义控件能否读取
 ExecuteWithDelay(26000, function()
