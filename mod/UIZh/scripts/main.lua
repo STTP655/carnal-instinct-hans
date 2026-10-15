@@ -2745,17 +2745,7 @@ local MAX_PER_SCAN = 60000       -- 保险丝：单轮扫描绝不无界（正�
 local warned_trunc = false
 
 -- ===== v50 修复：qt_emit 必须声明在 apply 之前（否则 apply 内引用被编译成全局 nil）=====
-local qt_seen, qt_n, QT_MAX = {}, 0, 4000
-local QT_PROPS = { "Text", "text", "m_text", "m_Text", "TextContent", "DisplayText", "Description",
-    "DescriptionText", "DescText", "Title", "TitleText", "NameText", "Objective", "ObjectiveText",
-    "QuestText", "QuestName", "SubObjective", "Summary", "Body", "BodyText", "QuestDescription",
-    "JournalText", "MessageText", "LabelText", "QuestObjective", "ObjectiveDescription" }
-local function qt_emit(tag, s)
-    if type(s) ~= "string" or #s < 4 or qt_n >= QT_MAX then return end
-    if qt_seen[s] then return end
-    qt_seen[s] = true; qt_n = qt_n + 1
-    print("[QT" .. tag .. "] " .. (s:gsub("[\r\n]+", " ")) .. "\n")
-end
+-- v53：v41 的 qt_emit 已移除（其 DataTable 行反射读取会导致 0xC0000005）
 
 local function apply(full)
     stats.scans = stats.scans + 1
@@ -2785,7 +2775,6 @@ local function apply(full)
                     print(string.format("%s[MISSP] %s\n", MOD, (s:gsub("[\r\n]+", " "))))
                 end
             end
-            qt_emit("W", s)      -- v41：界面上读到的文本全部记录（含未翻译），供任务文本收割
             local zh = lookup(s)
             if zh then
                 hits = hits + 1
@@ -2965,56 +2954,6 @@ end
 
 
 -- ===== v41：任务文本全量导出（只读诊断；无 hook、无写操作）=====
-ExecuteWithDelay(60000, function()
-    -- A) DataTable 路线
-    local dts = safe(function() return FindAllOf("DataTable") end)
-    print(string.format("%s[QT] DataTable %d 个\n", MOD, dts and #dts or 0))
-    if dts then
-        for i, dt in ipairs(dts) do
-            local nm = safe(function() return dt:GetFName():ToString() end)
-            if nm and (nm:find("Quest") or nm:find("quest") or nm:find("Objective") or nm:find("dqst")) then
-                local rows = safe(function() return dt:GetRowNames() end)
-                local rn = rows and #rows or 0
-                print(string.format("[QT] DataTable %s 行数 %d\n", nm, rn))
-                for j = 1, math.min(rn, 400) do
-                    local rowname = rows[j]
-                    local row = safe(function() return dt:GetRow(nm, rowname) end)
-                    if not row then row = safe(function() return dt[rowname] end) end
-                    if row then
-                        for _, p in ipairs(QT_PROPS) do
-                            local v = safe(function() return row[p] end)
-                            if is_ftext(v) then qt_emit("D", safe(function() return v:ToString() end) or "") end
-                        end
-                    end
-                    if type(rowname) == "string" then qt_emit("R", rowname) end
-                end
-            end
-        end
-    end
-    -- B) 任务相关类实例的 FText 属性
-    local cls = safe(function() return FindAllOf("Class") end)
-    local hitn = 0
-    if cls then
-        for _, c in ipairs(cls) do
-            local nm = safe(function() return c:GetFName():ToString() end)
-            if nm and (nm:find("Quest") or nm:find("Objective") or nm:find("Journal") or nm:find("Dqst")) then
-                local objs = safe(function() return FindAllOf(nm) end)
-                if objs and #objs > 0 then
-                    hitn = hitn + 1
-                    print(string.format("[QT] 类 %s 实例 %d\n", nm, #objs))
-                    for k = 1, math.min(#objs, 30) do
-                        local o = objs[k]
-                        for _, p in ipairs(QT_PROPS) do
-                            local v = safe(function() return o[p] end)
-                            if is_ftext(v) then qt_emit("C", safe(function() return v:ToString() end) or "") end
-                        end
-                    end
-                end
-            end
-        end
-    end
-    print(string.format("%s[QT] 类命中 %d 个，累计导出文本 %d 条\n", MOD, hitn, qt_n))
-end)
 
 -- 【诊断 v33】① 列出全部控件类名与实例数 ② 对"提示类"控件做宽名单属性探测
 -- 目的：世界交互提示（截图里的 "E  Rest Campfire"）运行时读不到文本，
