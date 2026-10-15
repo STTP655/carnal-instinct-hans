@@ -2487,7 +2487,6 @@ local EXTRA32 = {
     ["/ Timer:"] = "/ 计时：",
     ["5K GOLD"] = "5K 金币",
     ["64 PLAYERS"] = "64 名玩家",
-    ["<MISSING STRING TABLE ENTRY>"] = "<缺少字符串表条目>",
     ["ADD 3 ATTRIBUTES POINTS"] = "添加 3 点属性点",
     ["ADD LEVEL XP"] = "添加等级经验",
     ["ADVANCED STATISTICS"] = "高级统计",
@@ -3146,6 +3145,16 @@ local warned_trunc = false
 -- ===== v50 修复：qt_emit 必须声明在 apply 之前（否则 apply 内引用被编译成全局 nil）=====
 -- v53：v41 的 qt_emit 已移除（其 DataTable 行反射读取会导致 0xC0000005）
 
+
+-- ===== v60：占位符保护（<MISSING STRING TABLE ENTRY> 等是"未解析"的标记，绝不能翻译或写回）=====
+local function is_placeholder_str(s)
+    if type(s) ~= "string" then return false end
+    if s == "<MISSING STRING TABLE ENTRY>" then return true end
+    if s:find("缺少字符串表条目", 1, true) then return true end
+    if s:find("MISSING STRING TABLE", 1, true) then return true end
+    if s == "None" or s == "none" or s == "NONE" then return true end
+    return false
+end
 local function apply(full)
     stats.scans = stats.scans + 1
     local list = gather(full)
@@ -3174,7 +3183,7 @@ local function apply(full)
                     print(string.format("%s[MISSP] %s\n", MOD, (s:gsub("[\r\n]+", " "))))
                 end
             end
-            local zh = lookup(s)
+            local zh = (not is_placeholder_str(s)) and lookup(s) or nil
             if zh then
                 hits = hits + 1
                 local ftext = safe(function() return FText(zh) end)
@@ -3599,7 +3608,7 @@ local function hk3_cb(self, in_text)
     if not ok1 or type(s) ~= "string" or #s == 0 then return end
     local zh = hk3_cache[s]
     if zh == nil then
-        local z = lookup(s)
+        local z = (not is_placeholder_str(s)) and lookup(s) or nil
         zh = z or false
         hk3_cache[s] = zh
         if zh == false and #s >= 4 and s:find("%a%a%a") and not hk3_miss_seen[s] and hk3_miss_n < 2000 then
