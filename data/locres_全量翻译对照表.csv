@@ -1,0 +1,1253 @@
+﻿key,src英文,中文译文,来源(词表/新翻),所在资产数,所在资产,注入动作,备注
+A91786A542FAC4F48460B2A34293B1A1,%,,SKIP,1,WB_T3_SettingsMenu,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+F1B7F78A4BB002D72AD314A03943108A,%,,SKIP,1,WB_T3_SettingsMenu,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+341EA15F4371315E716B95A55A592A21,%,,SKIP,1,WB_T3_SettingsMenu,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+35586DCA49D4D7785EA186AE691B9C36,%,,SKIP,1,WB_T3_SettingsMenu,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+6C13B57B40BCAA395702E5A08DD0C405,%,,SKIP,1,WB_T3_SettingsMenu,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+275A58F6473225662C1386B49DB6E338,*,,SKIP,1,WB_T3_Slider,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+2AAC0AD04C082CAFB4964ABE757C7E4B,*,,SKIP,1,WB_T3_Toggler,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+55C45E214D00F2EE3DE8FA91A8D2492F,*,,SKIP,1,WB_T3_KeyMapper,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+87492B5A41F5D36C0C35609E956B678C,*,,SKIP,1,WB_T3_OptionSwitcher,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+5B46FE624309C4C697D618B12CFA9A96,+,,SKIP,1,WB_NSM_CustomInputKeySelector,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+031E7FD64A0F2C9618078D922A782D77,+ 24,,SKIP,1,WB_Essence,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+5BEF74B94DEC2FAE2F70B7A4E3F05804,+2000,,SKIP,1,WB_ToolTipItemStatsSlot,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+848D3552406B952A490766BC6A8279BD,-,,SKIP,1,WB_Options_KeyRebinding,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+9A3716064778E9DD9CFA78969D790FEF,-,,SKIP,1,WB_Options_KeyRebinding,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+17DF49BA4BE0857B16008488F826EF44,-,,SKIP,1,WB_Options_KeyRebinding,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+D6B8E2D74DA079EAFA137481F8F2418D,...,,SKIP,1,WB_T3_KeyMapper,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+A41FD657409575ECC14ABA9EEB7B9772,0,,SKIP,1,WB_CraftingMaterialsBarSlot,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+B3AC3960439D20EBA548A9B1753914ED,0,,SKIP,1,WB_QuestType,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+27DD86044F8EF95FA954E2B02F94A9E6,1,,SKIP,1,WB_LevelExpBar-Normal,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+2D6FE3254CACA067F2BA2A84C0B78879,1,,SKIP,1,WB_LevelCarnalExpBar-Normal,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+2EF3DD2A41DAD8A562C57F821D9C7FFA,1,,SKIP,1,WB_AbilityBarSlot,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+4FC6CB9B4DB45ECBCDF5EBA2EE51CAFB,1,,SKIP,1,WB_LevelExpBar-Circle,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+A55B7DE3404BC015A87CB2BE3D6EF5D9,1,,SKIP,1,WB_Options_Gameplay,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+E2C25A9A471F735A17B5EABC3A3C41D3,1,,SKIP,1,WB_Options_Gameplay,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+4CC3A4124EB85566CA054B848BEBDC08,1.00,,SKIP,1,WB_T3_Slider,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+43EF361446F7B5DAA4BBE7AC9E09743C,10,,SKIP,1,WB_Options_Gameplay,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+68D4FB5146EEBEE6A3F8A687567BE7B0,10,,SKIP,1,WB_PainTest,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+F1B6D8B84FA8EBCDEAB495822AD87D49,10,,SKIP,1,WB_Options_Gameplay,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+D0D4B5494A5E8B4946B18F875EEA8885,100,,SKIP,1,WB_Stats_Full,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+8BC303D245DD18F243260EBE2C924BC6,100,,SKIP,1,WB_Stats_Full,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+79769EE94BD9EB836F04D89BFA69F387,100,,SKIP,1,WB_Stats_Full,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+12A724D04B76104F350406A9F755CC6D,100,,SKIP,1,WB_NSM_FPS_Info,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+F708EBA245CC6E404E4C358298D97597,100,,SKIP,1,WB_Stats_Full,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+FFF6A34740FCE6B8519C9CBAF8774C51,100,,SKIP,1,WB_Stats_Full,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+A31FE368483B090AB553948DD72B01B4,12,,SKIP,1,WB_AmmoSlot,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+AA64EE77488D8B1A1C3708A4011EF70B,12,,SKIP,1,WB_AbilitiesWindow,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+D7AEDCA14F763FBE08A2A49F81653055,12,,SKIP,1,WB_Stats_Main_Slot,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+EFA54DB44B0514799D282EB53F483E8D,12,,SKIP,1,WB_CraftingItem,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+F9CDDD22446C8592BD7210BF6059A2B0,12,,SKIP,1,WB_LevelLoadSlot,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+52F189F647F5240501D80F8299A3409B,120,,SKIP,1,WB_T3_SettingsMenu,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+290CBBEC4CF4C2414CE22CB8E280FF8D,120 FPS,,SKIP,1,WB_Options_AdvancedVideo,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+EB433C0B46D56AB8AB679092F015C062,1329,,SKIP,1,WB_Essence,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+A24737A346624F41EDC98CA56BE9623B,144,,SKIP,1,WB_T3_SettingsMenu,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+DD6ED99B4044D8BC75317AB3AADB26D1,15,,SKIP,1,WB_Options_Gameplay,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+AD3ADF374ABE504CD1A89882EA536C2A,1500,,SKIP,1,WB_FormScreen,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+08FC1AE0409BBC75AC8C069E1E860F1C,1500 km,,SKIP,1,WB_CompassMarker,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+DE5283F4454483E4F750BCA07E379E80,160 FPS,,SKIP,1,WB_Options_AdvancedVideo,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+425B7DBF4275FC66421B249EBA3D0005,2,,SKIP,1,WB_Options_Gameplay,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+8665FBFB44C13B556E98FC94ADCE72B6,2,,SKIP,1,WB_PainTest,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+EC63E7C745595F336D32FF85C0A33D62,2,,SKIP,1,WB_Options_Gameplay,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+8359A28B451A6CA23DCAF8AB305492C8,20,,SKIP,1,WB_Options_Gameplay,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+D4B6A9CB427B5CFC5300AD89DC6BF009,200,,SKIP,1,WB_LevelExpBar_Carnal,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+DFAD5FD04FC203FB79205590ADB1729C,200,,SKIP,1,WB_LevelExpBar,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+424035704D59AD9757C394B2ED213844,240 FPS,,SKIP,1,WB_Options_AdvancedVideo,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+CA1275854D96827BCDE3BEAE5D012343,25,,SKIP,1,WB_Options_Gameplay,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+52FBCEB64D583B096F2C029C1C20DB05,25 M,,SKIP,1,WB_WorldMarker,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+8ABB8E734294F5366D69878292FCBC78,2X,,SKIP,1,WB_Options_AdvancedVideo,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+21E9CACC4A95F8FB216DD2B5889E1520,3,,SKIP,1,WB_Options_Gameplay,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+626D148F48790A4343C9938C39882FDA,3,,SKIP,1,WB_SplitStack,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+738A4FC2421F6859490458BCCF9D2CFF,3,,SKIP,1,WB_AIStatBars,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+B9A4E6DC4AC84EEEE9508C890806A5F8,3,,SKIP,1,WB_SplitStack,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+BF011BD4496B389F666CAD81116DA006,3,,SKIP,1,WB_ConsumableSlot_CI,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+ED410B504BC367EADC55B281BD44411A,3,,SKIP,1,WB_Options_Gameplay,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+5FA0FBDB4E2EFE1352F440ABB9293421,30,,SKIP,1,WB_T3_SettingsMenu,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+9CB191654994D641F4C4189FDAE13CEA,30,,SKIP,1,WB_Options_Gameplay,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+D334ABD244550E434A30D5960C14296D,30 FPS,,SKIP,1,WB_Options_AdvancedVideo,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+8D55ACA34A2C90C46E3C2C997D4DFA6A,3X,,SKIP,1,WB_Options_AdvancedVideo,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+A5E224A448E7C7B8C6CCF5A65C28D425,4,,SKIP,1,WB_Options_Gameplay,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+BEE6A8284A5FA3440CF49FA4AECF8B50,4,,SKIP,1,WB_Options_Gameplay,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+14CA50A141F0110DC7B668837BCAA949,4X,,SKIP,1,WB_Options_AdvancedVideo,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+574608C440D6CE5C0D1C689560844932,5,,SKIP,1,WB_Options_Gameplay,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+6CA8658F41413196339B0083185C4611,5,,SKIP,1,WB_CraftingMaterialsBarSlot,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+BCF7182E489422BE0B11B58EC755B302,5,,SKIP,1,WB_AbilityBarSlot,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+CDE9BA05406D5E24BBC7AFB0D75E49BE,5,,SKIP,1,WB_Options_Gameplay,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+A80D65C846452C3591F5AF8A6A9A3DE8,6,,SKIP,1,WB_Options_Gameplay,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+5FFBFED14E3C0DB26E19D59215F8CA6D,60,,SKIP,1,WB_T3_SettingsMenu,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+90B3AEF54CE8EABD45A7DBB6B06980C5,60 FPS,,SKIP,1,WB_Options_AdvancedVideo,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+11F174FD4CCD8EFD98687E9F5AE505FA,600,,SKIP,1,WB_LevelExpBar_Carnal,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+387E38534CC1485C8ADAD69B78357B4A,600,,SKIP,1,WB_LevelExpBar,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+310C4E6549DFA367588FA1A85B8B4835,7,,SKIP,1,WB_Options_Gameplay,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+788B71574B273B129A0058B443FA2729,8,,SKIP,1,WB_LevelExpBar,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+DDBE209F481DD7C289CC219AB841DF02,8,,SKIP,1,WB_Options_Gameplay,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+E49B171D432AA9AC029BEEB6F2397FED,8,,SKIP,1,WB_LevelExpBar_Carnal,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+E10D53D84E786D0387BC0AAF1176C08B,9,,SKIP,1,WB_Options_Gameplay,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+0249D2B049C1C480DD0DD889BC6E5927,90,,SKIP,1,WB_T3_SettingsMenu,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+4935C74B4F60AD0C64D8F09247E1B18E,90 FPS,,SKIP,1,WB_Options_AdvancedVideo,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+2F6A35E34C44584C1F21F8BD008AD45B,999,,SKIP,1,WB_VendorSlot,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+5591B0C9423AAC83197ABC9F4A1C439A,999,,SKIP,1,WB_StorageSlot,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+61EA01C041E4E67AE8EA798EB576E91D,999,,SKIP,1,WB_LootBarSlot,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+9FA85EFC4F93A7695252EE80DCFF3052,999,,SKIP,1,WB_PlayerInventorySlot,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+CDC2B3F544221B5BB45A8CB77FBDC32C,999,,SKIP,1,WB_EquipmentSlot,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+57009D444774E54B2329BC97CEECC935,9999,,SKIP,1,WB_SplitStack,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+83C1A7D842ADC0065856928A9902AB00,<,,SKIP,1,WB_PlayerInventory,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+2E31FE4E47B00E259F9BD0A3596B09E8,>,,SKIP,1,WB_PlayerInventory,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+75589CA8406A6D28FDA34287EE195883,??,,SKIP,1,WB_AIStatBars_Boss,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+9295EDFB4BA7779CA625C8B0A35E3D9B,F,,SKIP,1,WB_NSM_KeyInfoOnlyKey_1,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+EA0EF95647460465CCBFBC9A350D9616,F,,SKIP,1,WB_NSM_KeyInfoOnlyKey_KeySelector,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+7F568FEE4381E532776305B0654B4248,FG,,SKIP,1,WB_NSM_FPS_Info,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+48AE222A45990391722F4989AD1EC09E,FXAA,,SKIP,1,WB_T3_SettingsMenu,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+053A8A5E4E3273764FC2BD902FE0C7C1,NA,,SKIP,1,WB_CheatMenuOption_Quests,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+1C87202449982BA39D60FDB85118B4AD,NA,,SKIP,1,WB_CheatMenu_Button_Normal,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+84D145EA4136C66BC8D53EAD407952EA,NA,,SKIP,1,WB_CheatMenuOption_Stats,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+99394A284486E983D865DABF508DBFB8,NA,,SKIP,1,WB_CheatMenuOption_QuestObj,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+AFA3D7F24DA13F71D85392B48818686D,NA,,SKIP,1,WB_CheatMenuOption_Forms,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+E4A35FED420F417B9D980AAA49BD7AAB,NA,,SKIP,1,WB_CheatMenuOption,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+042C0CD34447E83CF87216A5A9AECB92,NPC,,SKIP,1,WB_v2DSS2,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+FD478E2C406A0F78318E3BB36A0AC0B3,NPC,,SKIP,1,WB_DSS2,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+A43FB9E24290A172B33925A873DADA8D,Z,,SKIP,1,WB_EquipmentSlot,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+00214A0B4E0CE32E45E37B9377163A00,f,,SKIP,1,WB_v2DSS2,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+0476F332455D185611DBF7B652E2EA4C,f,,SKIP,1,WB_v2DSS2,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+123CC5114B62F41A5CC114BB54729EA2,f,,SKIP,1,WB_DSS2,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+12927F9F4E89C0376B2D24BAE882F0A8,f,,SKIP,1,WB_DSS2,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+36391D8047A6EC923F6968A3E9D31988,f,,SKIP,1,WB_DSS2,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+75BB83FE4C3DC7524B4F09BDD95537B1,f,,SKIP,1,WB_v2DSS2,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+239765174249B82A7E38BFA778A6B3B9,fsdfsfsfsfdfsfsdfdsd,,SKIP,1,WB_LoadingScreen,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+9588462A4F4F419E60C406914394EB9E,fsdfsfsfsfdfsfsdfdsd,,SKIP,1,WB_T3_LoadingScreen,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+A953D79A4BCEA4FECD4E1986068CDA5E,fsdfsfsfsfdfsfsdfdsd,,SKIP,1,WB_LoadingScreen-Fake,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+485D8907447DA6D45D8EF590E27F8DFA,i,,SKIP,1,WB_T3_InfoHover,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+1A708A5744CB51AAFD23EAA25FE5D940,x99,,SKIP,1,WB_PopupLootReceivedSlot_Custom,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+1DB54AA044570E8A0FCC6D88E8B12175,|,,SKIP,1,WB_QuestName,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+C410B3474075A9CACBE4218EB4A23A2A,…,,SKIP,1,WB_NSM_CustomInputKeySelector,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+3083ED344DBD6D2C6DF0109B5B24E830,▶,,SKIP,1,WB_T3_OptionSwitcher,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+6837B4F446BDD683E8C36FB68FF95909,▶,,SKIP,1,WB_PlayerInventory,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+8A67F9594B45AA8D02FF3AB007B97B7F,▶,,SKIP,1,WB_PlayerInventory,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+8C761B704DF1FEAC76D218A405F2A5F7,▶,,SKIP,1,WB_T3_OptionSwitcher,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+AB971B8440B4897668B2C69B73D4FBC0,◈━◈━◈━◈━◈━◈━◈━◈━◈━◈━◈━◈━◈━◈━◈━◈━◈━◈━◈━◈━◈━◈━◈,,SKIP,1,WB_T3_SettingsMenu,未注入,SKIP：纯数字/符号/品牌缩写/占位乱码，保留内联原文
+F298D9EA433ABB83EC75F7BA41679E74,Ahmes,阿赫梅斯,新翻,1,WB_LoreScreen,保留已有中文,原值已是中文，保留；本次备选译文=阿赫梅斯
+2A34CE61466CB2183A64B29DEEE5228F,Are you sure to quit the game? Are you sure to quit the game?Are you sure to quit the game?Are you sure to quit the game?Are you sure to quit the game?Are you sure to quit the game?Are you sure to quit the game?Are you sure to quit the game?,确定要退出游戏吗？,新翻,1,WB_Request,保留已有中文,原值已是中文，保留；本次备选译文=确定要退出游戏吗？确定要退出游戏吗？确定要退出游戏吗？确定要退出游戏吗？确定要退出游戏吗？确定要退出游戏吗？确定要退出游戏吗？确定要退出游戏吗？
+5478D68B40002028EF6E8C8418664DC0,CHAPTER,章节,新翻,1,WB_ChapterButton,保留已有中文,原值已是中文，保留；本次备选译文=章节
+C18895C04C47F5DE0D6FAA99C0D30CC8,CHARACTERS,角色,新翻,1,WB_LoreScreen,保留已有中文,原值已是中文，保留；本次备选译文=角色
+6DC539B5446127ED213819AE4F09BA48,ENEMIES,敌人,新翻,1,WB_LoreScreen,保留已有中文,原值已是中文，保留；本次备选译文=敌人
+75751FDF4DFB2B386EADF7A8B166271C,FACTIONS,阵营,新翻,1,WB_LoreScreen,保留已有中文,原值已是中文，保留；本次备选译文=阵营
+54DD42554EDB18BBFB6BB5A943DA5D05,FEATURES,特性,新翻,1,WB_PlayerInventory,保留已有中文,原值已是中文，保留；本次备选译文=特性
+60B770D04499A9C899B305A66A6344FD,Fixed a bug that caused the slider button text to be displayed incorrectly,修复了滑块按钮文字显示错误的问题,新翻,1,WB_PatchNotes,保留已有中文,原值已是中文，保留；本次备选译文=修复了滑块按钮文本显示错误的问题
+FF33290B449516D5DAE68098EC5FBBB1,Fixed an issue where Intro Videos did not played properly,修复了开场影片播放异常的问题,新翻,1,WB_PatchNotes,保留已有中文,原值已是中文，保留；本次备选译文=修复了开场视频播放异常的问题
+7C0A5808467E63A3F47136AB17A27F11,Fixed an issue where Localization was not possible with the State Buttons,修复了状态按钮无法本地化的问题,新翻,1,WB_PatchNotes,保留已有中文,原值已是中文，保留；本次备选译文=修复了状态按钮无法进行本地化的问题
+EDE3E703412A38A48862EABE5E85B195,Gold Nubs,你的金币,新翻,1,WB_GoldWeightBar,保留已有中文,原值已是中文，保留；本次备选译文=金币
+BC3F21CC44C66EE451E67CB6819B509E,Headphones,耳机,新翻,1,WB_Options_Audio,保留已有中文,原值已是中文，保留；本次备选译文=耳机
+60981DD541ABFB48B51B9BAE12A1BA8B,Invert Mouse / Gamepad X,反转鼠标 / 手柄 X 轴,新翻,1,WB_Options_Controls,保留已有中文,原值已是中文，保留；本次备选译文=反转鼠标 / 手柄 X 轴
+FB50EE7644208BA12B709682331972C7,Invert Mouse / Gamepad Y,反转鼠标 / 手柄 Y 轴,新翻,1,WB_Options_Controls,保留已有中文,原值已是中文，保留；本次备选译文=反转鼠标 / 手柄 Y 轴
+EB4B39654E79583D92B84B8332C26A6A,Locked. Required previous Rank.,未解锁。需要前置等级。,新翻,3,WB_AbilityBarSlot; WB_AbilityTreeSlot; WB_ToolTipAbilities,保留已有中文,原值已是中文，保留；本次备选译文=未解锁。需要前置等级。
+053DF5164F145184D3CF089321035EC9,Music,音乐,新翻,1,WB_Options_Audio,保留已有中文,原值已是中文，保留；本次备选译文=音乐
+C0EFEA90426B24188C77CCA52736D79D,OFFHANDS,副手,新翻,1,WB_PlayerInventory,保留已有中文,原值已是中文，保留；本次备选译文=副手
+95D28F5B49C9FC74F86AFABE8BDEF612,Optimized the Sensitivities in the Demo ThirdPersonCharacter,优化了示例第三人称角色的灵敏度,新翻,1,WB_PatchNotes,保留已有中文,原值已是中文，保留；本次备选译文=优化了演示用第三人称角色的灵敏度
+AAD53A93460C46C327A177A68E4F65E3,Patreon Build - Version ,Patreon 构建 - 版本 ,新翻,1,WB_HUD,保留已有中文,原值已是中文，保留；本次备选译文=赞助版 - 版本 
+0A117FF847B826660B80C1875AE315D8,REQUEST,请求,新翻,1,WB_Request,保留已有中文,原值已是中文，保留；本次备选译文=请求
+72E2E5674441260CA81947A0E72C800B,Selecting,选择中,新翻,1,WB_InputKeySelector,保留已有中文,原值已是中文，保留；本次备选译文=选择中
+617F945645E810243ECE3F9BD75FF07D,THIS IS A OPTIONAL CHAPTER DESCRIPTION.,这是可选章节描述。,新翻,1,WB_ChapterButton,保留已有中文,原值已是中文，保留；本次备选译文=这是可选的章节描述。
+68A1579845E8490F911F8C88F8DF072A,TORSO,躯干,新翻,1,WB_PlayerInventory,保留已有中文,原值已是中文，保留；本次备选译文=躯干
+DB9466DF484660B8F6AC60B01624B834,These Cat Like People were the most,这些猫一样的人是萨布最,新翻,1,WB_FormScreen,保留已有中文,原值已是中文，保留；本次备选译文=这些像猫一样的种族曾是最……
+D42C004442643B4DDC4B528C74B71CDD,24 November 2020,2020年11月24日,新翻,1,WB_T3_LoadGameSlot,新增,
+659689C44A331E89A35C13B65D539F57,ALL ITEMS,全部物品,新翻,1,WB_StorageInventory,新增,
+D43B455D4B2093302FFD2A82BFC19820,ALL ITEMS,全部物品,新翻,1,WB_VendorInventory,新增,
+265D8DDA488B053A86C530BA0DAB4B51,Adjusts the volume of the game’s music.,调整游戏音乐的音量。,新翻,1,WB_T3_SettingsMenu,新增,
+5067BB6E4BEEF1368E9EBCBE1AE775F3,Arousal State,兴奋状态,新翻,1,WB_GenitalScreen,新增,
+FC96FF70481A8B62543616B5E38194A9,Aroused,勃起,新翻,1,WB_GenitalScreen,新增,
+0E01FAA44C2112C074F65AB1DF2F8EF3,Aroused/Flaccid,勃起 / 疲软,新翻,1,WB_GenitalScreen,新增,
+8F2C870B418E41260CCEBEB8E8830662,Aroused/Flaccid,勃起 / 疲软,新翻,1,WB_Equipment,新增,
+445003FD4EFED5E95F9FDDAF6B4DA63A,Attribute Points,属性点,新翻,1,WB_Stats_Main,新增,
+EC505A614A24E04F47E14483A15F94B9,Axes,斧,新翻,1,WB_CraftingList,新增,
+4F4A3C0747EC5C3E8D89908337CB9C00,Block / Zoom,格挡 / 缩放,新翻,1,WB_Options_KeyRebinding,新增,
+0462350A410BC8B840834FA23F921653,Chestplates,胸甲,新翻,1,WB_CraftingList,新增,
+FDF7A73844F961A3F8CE01A2A82620FD,Custom,自定义,新翻,1,WB_Master_OptionSwitcher,新增,
+91A6B58141698ED90A9B9E937DC36693,Deuteranopia,绿色盲,新翻,1,WB_T3_SettingsMenu,新增,
+A6F4C22C41F0C7E82B2A6EBA9A255094,Dodge / Jump,闪避 / 跳跃,新翻,1,WB_Options_KeyRebinding,新增,
+75AFF4504B9800450C3AB4B4FAEF8107,Exit Mode,退出模式,新翻,1,WB_PhotoMode,新增,
+0EDC267342523F97D6C3D4B631762D03,Exit Scene,退出场景,新翻,1,WB_v2DSS2,新增,
+5CC0809C444D4E33865CC9974E9C883A,Exit Scene,退出场景,新翻,1,WB_DSS2,新增,
+8F8F33694BAACF404F8C60858CC2A9F5,Exit Scene,退出场景,新翻,1,WB_DSS2_AmbientScene,新增,
+CE49C42F41E91955C03759BBD7691B3D,Freeze Scene,冻结场景,新翻,1,WB_PhotoMode,新增,
+B4504390423F3EA2C363DDA8F17AE207,Hair Ornaments,发饰,新翻,1,WB_CosmeticsWindow,新增,
+8765D13945CBFC905FEDD0BAF888595A,Hammers,锤,新翻,1,WB_CraftingList,新增,
+94505F3041BA54C1E8FB66B5B3AF10A6,Hard,困难,新翻,1,WB_T3_SettingsMenu,新增,
+C8F4AA0B405F8A53000597876B6466E3,Hard,困难,新翻,1,WB_T3_NewGame,新增,
+E706DEA5492E38C98E7F2786A21155DD,Hard,困难,新翻,1,WB_Options_Gameplay,新增,
+C3A53BFD41DDD4A39A598A997FEC7615,Helmets,头盔,新翻,1,WB_CraftingList,新增,
+3E367EE4492D846520CABE8BC138491B,Hidden,隐藏,新翻,1,WB_GenitalScreen,新增,
+4CD5AF624741984BFB1EDCB679696B94,Launguage,语言,新翻,1,WB_Options_Audio,新增,
+630A4A10431A9E7456C007AD041B9917,Lock Climax,锁定高潮,新翻,1,WB_DSS2,新增,
+89E1B19347FCC2A332F831AEF1219DEF,Lock Climax,锁定高潮,新翻,1,WB_v2DSS2,新增,
+71D9E82F41121F2CBA18D0852A4A7F7C,Low,低,新翻,1,WB_Master_OptionSwitcher,新增,
+99BEDEF3417B8DC57A4B2FBF0BCA37A5,Low,低,新翻,1,WB_T3_SettingsMenu,新增,
+B3C960624D7C4056BF16729762063F97,Low,低,新翻,1,WB_Options_Video,新增,
+9BD600564A5CAE831B3A85AF5DAF2308,Lumen Quality (Lighting/Relection Quality),Lumen 质量（光照/反射质量）,新翻,1,WB_Options_Video,新增,
+20925B544B5F8521869E25BAB267675E,Metallic Intensity,金属强度,新翻,1,WB_CosmeticsWindow,新增,
+5727918746AD848557F5F983DE227854,Open the Radial Menu [TAB] to view,按 [TAB] 打开环形菜单查看,新翻,1,WB_PopupUnlocked,新增,
+F67F448A42E1FC5E9009FCAEB4C2C183,Open the Radial Menu [TAB] to view,按 [TAB] 打开环形菜单查看,新翻,1,WB_Noti_Unlock,新增,
+3921E87B43EA12D9051E15B3083A96E3,Play,开始游戏,新翻,1,WB_T3_NewGame,新增,
+7FD0F08F4016788B48F1E9B41100CC3B,Pose Swap,切换姿势,新翻,1,WB_v2DSS2,新增,
+D556C9204E2F767DE5B624A5D68FC1AD,Pose Swap,切换姿势,新翻,1,WB_DSS2,新增,
+6C1769564B1F760E03FB979BC3749A82,Protanopia,红色盲,新翻,1,WB_T3_SettingsMenu,新增,
+1D2AC7A14451BB897C382995FB6D3B7B,REPLACED by WB_Master_SettingsMenu,已由 WB_Master_SettingsMenu 替代,新翻,1,WB_T3_SettingsMenu,新增,
+982C4F1247CB6C08F40E09A2BEAF08D4,RETURN TO MISSION AREA,返回任务区域,新翻,1,WB_QuestOOB,新增,
+2CC83EC44D70A8220DB59791366FDC0C,Release,松开,新翻,1,WB_T3_SettingsMenu,新增,
+3EFAD93F4EA7A88B2A91A0AE909A6131,Reset Camera,重置视角,新翻,1,WB_DSS2,新增,
+6FCA086D4C0C7D1EBDCE179DFE4E7896,Reset Camera,重置视角,新翻,1,WB_PhotoMode,新增,
+A96FF87C4C908A6EF67C61ACC1A9743C,Reset Camera,重置视角,新翻,1,WB_v2DSS2,新增,
+3DB01685418E0719D6467497055A5AA0,SLOMO 10,慢动作 10,新翻,1,WB_CheatMenu,新增,
+62D6E8604738B2593BAB329C310B2223,SLOMO 4,慢动作 4,新翻,1,WB_CheatMenu,新增,
+5FE53C8846831F268BFAAD9F5BA1CFEA,Save Screenshot,保存截图,新翻,1,WB_PhotoMode,新增,
+5C955DBA4A17BE716D08CFA604A3651D,Semi-Flaccid,半疲软,新翻,1,WB_GenitalScreen,新增,
+03EFAE224F50B8A2CBC6C3823F90EC5F,Show/Hide Balls,显示/隐藏睾丸,新翻,1,WB_GenitalScreen,新增,
+3CBDE58340258A19531E2495D6954670,Show/Hide Balls,显示/隐藏睾丸,新翻,1,WB_Equipment,新增,
+752019E24EE343529000B7B5EEB791DB,Skin Select,皮肤选择,新翻,1,WB_GenitalScreen,新增,
+9D1786A144854BCEA4EB6BBCFBD4540B,Sorcery Points,法术点,新翻,1,WB_GoldWeightBar,新增,
+91A827294E58304B199B03AF3F0DE4FA,Swords,剑,新翻,1,WB_CraftingList,新增,
+ABBC871949EDCA4006A959B1E69155B4,TIME OF DAY,时间,新翻,1,WB_PhotoMode,新增,
+4A4FA3A2463AF9E76888C8AFD560F3F7,TYPE ITEM FILTER,输入物品筛选,新翻,1,WB_CheatMenu,新增,
+D3ED0D6C4187318408E1C2ABEE3F5E93,TYPE QUEST FILTER TEXT,输入任务筛选文本,新翻,1,WB_CheatMenu,新增,
+2A4E7AFE42DECC14254DD79C31053B9B,This is a tutorial text which takes place inside of a custom widget. To display icons together with text - or use different text styles within a text - you can use a Rich Text Block.,这是一段放在自定义控件中的教程文本。要在文本里同时显示图标，或在同一段文本中使用不同的文字样式，可以使用富文本块（Rich Text Block）。,新翻,1,WB_DemoTutNoti1_300x400,新增,
+5A28D26C4E6672AF1CFDBA908460531F,This is a tutorial text which takes place inside of a custom widget. To display icons together with text - or use different text styles within a text - you can use a Rich Text Block.,这是一段放在自定义控件中的教程文本。要在文本里同时显示图标，或在同一段文本中使用不同的文字样式，可以使用富文本块（Rich Text Block）。,新翻,1,WB_DemoTutNoti2_300x400,新增,
+1A847F0C4C7BB11B3FD50AB3E4E83709,Toggle Camera,切换视角,新翻,1,WB_DynamicSex,新增,
+1F6FC04740CB62A50FD5A7839C39DA81,Tritanopia,蓝色盲,新翻,1,WB_T3_SettingsMenu,新增,
+D8822B02407D250BE0EB73B6050BCD8B,Visible,可见,新翻,1,WB_GenitalScreen,新增,
+9B3C79A548A615F9C19E51BF1955FB22,WIKI,维基百科,新翻,1,WB_ProMainMenu,新增,
+3DEA16AD4CE0A0E90A886C94E4F68BC3,and,和,新翻,1,WB_DemoTutNoti1_300x400,新增,
+F0D8DFA848AFAAEB4A4739A5772D7427,and,和,新翻,1,WB_DemoTutNoti2_300x400,新增,
+4D08A75C4166D4EDB803288C20AF6762,24 November 2020,2020年11月24日,新翻,1,WB_LoadGameSlot,更新,覆盖原值 '24 November 2020'
+B69DA11746DC7F716904B2A74AFE1B00,ButtonName,按键名称,新翻,1,WB_KeybindingButton,更新,覆盖原值 'ButtonName'
+0F18AFAD490B0981B8AD5AA495D1CBA2,PATREON,赞助支持,新翻,1,WB_ProMainMenu,更新,覆盖原值 'PATREON'
+842F6FF148F7555137BCB7B72BD76C77,VERSION 2.5.5  /  FEBRUARY 2021,版本 2.5.5  /  2021年2月,新翻,1,WB_PatchNotes,更新,覆盖原值 'VERSION 2.5.5  /  FEBRUARY 2021'
+C821EE6C4CF2990F612C04A151E7F52F,v4.23.3 PATCH NOTES,v4.23.3 更新日志,新翻,1,WB_ProMainMenu,更新,覆盖原值 'v4.23.3 PATCH NOTES'
+1B71849E4DEAAF9DCA44D6AD333ECE95,"○ Change 1
+○ Nice Change","○ 变化 1
+○ 不错的变化",词表(归一化+保留原文换行),1,WB_T3_ConfirmAlert,新增,
+A441E6214FD956AEE83C82BB4A31E0DF,Attributes,属性点,词表(归一化匹配),1,WB_GoldWeightBar,保留已有中文,原值已是中文，保留；本次备选译文=属性
+23B59E5B44ED2691DDF7ABB84CE65757,CLOTHING,服装,词表(归一化匹配),1,WB_PlayerInventory,保留已有中文,原值已是中文，保留；本次备选译文=服装
+80F531214194F8AA9FDF32A6EB1095FF,CONTINUE,继续,词表(归一化匹配),1,WB_ProMainMenu,保留已有中文,原值已是中文，保留；本次备选译文=继续
+44475C7F43CA891FA1BAC7BE9FBB97B6,RESUME,继续游戏,词表(归一化匹配),1,WB_PauseMenu,保留已有中文,原值已是中文，保留；本次备选译文=继续游戏
+2D0051AD42C457A2CA2E94AAF5C9B448,WEAPONS,武器,词表(归一化匹配),1,WB_PlayerInventory,保留已有中文,原值已是中文，保留；本次备选译文=武器
+908C61C74D8E249EEF0BF3A1B327AC87,name,名称,词表(归一化匹配),1,WB_PopupItemAdded,保留已有中文,原值已是中文，保留；本次备选译文=名称
+A09DD234408C25572D9849A5E16682A3,name,名称,词表(归一化匹配),1,WB_LootBarSlot,保留已有中文,原值已是中文，保留；本次备选译文=名称
+E593052E43090E4373E0C79A5B86596E,name,名称,词表(归一化匹配),1,WB_CraftingListSlot,保留已有中文,原值已是中文，保留；本次备选译文=名称
+009381FC4CE42A286937BBBBA34AEE10,rarity,稀有度,词表(归一化匹配),1,WB_ConfirmationPopup,保留已有中文,原值已是中文，保留；本次备选译文=稀有度
+0DC5AB894502E84DBD5956968685893A,rarity,稀有度,词表(归一化匹配),1,WB_CraftingListSlot,保留已有中文,原值已是中文，保留；本次备选译文=稀有度
+7DBD4F694FAAF1FB195819B58DE2C74E,rarity,稀有度,词表(归一化匹配),1,WB_LootBarSlot,保留已有中文,原值已是中文，保留；本次备选译文=稀有度
+8F9070214FA3CCD0B0AACE92F8B854A0,rarity,稀有度,词表(归一化匹配),1,WB_PopupItemAdded,保留已有中文,原值已是中文，保留；本次备选译文=稀有度
+B0B376914AB2DF8A28BB8CB3DBF75672,rarity,稀有度,词表(归一化匹配),1,WB_ToolTipItemInfo,保留已有中文,原值已是中文，保留；本次备选译文=稀有度
+59BE756F41201567CE4A0ABD42AD3116,type,类型,词表(归一化匹配),1,WB_PopupItemAdded,保留已有中文,原值已是中文，保留；本次备选译文=类型
+752865F74F8721F6A0B59A82E844A4FC,type,类型,词表(归一化匹配),1,WB_ConfirmationPopup,保留已有中文,原值已是中文，保留；本次备选译文=类型
+B11784454E36BDDF8138EA8C2C335F3D,type,类型,词表(归一化匹配),1,WB_LootBarSlot,保留已有中文,原值已是中文，保留；本次备选译文=类型
+B8D78ABE403E1C7D5EECA5B3C6B6AF8E,type,类型,词表(归一化匹配),1,WB_CraftingListSlot,保留已有中文,原值已是中文，保留；本次备选译文=类型
+399EB07A4A7563D65E1284A7ABD88ABD,ACCEPT,接受,词表(归一化匹配),1,WB_DSS2_Intro,新增,
+72869BF44F5D12C4279F7A9E05691786,ACCEPT,接受,词表(归一化匹配),1,WB_DSS2_Intro_V2,新增,
+CA154D1C4653EBD2565704BF71F5A3BC,ACCEPT,接受,词表(归一化匹配),1,WB_ConfirmationPopup,新增,
+DB9F1DA3488114195AB98B88ACB4E005,ACCEPT,接受,词表(归一化匹配),1,WB_DSS2_Intro_V2,新增,
+DFE3C35242AF8C6AA5DA04941C1A9934,ACCEPT,接受,词表(归一化匹配),1,WB_DSS2_Intro,新增,
+E54813AC4A52EA19F87D94BEA098927B,ACCEPT,接受,词表(归一化匹配),1,WB_SplitStack,新增,
+01877AC740D440E2A1D8B7A76A1C7A67,ANIMATION,动画,词表(归一化匹配),1,WB_PhotoMode,新增,
+182A227749CDC68354FD07B90012037A,AUTO,自动,词表(归一化匹配),1,WB_Options_AdvancedVideo,新增,
+C8E23DA04985F134155C12AD402D16D7,AUTO,自动,词表(归一化匹配),1,WB_Options_AdvancedVideo,新增,
+60786EE74F81E2277D3C34955EAEE3B8,BALANCED,平衡,词表(归一化匹配),1,WB_Options_AdvancedVideo,新增,
+777ED4ED4C8300C727D959B56884255E,Boots,靴子,词表(归一化匹配),1,WB_CraftingList,新增,
+5323BA3D4294BBDDB2CB2FA4DA325E36,CANCEL,取消,词表(归一化匹配),1,WB_SplitStack,新增,
+7B8C50E947937DA8C6E28A8D1FBCCDD3,CANCEL,取消,词表(归一化匹配),1,WB_ConfirmationPopup,新增,
+0C92E55549FD1D188A1664830A8EB288,EMPTY,空,词表(归一化匹配),1,WB_ProMainMenu,新增,
+4351CC284403B3B518D6EEA7464F4218,EMPTY,空,词表(归一化匹配),1,WB_ProMainMenu,新增,
+6E8284C04C9BD6882CC56DA9163089C5,EMPTY,空,词表(归一化匹配),1,WB_ProMainMenu,新增,
+A0B3B98C4E42E6F2CF605CB1D70C7A16,EMPTY,空,词表(归一化匹配),1,WB_ProMainMenu,新增,
+CFD1C5904F5307BD1CDFFF91263CF64A,EMPTY,空,词表(归一化匹配),1,WB_ProMainMenu,新增,
+005804954CAB495A1755B5B43E7645D7,FEMININE,女性化,词表(归一化匹配),1,WB_ProMainMenu,新增,
+52B35CAA4B78629DD8372C9D0B14EAB8,FEMININE,女性化,词表(归一化匹配),1,WB_ProMainMenu,新增,
+2959D76F4196F7686ACEFDA11C59DD34,FLY,飞行,词表(归一化匹配),1,WB_CheatMenu,新增,
+ADFA15874AD8798016371DA041F1DFE2,HELP,帮助,词表(归一化匹配),1,WB_Options_Lovense,新增,
+D1FF183D496746C3F7623E8253DA276C,KUSMA,库斯玛,词表(归一化匹配),1,WB_PopupGeneric,新增,
+3DC1331440A08EFBB4CD8EA977E3E336,MASCULINE,男性化,词表(归一化匹配),1,WB_ProMainMenu,新增,
+974312464F53A540F15826A24E63E503,MASCULINE,男性化,词表(归一化匹配),1,WB_ProMainMenu,新增,
+79BA7AA6443367734E95D5844887503F,OFF,关,词表(归一化匹配),1,WB_Options_AdvancedVideo,新增,
+825B80F449D4621387B82E934B0877E2,OFF,关,词表(归一化匹配),1,WB_Options_AdvancedVideo,新增,
+D42ADB504409CBA00CFA84BF341C10A8,OFF,关,词表(归一化匹配),1,WB_Options_AdvancedVideo,新增,
+E79DBAD141A7C5FD5BCBB097883C2B47,OFF,关,词表(归一化匹配),1,WB_Options_AdvancedVideo,新增,
+ECAB822C411BA180E607B384F50618B3,OFF,关,词表(归一化匹配),1,WB_Options_AdvancedVideo,新增,
+F19644224D7E0AC52309A2BB57232166,OFF,关,词表(归一化匹配),1,WB_Options_AdvancedVideo,新增,
+0A9764BD45A712C58396C9A98A007CB1,ON,开,词表(归一化匹配),1,WB_Options_AdvancedVideo,新增,
+39C4DCC6421D65FEDCD948B600033E2A,ON,开,词表(归一化匹配),1,WB_Options_AdvancedVideo,新增,
+4C6315894704B472026A8588D72A4AE8,ON,开,词表(归一化匹配),1,WB_Options_AdvancedVideo,新增,
+D365A81645A1BBEDEE9F43978AE9A54C,ON,开,词表(归一化匹配),1,WB_Options_AdvancedVideo,新增,
+EE0940F04464699FC87BAD98F2EBEC26,PERFORMANCE,性能,词表(归一化匹配),1,WB_Options_AdvancedVideo,新增,
+80082C8546CF560BCE32088B75BBC66C,QUALITY,质量,词表(归一化匹配),1,WB_Options_AdvancedVideo,新增,
+8CB00BC14D05C90129AC3FB0BF4EBEF5,Side Quests,支线任务,词表(归一化匹配),1,WB_QuestScreen,新增,
+2115934D47DFCE320F61E4A60B40B3A5,Locked. Requires FIreball - Rank 1 ,未解锁。需要火球 - 等级 1,词表(去首尾空格),1,WB_ToolTipAbilities,保留已有中文,原值已是中文，保留；本次备选译文=未解锁。需要火球 - 等级 1
+3E42E9384CE2DAD027E223811F3259D6,to open your inventory. ,打开你的背包。,词表(去首尾空格),1,WB_TutorialPopup,新增,
+4C08730742999E07C07F448D6B2DEF0E,+999 Experience Points,+999 经验值,词表(精确),1,WB_LevelCorruptionXPGain,保留已有中文,原值已是中文，保留；本次备选译文=+999 经验值
+EDA95465450E801C153DD2A9EB3AD991,Ability Points Required,所需技能点,词表(精确),1,WB_ToolTipAbilities,保留已有中文,原值已是中文，保留；本次备选译文=所需技能点
+3DA47478430AC70B47C45E8444AA4A29,AbilityName,技能名称,词表(精确),1,WB_RadialAbilityBar,保留已有中文,原值已是中文，保留；本次备选译文=技能名称
+5B858A3849785A413676858A74D9B918,Added,已立即添加,词表(精确),1,WB_ToolTipItemStatsSlot_Consumable,保留已有中文,原值已是中文，保留；本次备选译文=已添加
+F926ECB84BCBE83D9B428281CC471E14,Already read.,已读。,词表(精确),1,WB_ToolTip,保留已有中文,原值已是中文，保留；本次备选译文=已读。
+399B379E43940DF8297E2EB409901E89,Ambience Volume,环境音音量,词表(精确),1,WB_Options_Audio,保留已有中文,原值已是中文，保留；本次备选译文=环境音音量
+776E87634432B10AA7E66AA7C621D69C,Anti-Aliasing Quality,抗锯齿质量,词表(精确),1,WB_Options_Video,保留已有中文,原值已是中文，保留；本次备选译文=抗锯齿质量
+7D2A98704A3FC42B664BEEB1DA57BEE8,Armor,护甲,词表(精确),1,WB_CraftingList,保留已有中文,原值已是中文，保留；本次备选译文=护甲
+D8C8F1C14FDADB1939469AB70B321145,Autosave,自动保存,词表(精确),1,WB_LoadGameWindow,保留已有中文,原值已是中文，保留；本次备选译文=自动保存
+7783791F43342E47CA1CEFA0D69B30C1,BUTTON TEXT,按钮文本,词表(精确),1,WB_TabButton01,保留已有中文,原值已是中文，保留；本次备选译文=按钮文本
+B37C7A7742F95B8C24CB368C1B68C6C0,BUTTON TEXT,按钮文本,词表(精确),1,WB_TextButton,保留已有中文,原值已是中文，保留；本次备选译文=按钮文本
+DAE3D6EE42C26A71D70102AF252BB72C,BUTTON TEXT,按钮文本,词表(精确),1,WB_TabButton02,保留已有中文,原值已是中文，保留；本次备选译文=按钮文本
+F2E1F42E44ACCA340B9E1C8387C54639,Base Stats Increased,基础属性提升,词表(精确),1,WB_FormUnlockPopup,保留已有中文,原值已是中文，保留；本次备选译文=基础属性提升
+D2EBB5954C7D83E1439BD59E5FEBFEC8,Bleed Damage,流血伤害,词表(精确),1,WB_ToolTipItemStatsSlot_Consumable,保留已有中文,原值已是中文，保留；本次备选译文=流血伤害
+7178E81545DA85B4428DB685C17CF560,Bleed Damage,流血,词表(精确),1,WB_Stats_Full,保留已有中文,原值已是中文，保留；本次备选译文=流血伤害
+A411543A42360C3270DFCDA16641A0AD,Bleed Damage,流血伤害,词表(精确),1,WB_ToolTipItemStatsSlot_Special,保留已有中文,原值已是中文，保留；本次备选译文=流血伤害
+38D9D2504B1164EFAC7181AA9D3D5724,Block,格挡,词表(精确),1,WB_ToolTipItemStats,保留已有中文,原值已是中文，保留；本次备选译文=格挡
+14108B2A4A372B21AFDCDABD76C05987,Block %,格挡 %,词表(精确),1,WB_Stats_Full,保留已有中文,原值已是中文，保留；本次备选译文=格挡 %
+59334628457878EB1E65929F1B4D620B,Borderless,无边框,词表(精确),1,WB_Options_Video,保留已有中文,原值已是中文，保留；本次备选译文=无边框
+836E02FD4062B02FFDE68BB4AC19AB3B,Buy / Sell Item,买卖物品,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=买卖物品
+C3B5D8854E68288809E19E82016844DE,CHAPTER TITLE,章节标题,词表(精确),1,WB_ChapterButton,保留已有中文,原值已是中文，保留；本次备选译文=章节标题
+6515265843DB044971E0B2B7212675F2,CHARACTER,角色,词表(精确),1,WB_WindowSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=角色
+E87E75A8448021B50EBE3E9A7EBCF421,COMPLETED,已完成,词表(精确),1,WB_QuestScreen,保留已有中文,原值已是中文，保留；本次备选译文=已完成
+D39535E647AD267328CD18AD8D9A192C,CONFIRM,确认,词表(精确),1,WB_Request,保留已有中文,原值已是中文，保留；本次备选译文=确认
+A3C3900046113E6827C1549228EC4F7D,COSMETICS,外观,词表(精确),1,WB_WindowSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=外观
+4F29D0454B8D2D40A23FC7A05A2EF37B,CRAFTING,制作,词表(精确),1,WB_WindowSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=制作
+B9E9320A421BDD731AE2159E9AB4B505,Cinematic Speaker,影院扬声器,词表(精确),1,WB_Options_Audio,保留已有中文,原值已是中文，保留；本次备选译文=影院扬声器
+26BDE07C4272E0588EC9458C5E9D4872,Click here to open our Patreon.,点击此处打开我们的 Patreon。,词表(精确),1,WB_ProMainMenu,保留已有中文,原值已是中文，保留；本次备选译文=点击此处打开我们的 Patreon。
+7D06D2CB4B6192CEE2E17AB21EB7FAD6,Close Abilities,关闭技能,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=关闭技能
+F830F09641A0956855EDBBB5D1BEC05E,Close Abilities Window,关闭技能窗口,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=关闭技能窗口
+6E886CD04C7792D0DE0E298AAFEB6B45,Close Quests,关闭任务,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=关闭任务
+B562D3C74AEFB4E96C506E90524A8FCD,Close Vendor,关闭商人,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=关闭商人
+FDADA6F6422F623E36DC24BBFCAD93C1,Close Window,关闭窗口,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=关闭窗口
+7F6F8AED47D2D723433FF0B83C000163,Clothing,形态,词表(精确),1,WB_CheatMenu,保留已有中文,原值已是中文，保留；本次备选译文=服装
+EA91C2BB49ABEB29FCD3D9B9E4446A82,Cold,冰霜,词表(精确),1,WB_Stats_Full,保留已有中文,原值已是中文，保留；本次备选译文=冰霜
+D5E2DB7C4A8437975298238E9B03E456,Consumables,消耗品,词表(精确),1,WB_CheatMenu,保留已有中文,原值已是中文，保留；本次备选译文=消耗品
+75934B8241DB013732E2489D5BB43778,Continue with your latest save.,继续你的旅程,词表(精确),1,WB_ProMainMenu,保留已有中文,原值已是中文，保留；本次备选译文=继续最近一次存档。
+CDD3C95742CA62A4FC3DB2ADD8193A5E,Controller Sensitivity X,手柄灵敏度 X,词表(精确),1,WB_Options_Controls,保留已有中文,原值已是中文，保留；本次备选译文=手柄灵敏度 X
+260BB07044AB4CA87DFD55A011D23732,Controller Sensitivity Y,手柄灵敏度 Y,词表(精确),1,WB_Options_Controls,保留已有中文,原值已是中文，保留；本次备选译文=手柄灵敏度 Y
+32C98EC244CA80BDA9E2BBA1517D924F,Craft Item,制作物品,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=制作物品
+4E88AA7D4495C48DEB6DCFBA95282658,Craft Item,制作物品,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=制作物品
+0D160F204FBAAC9C2134FABDA41C0729,Crit Damage,暴击伤害,词表(精确),1,WB_Stats_Full,保留已有中文,原值已是中文，保留；本次备选译文=暴击伤害
+F7273D724F9F1B95C17A9BB68C2E04CC,Critical Damage Chance,暴击率 %,词表(精确),1,WB_ToolTipItemStats,保留已有中文,原值已是中文，保留；本次备选译文=暴击几率
+C8EF7EAF4A78026DAEA28A844633B144,Critical Damage Multiplier,暴击,词表(精确),1,WB_ToolTipItemStats,保留已有中文,原值已是中文，保留；本次备选译文=暴击伤害倍率
+5FC9862C4A541F6949559FB4B6DF6BF1,Current Mission Name,当前任务名称,词表(精确),1,WB_LoadGameSlot,保留已有中文,原值已是中文，保留；本次备选译文=当前任务名称
+29B276B043267D4D01F04FB89D83CA92,DOWN,下,词表(精确),1,WB_Campfire,保留已有中文,原值已是中文，保留；本次备选译文=下
+85F3B10948E9078BB7E9AD853CA066CE,DOWN,下,词表(精确),1,WB_PauseMenu,保留已有中文,原值已是中文，保留；本次备选译文=下
+6280DBEA435467B056446F9301659C5E,Date,描述,词表(精确),1,WB_ChapterText,保留已有中文,原值已是中文，保留；本次备选译文=日期
+F2272F5140F0CC0F856075A3DFD8B808,Default,默认,词表(精确),1,WB_Options_Audio,保留已有中文,原值已是中文，保留；本次备选译文=默认
+551926804815F96C124290B42DB49EAD,Delete Save,删除存档,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=删除存档
+6949B86240951ADE30193CB75B1E51DB,Delete Save,删除存档,词表(精确),1,WB_LoadGameWindow,保留已有中文,原值已是中文，保留；本次备选译文=删除存档
+776FFC164DEB51FB446327B08750E615,Desc,描述,词表(精确),1,WB_ToolTipAbilities,保留已有中文,原值已是中文，保留；本次备选译文=描述
+3B41ADB949A74B6BB1B79FA5CA145B65,Description,描述,词表(精确),1,WB_RadialAbilityBar,保留已有中文,原值已是中文，保留；本次备选译文=描述
+11DD4D3F40E581DC71925A9CB2C6F8BD,Desktop Speaker,桌面扬声器,词表(精确),1,WB_Options_Audio,保留已有中文,原值已是中文，保留；本次备选译文=桌面扬声器
+94B2C0164308E8473F4C87BB3EF00DC4,Dialogue Volume,对话音量,词表(精确),1,WB_Options_Audio,保留已有中文,原值已是中文，保留；本次备选译文=对话音量
+C42F15014D3940103C5B6C91E3EBE824,Disabled,已禁用,词表(精确),1,WB_Options_Gameplay,保留已有中文,原值已是中文，保留；本次备选译文=已禁用
+B81C4774478BFE9C41A609956D15DB1F,Draconid,龙人,词表(精确),1,WB_FormScreen,保留已有中文,原值已是中文，保留；本次备选译文=龙人
+2FD47C414125842677BD6994C89FAB63,Drop Item,丢弃物品,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=丢弃物品
+54555E1E4E9A0F0E2C3FAA88C3AA0820,Empty,空,词表(精确),1,WB_KeybindingButton,保留已有中文,原值已是中文，保留；本次备选译文=空
+37C57500470FF9B16D19C2933821BE6B,Empty Slot,空栏位,词表(精确),1,WB_ConsumableSlot_CI,保留已有中文,原值已是中文，保留；本次备选译文=空栏位
+A6DC5B58412A5BE500E27EAE7C7FB89B,Enabled,已启用,词表(精确),1,WB_Options_Gameplay,保留已有中文,原值已是中文，保留；本次备选译文=已启用
+1EF441A7439F3AB7A843B9A8E0643432,Equip / Unequip Item,装备 / 卸下物品,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=装备 / 卸下物品
+60DA1E204AAD631816D7A9A75490B277,Equip Ability,装备技能,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=装备技能
+D8452DCB45389329C780B8AA683D6EB9,Equipped,已装备,词表(精确),1,WB_ToolTip,保留已有中文,原值已是中文，保留；本次备选译文=已装备
+B7AD554949326D1C39636FBFB0B90C01,Essence,精髓,词表(精确),1,WB_GoldWeightBar,保留已有中文,原值已是中文，保留；本次备选译文=精髓
+B0043AFB4C786EA0FE1541B74ABDCC69,Every 10 min,每 10 分钟,词表(精确),1,WB_LoadGameWindow,保留已有中文,原值已是中文，保留；本次备选译文=每 10 分钟
+CB5C866C40C8691F6C02BCB0F6CB14BB,Every 3 min,每 3 分钟,词表(精确),1,WB_LoadGameWindow,保留已有中文,原值已是中文，保留；本次备选译文=每 3 分钟
+B2BAFA7D40C78133AF7900835E075049,Every 5 min,每 5 分钟,词表(精确),1,WB_LoadGameWindow,保留已有中文,原值已是中文，保留；本次备选译文=每 5 分钟
+E9B6F236480FB33717899B81253E7B31,Every 60 sec,每 60 秒,词表(精确),1,WB_LoadGameWindow,保留已有中文,原值已是中文，保留；本次备选译文=每 60 秒
+852C185A4D544E5A6532F49133D9F262,Exp:,经验：,词表(精确),1,WB_LevelExpBar,保留已有中文,原值已是中文，保留；本次备选译文=经验：
+DA05EBB142000721365E0C81FE92D561,Experience,经验,词表(精确),1,WB_PopupGainedExpSlot,保留已有中文,原值已是中文，保留；本次备选译文=经验
+B40A39DF4ECBDE29A3554FB72D875A2D,FAST TRAVEL,旅行,词表(精确),1,WB_Campfire,保留已有中文,原值已是中文，保留；本次备选译文=快速旅行
+130A3AAD4821E2EB813DE491CC3185A5,FORMS,形态,词表(精确),1,WB_WindowSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=形态
+EAA678824C80D1A537211C9A9C9E8622,FORMS,形态,词表(精确),1,WB_PlayerInventory,保留已有中文,原值已是中文，保留；本次备选译文=形态
+FAAAF3AE4487724919D50CB4257CD5DC,FieldText,字段文本,词表(精确),1,WB_SingleCredit,保留已有中文,原值已是中文，保留；本次备选译文=字段文本
+D4E52B6F4D400DB478E3A3B80D492197,Find Current Position,定位当前位置,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=定位当前位置
+700DA0AE497CE71090037E93FB22EF6A,Fire,火焰,词表(精确),1,WB_Stats_Full,保留已有中文,原值已是中文，保留；本次备选译文=火焰
+87F9A42D4A98AA5BA553B696AAA6A77C,Foliage Quality,植被质量,词表(精确),1,WB_Options_Video,保留已有中文,原值已是中文，保留；本次备选译文=植被质量
+C797B1B240CCB95E3C3A80BCEE8F897B,Fullscreen,全屏,词表(精确),1,WB_Options_Video,保留已有中文,原值已是中文，保留；本次备选译文=全屏
+E713E63C472CE7E65D18DE8C40171D88,Futanari x Female Content,扶她 x 女性内容,词表(精确),1,WB_Options_Gameplay,保留已有中文,原值已是中文，保留；本次备选译文=扶她 x 女性内容
+0E24F1674A9934618F0A25ABF6ABEE9D,Futanari x Futanari Content,扶她 x 扶她内容,词表(精确),1,WB_Options_Gameplay,保留已有中文,原值已是中文，保留；本次备选译文=扶她 x 扶她内容
+B467F6624F583426AB6F5DAEF8A4CAD3,Futanari x Male Content,扶她 x 男性内容,词表(精确),1,WB_Options_Gameplay,保留已有中文,原值已是中文，保留；本次备选译文=扶她 x 男性内容
+B654D7B94B0CCF9523AE0C8A94F74E7A,GAME MODE NAME,游戏模式名称,词表(精确),1,WB_ChapterText,保留已有中文,原值已是中文，保留；本次备选译文=游戏模式名称
+69BEBCFB42FA948194A488BC93DA35C5,GAME MODE TYPE,游戏模式类型,词表(精确),1,WB_ChapterText,保留已有中文,原值已是中文，保留；本次备选译文=游戏模式类型
+B93C57A7447B79685B08F0804A85CA82,GAME SAVED,游戏已保存,词表(精确),1,WB_QuickSave,保留已有中文,原值已是中文，保留；本次备选译文=游戏已保存
+99048A3F4EA45345B9AE45951C6388AF,GENERAL,将军,词表(精确),1,WB_PlayerInventory,保留已有中文,原值已是中文，保留；本次备选译文=通用
+D0003FA54348D707B0ECE8AFF7BF907B,GRAPHICS,画面,词表(精确),1,WB_Options_Video,保留已有中文,原值已是中文，保留；本次备选译文=画面
+132F2ED7429143657D57CD8D835B3CF7,Gained:,获得：,词表(精确),1,WB_PopupGainedExpSlot,保留已有中文,原值已是中文，保留；本次备选译文=获得：
+AAA76FE24EE71553CDC87095CC450199,Gamepad,手柄,词表(精确),1,WB_Options_KeyRebinding,保留已有中文,原值已是中文，保留；本次备选译文=手柄
+C445633F4D1826B73363CD96EC1BA400,HEADGEAR,头饰,词表(精确),1,WB_PlayerInventory,保留已有中文,原值已是中文，保留；本次备选译文=头饰
+D4C3FC7944216EB06837CBA4227958AC,Hide / Expand Tab,隐藏 / 展开页签,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=隐藏 / 展开页签
+84B60D1B4755FD7862D9E9BAC40C9D38,INGREDIENTS,材料,词表(精确),1,WB_PlayerInventory,保留已有中文,原值已是中文，保留；本次备选译文=材料
+632F23F94E49580284B2408E7D8839A6,INVENTORY,背包,词表(精确),1,WB_WindowSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=背包
+22674DB14E78EED91911D1AF18FBB22B,Interact,互动,词表(精确),1,WB_Interaction,保留已有中文,原值已是中文，保留；本次备选译文=交互
+BEA276124B43F88B553180AC08BF5729,Item Comparison,物品对比,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=物品对比
+16F4640940531B1760F55F925C802898,KEY BINDINGS,按键绑定,词表(精确),1,WB_Options_KeyRebinding,保留已有中文,原值已是中文，保留；本次备选译文=按键绑定
+0270C3E0498A0F598CDCBDAAB8C0FE6F,KEYBINDING TEXT,按键文本,词表(精确),1,WB_KeybindingButton,保留已有中文,原值已是中文，保留；本次备选译文=按键文本
+809D68E9419592F65722308E71567AA0,Key,按键,词表(精确),1,WB_InputKeySelector,保留已有中文,原值已是中文，保留；本次备选译文=按键
+083B24A74A89A619DDB14183F4609BA9,Key Bindings,按键绑定,词表(精确),1,WB_Options_Controls,保留已有中文,原值已是中文，保留；本次备选译文=按键绑定
+22DA4EB94D33AC23C036D9AC8BAEEFFA,Keyboard / Mouse,键盘 / 鼠标,词表(精确),1,WB_Options_KeyRebinding,保留已有中文,原值已是中文，保留；本次备选译文=键盘 / 鼠标
+B402E411418BB64326212A8CD5C66D9C,LEAVE,离开,词表(精确),1,WB_Campfire,保留已有中文,原值已是中文，保留；本次备选译文=离开
+21AEB8DB4AAD29441EC9109D12BBEE3F,LEGS,腿部,词表(精确),1,WB_PlayerInventory,保留已有中文,原值已是中文，保留；本次备选译文=腿部
+9120CA824F3417807FA6D5A5CB628979,LEVEL,等级,词表(精确),1,WB_LevelExpBar,保留已有中文,原值已是中文，保留；本次备选译文=等级
+A75C148647EC036692A847A6F44CA4E6,LION BLADE,狮刃,词表(精确),1,WB_ToolTipItemInfo,保留已有中文,原值已是中文，保留；本次备选译文=狮刃
+F670914349D00B7F5B054C84F9DC3717,LOADING WORLD,正在载入游戏,词表(精确),1,WB_LoadingScreen,保留已有中文,原值已是中文，保留；本次备选译文=正在载入世界
+5E4C92E94F5C3D1089E82E9648B99EA9,LORE,传说,词表(精确),1,WB_WindowSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=传说
+5C810D134F9407DD34DD60A370664422,LORE TYPE,传说类型,词表(精确),1,WB_LoreType,保留已有中文,原值已是中文，保留；本次备选译文=传说类型
+36D876BD462C9768E6F953895CDAB52A,MAIN QUESTS,主线任务,词表(精确),1,WB_QuestScreen,保留已有中文,原值已是中文，保留；本次备选译文=主线任务
+B0DE2A78408DC443EC8503811FF355CF,MERCHANT,购买,词表(精确),1,WB_WindowSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=商人
+E2F6247647BB2094307C7382F22FAE55,MULTI STATE OPTION TEXT,多状态选项文本,词表(精确),1,WB_StateButton,保留已有中文,原值已是中文，保留；本次备选译文=多状态选项文本
+FE6FDF1D484CBEEA8203729BA12B557F,Male x Female Content,男性 x 女性内容,词表(精确),1,WB_Options_Gameplay,保留已有中文,原值已是中文，保留；本次备选译文=男性 x 女性内容
+6EF5B2DC45DA6915C555ED9D4D0C3F78,Male x Male Content,男性 x 男性内容,词表(精确),1,WB_Options_Gameplay,保留已有中文,原值已是中文，保留；本次备选译文=男性 x 男性内容
+91EA40C546726D4F14A0B9A624D30A25,Manually load a save file.,像个极限流大佬那样手动载入存档,词表(精确),1,WB_ProMainMenu,保留已有中文,原值已是中文，保留；本次备选译文=手动读取存档。
+7BC5559441A8F8BB2D9825B31791EDF1,Map Legend,地图图例,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=地图图例
+B9B0CA2A46FED22B6EB0A3B7DE36FA9A,Master Volume,主音量,词表(精确),1,WB_Options_Audio,保留已有中文,原值已是中文，保留；本次备选译文=主音量
+DE6062B947850FBE9FF0F38386790A81,More Infomation,更多信息,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=更多信息
+C4C90FE142B1291063E9A786BF053032,Mouse Sensitivity X,鼠标灵敏度 X,词表(精确),1,WB_Options_Controls,保留已有中文,原值已是中文，保留；本次备选译文=鼠标灵敏度 X
+2536ACD34FE13C203AF61B849BA401C9,Mouse Sensitivity Y,鼠标灵敏度 Y,词表(精确),1,WB_Options_Controls,保留已有中文,原值已是中文，保留；本次备选译文=鼠标灵敏度 Y
+BAC7D49145997253F88BBAB1CE04F38C,Music Volume,音乐音量,词表(精确),1,WB_Options_Audio,保留已有中文,原值已是中文，保留；本次备选译文=音乐音量
+C051C8FE49BED6978DD7D28877B8E8FA,NEW GAME,新游戏,词表(精确),1,WB_ProMainMenu,保留已有中文,原值已是中文，保留；本次备选译文=新游戏
+BB75B50F469F0708B2806F8495B1C06A,Name,名称,词表(精确),1,WB_ToolTipAbilities,保留已有中文,原值已是中文，保留；本次备选译文=名称
+409F10C740B52ED63C30CDB3B8E82E88,New Item was added to your Inventory!,背包中新增了一件物品！,词表(精确),1,WB_PopupItemAdded,保留已有中文,原值已是中文，保留；本次备选译文=背包中新增了一件物品！
+10E469134CE46ABC9EDD88B06656FE21,None,无,词表(精确),1,WB_SingleName,保留已有中文,原值已是中文，保留；本次备选译文=无
+27A134DE4A424B59B08801ABC972D4FE,None,无,词表(精确),1,WB_SingleCredit,保留已有中文,原值已是中文，保留；本次备选译文=无
+72C6504D4FD45A2BB84C09913656DD03,Option Text,选项文本,词表(精确),1,WB_ProgressButton,保留已有中文,原值已是中文，保留；本次备选译文=选项文本
+D20723E04617684CFF178BA7E43F9D32,Option Text,选项文本,词表(精确),1,WB_ProgressButton,保留已有中文,原值已是中文，保留；本次备选译文=选项文本
+E74837284B76E53DC965D9A39A0F980F,Option Text,选项文本,词表(精确),1,WB_StateButton,保留已有中文,原值已是中文，保留；本次备选译文=选项文本
+69AE93714A2C94200E4F928F3D6292C5,Other Items,其他物品,词表(精确),1,WB_CheatMenu,保留已有中文,原值已是中文，保留；本次备选译文=其他物品
+DEA8E46F43E1446BD3CD5986FA1E2BE1,Output Profile,输出配置,词表(精确),1,WB_Options_Audio,保留已有中文,原值已是中文，保留；本次备选译文=输出配置
+996442D34FB7AE0C576CBC8292332863,Overall Quality,整体质量,词表(精确),1,WB_Options_Video,保留已有中文,原值已是中文，保留；本次备选译文=整体质量
+ED3CA87144F17277CE665CB5A37E427D,PRO MAIN MENU / UPDATE NOTES,主菜单 / 更新说明,词表(精确),1,WB_PatchNotes,保留已有中文,原值已是中文，保留；本次备选译文=主菜单 / 更新说明
+46678DEE44E99916AA9BCBA10FCCD169,Poison Damage,中毒,词表(精确),1,WB_Stats_Full,保留已有中文,原值已是中文，保留；本次备选译文=中毒伤害
+EF01BAE74E80A8FA77F6039371055B9C,Post Process Quality,后处理质量,词表(精确),1,WB_Options_Video,保留已有中文,原值已是中文，保留；本次备选译文=后处理质量
+E4D582B84D9E46102B4EA692998D276A,QUEST ITEMS,任务物品,词表(精确),1,WB_PlayerInventory,保留已有中文,原值已是中文，保留；本次备选译文=任务物品
+3B32CA874FC01F2358F30CACEAE41081,QUEST NAME,任务名称,词表(精确),1,WB_QuestName,保留已有中文,原值已是中文，保留；本次备选译文=任务名称
+65A925E84D1EA412D681D3B6D5FFE8AB,QUEST NAME,任务名称,词表(精确),1,WB_LoreName,保留已有中文,原值已是中文，保留；本次备选译文=任务名称
+8AF81D544BD01416EFD431A25595AF99,QUEST TYPE,任务类型,词表(精确),1,WB_QuestType,保留已有中文,原值已是中文，保留；本次备选译文=任务类型
+7A3E51254FB4EE2F0D7753BCB6FE95CE,QUESTS,任务,词表(精确),1,WB_WindowSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=任务
+965C271840670EE52C0D1F8F6E5D71D5,Quest Items,任务物品,词表(精确),1,WB_CheatMenu,保留已有中文,原值已是中文，保留；本次备选译文=任务物品
+2FFD476F420553B7E71CCE9E324E1F58,Quest Objectives:,目标：,词表(精确),1,WB_QuestScreen,保留已有中文,原值已是中文，保留；本次备选译文=任务目标：
+4855A9CA495BC591EC89A384BA6FF8B9,Quick Sorting,快速整理,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=快速整理
+BC7C480B4066049C575E41B23671A7D9,Quicksave,快速保存,词表(精确),1,WB_LoadGameSlot,保留已有中文,原值已是中文，保留；本次备选译文=快速保存
+1B93D873492701E480B67FB8573EF6EE,Quicksort Inventory,整理背包,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=整理背包
+DEFBB3954A0DC0B6F7D3B0969F944E2D,RARITY,稀有度,词表(精确),1,WB_SortWindow,保留已有中文,原值已是中文，保留；本次备选译文=稀有度
+BC45E861449CBF83DBAF11AF1AAB3419,REST - NIGHT,进度时间,词表(精确),1,WB_Campfire,保留已有中文,原值已是中文，保留；本次备选译文=休息 - 夜晚
+9ADD79264B2BB79A40FCC6AB6E63C5B8,Radial Menu,环形菜单,词表(精确),1,WB_Options_KeyRebinding,保留已有中文,原值已是中文，保留；本次备选译文=环形菜单
+46E6C1384C930AF2C4E128832CD1BF07,Rank 1,等级 1,词表(精确),1,WB_AbilityTreeSlot,保留已有中文,原值已是中文，保留；本次备选译文=等级 1
+81EA118340D3CAB6D74CC5BFC732863B,Read whats new in the latest patch.,查看最新补丁的内容。,词表(精确),1,WB_ProMainMenu,保留已有中文,原值已是中文，保留；本次备选译文=查看最新补丁的内容。
+EE69424F4AE5147D8C262EB20A4EF7A2,Readable text.,可读文本。,词表(精确),1,WB_TextDocument,保留已有中文,原值已是中文，保留；本次备选译文=可读文本。
+3FCA86AE4ACDE2C7F5E9CD829FCA3E05,Reset Points,重置点数,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=重置点数
+1AE1A6B44B010AF51E4CD69FFFD7360B,Resolution,分辨率,词表(精确),1,WB_Options_Video,保留已有中文,原值已是中文，保留；本次备选译文=分辨率
+C7833FA94C55727142381185E1D8E5AB,Resolution Scale,分辨率缩放,词表(精确),1,WB_Options_Video,保留已有中文,原值已是中文，保留；本次备选译文=分辨率缩放
+D7DA36B24474768295ADB8B11A11160D,SIDE QUESTS,支线任务,词表(精确),1,WB_QuestScreen,保留已有中文,原值已是中文，保留；本次备选译文=支线任务
+5AA6C7FA40C6952807203AA34553051E,SKINS,皮肤,词表(精确),1,WB_PlayerInventory,保留已有中文,原值已是中文，保留；本次备选译文=皮肤
+D3DCA130402D52454442E7AF24055450,SORT BY:,排序方式：,词表(精确),1,WB_SortWindow,保留已有中文,原值已是中文，保留；本次备选译文=排序方式：
+9549022F46B41D27D0BF87A0B05126FC,SUPPORT OUR PATREON,支持我们的 PATREON,词表(精确),1,WB_ProMainMenu,保留已有中文,原值已是中文，保留；本次备选译文=支持我们的 PATREON
+3F732AC84D2055519B6F1989EEDACA5C,Scroll of Teleportation,传送卷轴,词表(精确),1,WB_TextDocument,保留已有中文,原值已是中文，保留；本次备选译文=传送卷轴
+75CBBDAC4D2C88B2E9CD8ABB48CB5422,Select,选择,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=选择
+D9B1BC6A4B298902337655A51FBFE597,Select Quest,选择任务,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=选择任务
+F7C88E0B4E30EC1FBF4F0A84AAF1958F,Selected Key,所选按键,词表(精确),1,WB_InputKeySelector,保留已有中文,原值已是中文，保留；本次备选译文=所选按键
+CFF6A83842E1C7772EFA889A48A7B3BA,Shadow Quality,阴影质量,词表(精确),1,WB_Options_Video,保留已有中文,原值已是中文，保留；本次备选译文=阴影质量
+8A662D3B4605CEC701420F82D5971338,Sort by Type,按类型排序,词表(精确),1,WB_SortSlot,保留已有中文,原值已是中文，保留；本次备选译文=按类型排序
+943609C54E1CB3A9B31C91BC8040422D,Sound Effects Volume,音效音量,词表(精确),1,WB_Options_Audio,保留已有中文,原值已是中文，保留；本次备选译文=音效音量
+27DB398A4283998C4B1D228798C7BE21,Sprint,冲刺,词表(精确),1,WB_Options_KeyRebinding,保留已有中文,原值已是中文，保留；本次备选译文=冲刺
+E7A4262742BC47E75D51DA857D663FC3,Start your journey.,我相信你,词表(精确),1,WB_ProMainMenu,保留已有中文,原值已是中文，保留；本次备选译文=开始你的旅程。
+08C75D8243E92174A9BBCBA73387384F,StatName,属性名称,词表(精确),1,WB_ToolTipItemStatsSlot_Consumable,保留已有中文,原值已是中文，保留；本次备选译文=属性名称
+19D249FD43D5BB5689A059BB8541CDB8,StatName,属性名称,词表(精确),1,WB_ToolTipItemStatsSlot,保留已有中文,原值已是中文，保留；本次备选译文=属性名称
+539986BB4B51D9ABEA6A18B5805C6350,StatName,属性名称,词表(精确),1,WB_ToolTipItemStatsSlot_Special,保留已有中文,原值已是中文，保留；本次备选译文=属性名称
+5BF2537B46A06D6232971086FC145E6D,StatName,属性名称,词表(精确),1,WB_ToolTipItemStatsSlot,保留已有中文,原值已是中文，保留；本次备选译文=属性名称
+C6B3DEDE4683F533F9EFC6AFEE251248,Subtitles,字幕,词表(精确),1,WB_Options_Audio,保留已有中文,原值已是中文，保留；本次备选译文=字幕
+43990DB049EF18CA4BB80EA9C4666ED8,Switch Autosave,自动存档开关,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=自动存档开关
+3EF2D76A420B495A8D16689079D6FFF8,Switch Crafting Panel,切换制作面板,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=切换制作面板
+CF22642441A3F35F8ACA1486E3D49F96,Switch Inventory Panel,切换背包面板,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=切换背包面板
+7A58BC97457F83AF1E01D48AFE8FD48D,Switch Inventory Panel,切换背包面板,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=切换背包面板
+FE85FCD948A8DF612449D282D6DE20BC,TRANSFORM,变形,词表(精确),1,WB_FormUnlockPopup,保留已有中文,原值已是中文，保留；本次备选译文=变形
+9E4602B34FB1482180E1DD8263DA9EEE,Take,拿取,词表(精确),1,WB_LootBar,保留已有中文,原值已是中文，保留；本次备选译文=拿取
+C07A506546057659426172BB307CDCD0,Take All,全部拿取,词表(精确),1,WB_LootBar,保留已有中文,原值已是中文，保留；本次备选译文=全部拿取
+455C715545EB1435C275949391005A3E,Texture Quality,纹理质量,词表(精确),1,WB_Options_Video,保留已有中文,原值已是中文，保留；本次备选译文=纹理质量
+8E4BBE6143AF6A582A0687B95EB6FF7C,There is No Save Available.,没有可用的存档。,词表(精确),1,WB_LoadGameWindow,保留已有中文,原值已是中文，保留；本次备选译文=没有可用的存档。
+1A81222F4423C5ECC30071B51DD3C80F,Title,标题,词表(精确),1,WB_CraftingListSpacer,保留已有中文,原值已是中文，保留；本次备选译文=标题
+A4A4DB96420DB2A80E8921BF768113C4,Title,标题,词表(精确),1,WB_CraftingListSpacer,保留已有中文,原值已是中文，保留；本次备选译文=标题
+F80C290046ECC5F76BDB0AA3F5DCEC73,Title,标题,词表(精确),1,WB_SortSlot,保留已有中文,原值已是中文，保留；本次备选译文=标题
+F3BE73D24D7A5A4B22CAE9895765E5DB,Tome of the Ancients,埃科斯：《沙漠王国指南》,词表(精确),1,WB_IntroCinematic,保留已有中文,原值已是中文，保留；本次备选译文=上古之书
+D26776E144DE0F3DF36A5AA2C9EE4E2D,Total Value,价值,词表(精确),1,WB_SplitStack,保留已有中文,原值已是中文，保留；本次备选译文=总价值
+58275EE0440CA6D7D3D30EB929DD6C66,Track Quest,追踪任务,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=追踪任务
+31ED493842592C27103D97B90A406D07,Unequip Ability,卸下技能,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=卸下技能
+44AD10D34F4213A4905A1BAB843791D1,Unlock / Select Form,解锁 / 选择形态,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=解锁 / 选择形态
+3FD989C34B3C5433AAACEB84C8E12F1D,Use Ability,使用技能,词表(精确),1,WB_Options_KeyRebinding,保留已有中文,原值已是中文，保留；本次备选译文=使用技能
+E10A1D804215C60BD894C7A31F1788E4,VALUE,价值,词表(精确),1,WB_SortWindow,保留已有中文,原值已是中文，保留；本次备选译文=价值
+47C9732B4FF16462A257FA8797485DBA,Vertical Synchronisation,垂直同步,词表(精确),1,WB_Options_Video,保留已有中文,原值已是中文，保留；本次备选译文=垂直同步
+348D76E24BF3821C24016A8B712C1855,View Distance Quality,视距质量,词表(精确),1,WB_Options_Video,保留已有中文,原值已是中文，保留；本次备选译文=视距质量
+633F6A4445476E3451E6D78A3A16B3C2,View Full Character,查看完整角色,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=查看完整角色
+15D5B37F40A308C979EABFB6D44A30CE,Visual Effects Quality,视觉效果质量,词表(精确),1,WB_Options_Video,保留已有中文,原值已是中文，保留；本次备选译文=视觉特效质量
+5A22BBAC4367EFB4D35A87BE5F9B8EB5,Void,虚空,词表(精确),1,WB_Stats_Full,保留已有中文,原值已是中文，保留；本次备选译文=虚空
+19E971F84D758C62C1D2028A8488C67B,WEIGHT,体重,词表(精确),1,WB_SortWindow,保留已有中文,原值已是中文，保留；本次备选译文=重量
+CC9113274AC96F17A42512BC45CEB28A,WHAT'S NEW?,有什么新内容？,词表(精确),1,WB_ProMainMenu,保留已有中文,原值已是中文，保留；本次备选译文=有什么新内容？
+7EC8D70B4C2D15A6A7224B84005BA01E,WORLD MAP,世界地图,词表(精确),1,WB_WindowSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=世界地图
+A166EA3A4D54997FFF7E67BED0EE9322,Weapons,武器,词表(精确),1,WB_CheatMenu,保留已有中文,原值已是中文，保留；本次备选译文=武器
+CF4FD6CD4EE47C834171D1805AA1DEAF,Weight,体重,词表(精确),1,WB_SplitStack,保留已有中文,原值已是中文，保留；本次备选译文=重量
+5C840ED24ED0B36806B30D9E9DDC8E63,Window Mode,窗口模式,词表(精确),1,WB_Options_Video,保留已有中文,原值已是中文，保留；本次备选译文=窗口模式
+7ED2E3444BF33B0F1A2708B7E70DD99E,Windowed,窗口化,词表(精确),1,WB_Options_Video,保留已有中文,原值已是中文，保留；本次备选译文=窗口化
+31D3E62A4EF5411E67A3339A6644FDCF,YOU DIED,你的旅程已结束,词表(精确),1,WB_DeathScreen,保留已有中文,原值已是中文，保留；本次备选译文=你死了
+A630EB4F4CBB9259EDC868A2BD7F03C3,YOU HAVE UNLOCKED,形态已解锁,词表(精确),1,WB_FormUnlockPopup,保留已有中文,原值已是中文，保留；本次备选译文=你已解锁
+190C5A9342A01281AB0C6BBEBC00D9CB,Zoom,缩放,词表(精确),1,WB_KeybindingsSwitcher,保留已有中文,原值已是中文，保留；本次备选译文=缩放
+087514A947C921C36D29E49CF10386F6,name of the item,物品名称,词表(精确),1,WB_ConfirmationPopup,保留已有中文,原值已是中文，保留；本次备选译文=物品名称
+FFBA77144BB9EFEAE48BEEAEAB1C2745,"""CNC"" Roleplay",「CNC」角色扮演,词表(精确),1,WB_Options_Gameplay,新增,
+B276C75D40A1E2F7CF273CA7DF631348,+2 Item,+2 物品,词表(精确),1,WB_PickupNoti,新增,
+036B298C423A186E8723B7813FFCE06A,+999 Experience Points,+999 经验值,词表(精确),1,WB_ProgressNotification,新增,
+0EE4647C4D319993076781AC1E1BE8AC,. This method,。此方法,词表(精确),1,WB_DemoTutNoti1_300x400,新增,
+E02FC04C4C8C258C7479D7A32A016B64,. This method,。此方法,词表(精确),1,WB_DemoTutNoti2_300x400,新增,
+0987365D44803738F2426BAE94F265EA,5K GOLD,5K 金币,词表(精确),1,WB_CheatMenu,新增,
+984E4338400C3988EB92F0B9CC1005D2,ADD 3 ATTRIBUTES POINTS,添加 3 点属性点,词表(精确),1,WB_CheatMenu,新增,
+114D65A04C4852F7D109B5AC1E34537A,ADD LEVEL XP,添加等级经验,词表(精确),1,WB_CheatMenu,新增,
+478747E94C95CF417575229806CA4453,ADVANCED STATISTICS,高级统计,词表(精确),1,WB_Stats_Full,新增,
+3B2A30B24469E222793325A28C84F1E7,ANUBITES,阿努比斯,词表(精确),1,WB_Crossroads_Choice,新增,
+F71F199444CB65DE95727380D323354D,ASHEN DRAKE HORNS,灰烬龙角,词表(精确),1,WB_CosmeticsWindow,新增,
+4AE0D17F442E761F4185A197EF844066,ATTRIBUTES,属性,词表(精确),1,WB_Stats_Main,新增,
+846E71F14C5E1860E2620EBB76E29EB8,ATTRIBUTES,属性,词表(精确),1,WB_Stats_Main,新增,
+8D470B414C0A47F32A0663A2DABB185B,AUTO Recommended,自动推荐,词表(精确),1,WB_Options_AdvancedVideo,新增,
+DDB235E14EB4B391F91AD888740C137B,Accepts joystick inputs for camera movement.,接受摇杆输入以移动镜头。,词表(精确),1,WB_T3_SettingsMenu,新增,
+FC9012D84FCAC3CFB649238842F20775,Accessibility,无障碍,词表(精确),1,WB_T3_SettingsMenu,新增,
+E5C21B344138CCBE418CC4AC838FB91D,Adjusts how the game window is displayed on your screen.,调整游戏窗口在屏幕上的显示方式。,词表(精确),1,WB_T3_SettingsMenu,新增,
+91DF0B95451FDACD93F5278E9EB73D43,Adjusts midtone brightness without affecting contrast.,调整中间调亮度，不影响对比度。,词表(精确),1,WB_T3_SettingsMenu,新增,
+78869D7C46BAB928276A46B7DEB4026A,Adjusts the angle of vision for a wider or narrower view.,调整视野角度，以获得更宽或更窄的视野。,词表(精确),1,WB_T3_SettingsMenu,新增,
+BAB7BD9746C43C8F9C4761AC24B7291F,Adjusts the detail and accuracy of indirect lighting calculations.,调整间接光照计算的细节与精确度。,词表(精确),1,WB_T3_SettingsMenu,新增,
+455BBFE241A43D3C06AF73B5694073A7,Adjusts the master volume for all game audio.,调整所有游戏音频的总音量。,词表(精确),1,WB_T3_SettingsMenu,新增,
+A5AB80414A3C262C69F7D99BFFC07186,Adjusts the precision and stability of edge smoothing.,调整边缘平滑的精确度与稳定性。,词表(精确),1,WB_T3_SettingsMenu,新增,
+B80F6444490E4B61F9B17A960A35B06A,Adjusts the resolution and accuracy of reflections.,调整反射的分辨率与精确度。,词表(精确),1,WB_T3_SettingsMenu,新增,
+107CF0A140B035D267D3B9A60D9C7191,Adjusts the resolution and detail of shadows.,调整阴影的分辨率与细节。,词表(精确),1,WB_T3_SettingsMenu,新增,
+F6E03E9E434F50FDAD31EF916C73D57D,Adjusts the volume of UI sounds and notifications.,调整界面音效与通知的音量。,词表(精确),1,WB_T3_SettingsMenu,新增,
+52137FC64786306B2F13218AD6E7FA19,Adjusts the volume of environmental sounds.,调整环境音的音量。,词表(精确),1,WB_T3_SettingsMenu,新增,
+C7AA4B534E2792D5D3501F9D8599BF91,Adjusts the volume of gameplay sound effects.,调整游戏音效的音量。,词表(精确),1,WB_T3_SettingsMenu,新增,
+A2404FCD44ACD6C67C9450A147CB6361,Adjusts the volume of spoken dialogue.,调整对话语音的音量。,词表(精确),1,WB_T3_SettingsMenu,新增,
+AC8CE62C4D1D09F9322E7E9CDF6FCD1A,Allow a Lovense device to be used as an input device for game controls.,允许将 Lovense 设备用作游戏操作的输入设备。,词表(精确),1,WB_T3_Lovense,新增,
+70E4F5BC4D3389D4AD2299852A391FF3,Ambient Volume,环境音量,词表(精确),1,WB_T3_SettingsMenu,新增,
+2BD89D304FD3D2BF0089219C01414949,Anti Aliasing Method,抗锯齿方式,词表(精确),1,WB_T3_SettingsMenu,新增,
+A4BA998B40F1653BF3578297D88E29A0,Anti Aliasing Quality,抗锯齿质量,词表(精确),1,WB_T3_SettingsMenu,新增,
+71137B884240BBDDE810BF8CE15A5851,Applies blur effects when the camera or objects are in motion.,当镜头或物体移动时应用模糊效果。,词表(精确),1,WB_T3_SettingsMenu,新增,
+7A73B335405D9C93809BA09305339D91,Applies visual adjustments for different types of color blindness.,针对不同类型的色盲应用画面调整。,词表(精确),1,WB_T3_SettingsMenu,新增,
+39AC15E64EDE6EAA8C9536A8938F5EA3,Apply,应用,词表(精确),1,WB_T3_NavInfo,新增,
+DCC7955C448C492CE7E2AEB251587DDD,Apply,应用,词表(精确),1,WB_T3_SettingsMenu,新增,
+659F31A641EE02F1C8F4DBA8112EA0CA,Are you sure question?,确认操作？,词表(精确),1,WB_T3_ConfirmAlert,新增,
+2A648A994F1D21130732E6909D82DA52,Are you sure you want to DESTROY?,确定要销毁吗？,词表(精确),1,WB_ConfirmationPopup,新增,
+C41CD7E7438504CFD5ABEEBD01DA55FC,Area currently under development,该区域仍在开发中,词表(精确),1,WB_DevArea,新增,
+6EC3D2924B08EB37CCEEB997F541B98F,Armor,护甲,词表(精确),1,WB_QuestScreen,新增,
+E07631F24A5D29FA0FFD869EC1FC2E80,Armor,护甲,词表(精确),1,WB_QuestScreen,新增,
+EBA08F534AABD65CCB634DAC18BFE82A,Armor,护甲,词表(精确),1,WB_CraftingList,新增,
+CA2696744A8496955D26BCAEA5FE4703,Audio,音频,词表(精确),1,WB_T3_SettingsMenu,新增,
+87759D2A44029E719562AFB99C44D13B,Automatically start the Lovense service when the game launches.,游戏启动时自动开启 Lovense 服务。,词表(精确),1,WB_T3_Lovense,新增,
+C87EBEFA449AF5345CD7119D9C562969,Autosave Slots,自动存档栏位,词表(精确),1,WB_Options_Gameplay,新增,
+E0E3FE46487D5E6E59EDBDA1E10CD672,Autosaving,自动保存中,词表(精确),1,WB_Autosave,新增,
+C093578F4BCF82B6ED671784D5A586E8,BODY HAIR COLOURS,体毛颜色,词表(精确),1,WB_CosmeticsWindow,新增,
+2E4E8A43431EB8E493FFB190D7405EC1,Back,返回,词表(精确),1,WB_T3_MainMenu,新增,
+4A3B70AA49D20F74198D039A3797635A,Back,返回,词表(精确),1,WB_T3_PauseMenu,新增,
+6F2B14074CE960E651E6EC886B59D5CD,Back,返回,词表(精确),1,WB_DeathScreen,新增,
+EB57D43447972E9B944F5D8D89F35462,Back,返回,词表(精确),1,WB_T3_NavInfo,新增,
+385D9B5247A2E6E5A72DFC8308719E32,Battery,电池,词表(精确),2,WB_Options_Lovense; WB_T3_Lovense,新增,
+3F89ADDC4E212CC2B2AEBA9E79121373,Block,格挡,词表(精确),1,WB_T3_SettingsMenu,新增,
+E88D51A44382FDC1D5180AA4ADA75625,Block,格挡,词表(精确),1,WB_Options_KeyRebinding,新增,
+10FE0C5E4B7D09F9C8F063A1E8060BC9,Blood Effects,血液效果,词表(精确),1,WB_Options_Gameplay,新增,
+55E71E754727579A2CA8138F70838034,Blood Effects,血液效果,词表(精确),1,WB_T3_SettingsMenu,新增,
+A930B20A4ECA15DE3CF63982ADA69B40,Body Hair Style,体毛样式,词表(精确),1,WB_CosmeticsWindow,新增,
+22176DF9416656E6AAF9338945336022,Body Type,体型,词表(精确),1,WB_T3_NewGame,新增,
+3913015D4DFF2944B89F32A1C418A421,Body Type,体型,词表(精确),1,WB_FormScreen,新增,
+B782BC5C40F7AD01CBC2628532ABCC4E,Button,按钮,词表(精确),1,WB_T3_NSM_Button,新增,
+97D72DA94009BD5AD9D3EA8F10889E44,CANON EYE COLOURS,原生瞳色,词表(精确),1,WB_CosmeticsWindow,新增,
+78FC038446BE77A6F07B308927CD1D46,CANON HAIR COLOURS,原生发色,词表(精确),1,WB_CosmeticsWindow,新增,
+13DD723E4B89658DBFECF981A9A661F1,CANON SKIN COLOURS,原生肤色,词表(精确),1,WB_CosmeticsWindow,新增,
+5829FD1F4831CFF7019B25831735AA32,CARNAL,CARNAL,词表(精确),1,WB_LevelExpBar_Carnal,新增,
+DB161EA24D060788EA9119B88F1AC506,CARNAL INSTINCT DEV MENU,CARNAL INSTINCT 开发菜单,词表(精确),1,WB_CheatMenu,新增,
+673F8FE8465C602402F5558DBE1E26CE,CHOOSE A SIDE,选择阵营,词表(精确),1,WB_Crossroads_Choice,新增,
+82C33C454D059E419E12E69B9F1FF88F,CONFIRM,确认,词表(精确),1,WB_ProMainMenu,新增,
+C8FAF38A40813F868F74288040137FC0,CONFIRM,确认,词表(精确),1,WB_LargePopup,新增,
+E6E092174F13F2D569CA5B8D514D2954,CONFIRM,确认,词表(精确),1,WB_ChapterButton,新增,
+AB723DFC41FD5B8ADA20D0B600B8A530,CONTENT FILTERS (COMING SOON),内容过滤器（即将推出）,词表(精确),1,WB_Options_Gameplay,新增,
+BEA8135E480CB11492F332A651170C00,CRAFT,制作,词表(精确),1,WB_CraftingWindow,新增,
+3939414A49D8BE8CCD70DA9ED4E01CCD,CRAFT ITEM,制作物品,词表(精确),1,WB_CraftingWindow,新增,
+2D2C1C7946B1760A00875197B05D7770,CRAFTING,制作,词表(精确),1,WB_CraftingWindow,新增,
+909A20D947093E1655777B81F6677365,CRAFTING,制作,词表(精确),1,WB_WindowSwitcher,新增,
+42D22D5543B0341BDF04D7B4D7775469,CRAFTING LIST,制作列表,词表(精确),1,WB_CraftingList,新增,
+DE7D74674EC065A855DC5792D68FE6FA,CREATE MANUAL SAVE,创建手动存档,词表(精确),1,WB_ChapterForSave,新增,
+3999F97846BB824B3C47299E68538527,Camera,镜头,词表(精确),1,WB_T3_SettingsMenu,新增,
+BCE6C49F418E934A0A6FAA8F6AAAFF61,Camera Zoom In,镜头拉近,词表(精确),1,WB_T3_SettingsMenu,新增,
+CA940854439D82175BC9F2ABBA79C508,Camera Zoom Out,镜头拉远,词表(精确),1,WB_T3_SettingsMenu,新增,
+CD7180A746009FA5AD89F7A5D0476EAE,Campfire,篝火,词表(精确),1,WB_WorldMap,新增,
+AA415B304A0D485EAB6A62AE12C64B03,Can affect interactions with other characters,会影响与其他角色的互动,词表(精确),1,WB_Stats_Main,新增,
+E2A4432C4215910931657E9C8DEF983A,Caps the maximum frames per second.,限制每秒最大帧数。,词表(精确),1,WB_T3_SettingsMenu,新增,
+03B4FD81493F18CDC6EE01A6E998F0E0,Carnal Instinct,Carnal Instinct,词表(精确),1,WB_Stats_Main,新增,
+5968F3B0481C23FF474129B0AE9355F2,Cast the Sorcery in the selected slot.,施放所选栏位中的法术。,词表(精确),1,WB_T3_SettingsMenu,新增,
+12DF24C448797315FE5182A7E1B8122D,Category,分类,词表(精确),1,WB_CraftingList,新增,
+CF8DE052423CC52E4E1A2DB0B5BFD349,Category,分类,词表(精确),1,WB_QuestScreen,新增,
+6544CEB849A2CD4A76038E9A09796339,Cave,洞穴,词表(精确),1,WB_WorldMap,新增,
+65F0C80A46726D5A52124A9406040DFC,Change Categories,切换分类,词表(精确),1,WB_KeybindingsSwitcher,新增,
+1C969226474AA5BB6835B38F834783AD,Change Form,切换形态,词表(精确),1,WB_KeybindingsSwitcher,新增,
+5635FC0E4E6CD3AF2E67A1AA43E52B91,Chest,胸部,词表(精确),1,WB_v2DSS2,新增,
+D9F91AEA4A83C02AE3497F8F01C00B0B,Chest,胸部,词表(精确),1,WB_DSS2,新增,
+AD0614BA4E4596630315F29DD9427A23,Choose your starting form. This can be changed later in the story.,选择你的初始形态。剧情推进后可随时更改。,词表(精确),1,WB_ProMainMenu,新增,
+FF06572C4D5A239A1797B2BB52AEE178,Choose your starting form. This can be changed later in the story.,选择你的初始形态。剧情推进后可随时更改。,词表(精确),1,WB_ProMainMenu,新增,
+C29B16754DC23A23F01D4EBFD3FA0FC9,Choose your voice and confirm to start the game. This can be changed at any time in the settings,选择你的语音并确认开始游戏。随时可在设置中更改,词表(精确),1,WB_ProMainMenu,新增,
+D07C570949350E5D0553208E448D692A,Choose your voice and confirm to start the game. This can be changed at any time in the settings,选择你的语音并确认开始游戏。随时可在设置中更改,词表(精确),1,WB_ProMainMenu,新增,
+523878EC4B32E4143A26629A96A5D27A,Clean Up Semen,清理精液,词表(精确),1,WB_DSS2,新增,
+AB8B06424F987D8D070BFDAE4049B44F,Clean Up Semen,清理精液,词表(精确),1,WB_v2DSS2,新增,
+34362AF145912688A25148B4E8E5D7CC,Climb,攀爬,词表(精确),1,WB_Interaction_Climb,新增,
+1CC2A5CB4E51F425ED391897349D3457,Close Character,关闭角色,词表(精确),1,WB_KeybindingsSwitcher,新增,
+69E456AC4862A2A6ABD630978F62C1A1,Close Cosmetics,关闭外观,词表(精确),1,WB_KeybindingsSwitcher,新增,
+6022A679470EC5200F5E8C9C4E9E335A,Close Forms,关闭形态,词表(精确),1,WB_KeybindingsSwitcher,新增,
+BCE2B02E409301517A249A9E8812A103,Close Genitals,关闭生殖器,词表(精确),1,WB_KeybindingsSwitcher,新增,
+92EE20F943C5BBDB22224CA3ABA27279,Close Map,关闭地图,词表(精确),1,WB_KeybindingsSwitcher,新增,
+FCE08A15484DC49BC334DA808E560BC2,Close Quests,关闭任务,词表(精确),1,WB_KeybindingsSwitcher,新增,
+7864B15D49DD74A38A598382033B7455,Close Stats,关闭属性,词表(精确),1,WB_KeybindingsSwitcher,新增,
+1C28996E4D07485D3F01B4880AB112E5,Clothing,服装,词表(精确),1,WB_v2DSS2,新增,
+36C9174D4904030E4E98D7A7D6DFE621,Clothing,服装,词表(精确),1,WB_DSS2,新增,
+5C3B636A4AAE5A80D3A8658BDB876003,Color Blind Mode,色盲模式,词表(精确),1,WB_T3_SettingsMenu,新增,
+33C6A90D42D582C1F976C280B3A31DA3,Color Blindness Intensity,色盲强度,词表(精确),1,WB_T3_SettingsMenu,新增,
+0C624B6547B210A52A5FA4AF9DB827DE,Coming Soon,即将推出,词表(精确),1,WB_Options_Gameplay,新增,
+6F973C2042BD35C83E9043906EE34F12,Coming Soon,即将推出,词表(精确),1,WB_Options_Gameplay,新增,
+D914A7FD40AD90AF2F3D818A95C3BBFA,Coming Soon,即将推出,词表(精确),1,WB_Options_Gameplay,新增,
+E5882CB44597BBF659D8F1BD8F5EECD2,Coming Soon,即将推出,词表(精确),1,WB_Options_Gameplay,新增,
+E6734CEF41B2DC7925A533A65A723335,Coming Soon,即将推出,词表(精确),1,WB_Options_Gameplay,新增,
+1BB2AD464841736E5883BEB0F9A45D06,Compare Item,对比物品,词表(精确),1,WB_KeybindingsSwitcher,新增,
+BDA64C034D0478645B760199E15D0566,Completed,已完成,词表(精确),1,WB_QuestScreen,新增,
+0A2209BE4579C4A963E783B313F9F987,Complexion,肤色,词表(精确),1,WB_CosmeticsWindow,新增,
+D0FC1DF9450468FD29E4BA9D40871ABE,"Congratulations! 
+You’ve given birth to a healthy baby.
+This screen will soon be replaced with a cinematic - but please bear with us in this pre alpha build of the game.","恭喜！
+你诞下了一个健康的婴儿。
+这个界面稍后会被过场动画取代——但这仍是 pre-alpha 版本的游戏，还请多多包涵。",词表(精确),1,WB_LargePopup,新增,
+B1DD7FDA4E3DD7E4B42C4687383E9534,Consumable Slot 1,消耗品栏 1,词表(精确),1,WB_T3_SettingsMenu,新增,
+A095549A43CCCCA63D5D0A91301D9AB0,Consumable Slot 2,消耗品栏 2,词表(精确),1,WB_T3_SettingsMenu,新增,
+CC4A4FA640A55C8DFBC7C2825D61D649,Consumable Slot 3,消耗品栏 3,词表(精确),1,WB_T3_SettingsMenu,新增,
+20B896884F5F4D9EED715EA1E28588E9,Continue,继续,词表(精确),1,WB_DeathScreen,新增,
+A233AFAC4DDD8A02351759909377081F,Continue,继续,词表(精确),1,WB_T3_PauseMenu,新增,
+B854CB2D47FD8A29039F48B5391ADA13,Continue,继续,词表(精确),1,WB_T3_MainMenu,新增,
+10BC4B474676379E6ECD73BE944981CC,Controller Look,手柄视角,词表(精确),1,WB_T3_SettingsMenu,新增,
+E239EAB548681B5EAF3E99BE1259A347,Controller Look Sensitivity,手柄视角灵敏度,词表(精确),1,WB_T3_SettingsMenu,新增,
+4982EE1A42DABEDD26B40B95A1D435CA,Controls,操作,词表(精确),1,WB_T3_SettingsMenu,新增,
+70C3F13142BBC1A6BFC3289599D52E93,"Controls effects such as bloom, depth of field, and color grading.",控制泛光、景深与色彩分级等效果。,词表(精确),1,WB_T3_SettingsMenu,新增,
+4A98156249AD5A59FC591592D3FAC60F,Controls how DLSS generates additional frames to improve smoothness and performance. Higher settings can increase motion fluidity but may affect responsiveness or visual stability depending on system performance.,控制 DLSS 如何生成额外帧以提升流畅度与性能。较高设置可增强动态流畅感，但可能影响响应速度或画面稳定性（视系统性能而定）。,词表(精确),1,WB_T3_SettingsMenu,新增,
+607C3AD048357DA8C89E4CB1CD6EC640,Controls how light bounces and spreads between surfaces in the scene.,控制光线在场景表面之间反弹与扩散的方式。,词表(精确),1,WB_T3_SettingsMenu,新增,
+59A198054592221B2259349C4BC6B945,Controls how reflective surfaces are rendered in the scene.,控制场景中反射表面的渲染方式。,词表(精确),1,WB_T3_SettingsMenu,新增,
+D1B9B0AB4D586065A991269231172046,Controls the quality of textures on objects and surfaces.,控制物体与表面纹理的质量。,词表(精确),1,WB_T3_SettingsMenu,新增,
+71FC3A23416F4325BA26209429B66F9A,Controls the strength of the color blind effect.,控制色盲效果的强度。,词表(精确),1,WB_T3_SettingsMenu,新增,
+99C91B8644E84D46174E1CA1FF7F4250,Countdown,倒计时,词表(精确),1,WB_T3_ConfirmAlert,新增,
+01314CA84E0ABF65B8CA279F288A6001,Crafting Ingrediants,制作材料,词表(精确),1,WB_CheatMenu,新增,
+30E07EFF4CD73285C8B19FA0FC6277A1,Credits,制作名单,词表(精确),1,WB_T3_MainMenu,新增,
+6CDC6C2E4070D199370EEDA76FBAF515,Crouch,蹲下,词表(精确),1,WB_T3_SettingsMenu,新增,
+DD1EDCDD4131BE0E1530ADBB21D5D469,Current Mission Name,当前任务名称,词表(精确),1,WB_T3_LoadGameSlot,新增,
+7DC023BE48A44A0CD02275936F8E02F3,Custom Waypoint,自定义标记,词表(精确),1,WB_KeybindingsSwitcher,新增,
+B27F0CC046CF3C7CD88D27A382200E6C,Custom Waypoint,自定义标记,词表(精确),1,WB_WorldMap,新增,
+063022EF4497C0A6CDAA52BE6B436441,DELETE SAVE,删除存档,词表(精确),1,WB_SelectChapter_Manual_Save_v3,新增,
+FD6F27774397ABDB993438992C0F91DA,DELETE SAVE,删除存档,词表(精确),1,WB_SelectChapter,新增,
+8CAFAB354D32AB4E583BB7871EC9B615,DELETE SLOT,删除栏位,词表(精确),1,WB_SelectChapter_Manual_Save_v3,新增,
+D1B8C8B542932242E6D06C9094767801,DELETE SLOT,删除栏位,词表(精确),1,WB_SelectChapter,新增,
+E5B501FB412D0BFB3BF6C5A3411A90E5,DESTROY,销毁,词表(精确),1,WB_DropBar,新增,
+B7797BC14BCE27096D4F528B6878F778,DETECTED TOY LIST,已检测玩具列表,词表(精确),1,WB_T3_Lovense,新增,
+FD785A674CE46368600BA8BCD5961FE0,DETECTED TOY LIST,已检测玩具列表,词表(精确),1,WB_Options_Lovense,新增,
+99E017EB4BEA61CEC8B0ABB24AABE2AA,DISPLAY,显示,词表(精确),1,WB_Options_Video,新增,
+1DCAB52647BEF833AC695D9FE6662574,DLSS Frame Generation Mode,DLSS 帧生成模式,词表(精确),1,WB_T3_SettingsMenu,新增,
+82EE43FD4FC7C3ADEB49C9A7D66629C3,DLSS Frame Generation support check (FILLED OUT IN WB_Master_SettingsMenu),DLSS 帧生成支持检查,词表(精确),1,WB_T3_SettingsMenu,新增,
+E91748F94DE0B51E9E9D399D0690979D,DSS2 Scenes,DSS2 场景,词表(精确),1,WB_CheatMenu,新增,
+75B164B6456B7133997ABE8A1F514245,Damaris,达玛丽斯,词表(精确),1,WB_DSS2,新增,
+8C1B9EDE4694E95FD35F118280B7BB28,Damaris,达玛丽斯,词表(精确),1,WB_v2DSS2,新增,
+AB6CDFDA44D480AF8624049AC14E0506,Damaris liked that,达玛丽斯喜欢这样,词表(精确),1,WB_PopupMessage_Romance,新增,
+A96F3CD24071924576FDD6B9DE8E8785,Damaris wants to sit on your face,达玛丽斯想坐到你脸上,词表(精确),1,WB_DSS2_Intro_V2,新增,
+EE764C0241FE4447D56236A2649600A9,Damaris wants to sit on your face,达玛丽斯想坐到你脸上,词表(精确),1,WB_DSS2_Intro,新增,
+94F6516147C5E914D19D018C499D9445,Debug Audio CUES,调试音频提示,词表(精确),1,WB_CheatMenu,新增,
+3E079C08445EEFDFD618C1B6C48307B9,Default,默认,词表(精确),1,WB_T3_SettingsMenu,新增,
+A5E642FC448D593EFB7ADC96E5DA4FCC,Default,默认,词表(精确),1,WB_Options_Gameplay,新增,
+AA52329642C3C9D9B59D008C944D3600,Default,默认,词表(精确),1,WB_T3_NewGame,新增,
+B273C38B4CD0BC12B60EDEB07BBBF47C,Default is Based on Form Selected,默认取决于所选形态,词表(精确),1,WB_Options_Gameplay,新增,
+3965EC8748C53E8D3FF73380FC587CB6,Defaults,默认,词表(精确),1,WB_T3_NavInfo,新增,
+C7398A3046C77B6910560AB19C822867,Delete Save,删除存档,词表(精确),1,WB_T3_LoadGame,新增,
+5E6B42BB4EAD1B32D420B8A8E836D45B,Delete Save?,删除存档？,词表(精确),1,WB_ChapterButton,新增,
+35E0928F4688EF4ABBE24CA3A1956D6B,Delete Slot,删除栏位,词表(精确),1,WB_T3_LoadGame,新增,
+AD837F3349DBBDCBBB75EFAB37AB6464,Depth of Field,景深,词表(精确),1,WB_Options_AdvancedVideo,新增,
+957F4A8642DE92F82A22AE9406F0C06B,Determines the general shading quality.,决定整体着色质量。,词表(精确),1,WB_T3_SettingsMenu,新增,
+8729643E4D695E2CAB72A1997020807A,Determines the quality of particle and visual effects.,决定粒子与视觉特效的质量。,词表(精确),1,WB_T3_SettingsMenu,新增,
+A1DEA70041DC91C66229089C463D9FD7,Determines the responsiveness of the joystick for controlling camera movement.,决定摇杆控制镜头移动的响应速度。,词表(精确),1,WB_T3_SettingsMenu,新增,
+4ECBDC094087ACA0DBFFE3B3B4D24BC9,Determines the responsiveness of the mouse for controlling camera movement.,决定鼠标控制镜头移动的响应速度。,词表(精确),1,WB_T3_SettingsMenu,新增,
+9E31548944C23FE38121CEB10CCBFBEB,Device IP Override,设备 IP 覆盖,词表(精确),1,WB_Options_Lovense,新增,
+49D2DE574C307BFD4C0D21A966083B4E,Device Port Override,设备端口覆盖,词表(精确),1,WB_Options_Lovense,新增,
+36DF5B154A9EB41D2DB17091AF645650,Dialogue Volume,对话音量,词表(精确),1,WB_T3_SettingsMenu,新增,
+70E0FF874166735278C05FAB28177699,Difficulty,难度,词表(精确),1,WB_T3_SettingsMenu,新增,
+DE96C8DD4ACFFC64A765A8A7FF211106,Difficulty,难度,词表(精确),1,WB_Options_Gameplay,新增,
+F6B4100248C13CBF30961DABDFBDAFDA,Difficulty,难度,词表(精确),1,WB_T3_NewGame,新增,
+A8250CB4498478F562748DA42F6867DD,Difficulty will change the damage taken (CHANGE IN-GAME),难度会改变受到的伤害（需在游戏内更改）,词表(精确),1,WB_Options_Gameplay,新增,
+E8D0ECB441777DAEFC259693A98A8270,"Disables Con-Non-Con scenes, if this is on you will still have dialog choices and lead-in to these scenarious",禁用强制性场景。开启后，涉及这些场景的对话选项与前置情节仍会保留,词表(精确),1,WB_Options_Gameplay,新增,
+A94CA47B4FF856F04C66999CC16CAC3B,Display,显示,词表(精确),1,WB_T3_SettingsMenu,新增,
+EAE125574753874205C9AA86C766AA22,Drag Map,拖动地图,词表(精确),1,WB_KeybindingsSwitcher,新增,
+2ED3E8BB4329D0BE872425B2D58EF584,EMPTY SLOT,空栏位,词表(精确),1,WB_T3_NSM_Slot_Button,新增,
+EBB776944334D0194CF9F79E7CD85048,ESSENCE,精华,词表(精确),1,WB_CheatMenu,新增,
+FA8A9D7F4A8DBB1F5137D190CF8E44FF,Effects Quality,特效质量,词表(精确),1,WB_T3_SettingsMenu,新增,
+592BC08A4F769759D2644FAB3442674D,Empty,空,词表(精确),1,WB_NSM_CustomInputKeySelector,新增,
+0A152573429FDE859EC294B80980B021,Empty Slot,空栏位,词表(精确),1,WB_CI_SpellSlot,新增,
+8F94EF9243E40FA0A2A15F9F08629ECF,Enemy Location,敌人位置,词表(精确),1,WB_WorldMap,新增,
+12505E1145645D83B945459ACF0C0669,"Enhances image clarity and edge detail. Higher values make the image look crisper but can introduce ""haloing"" or shimmering. Adjust this to find the best balance between a sharp look and a stable image.",增强画面清晰度与边缘细节。数值越高画面越锐利，但可能出现光晕或闪烁。请调整至锐利与稳定之间的最佳平衡。,词表(精确),1,WB_T3_SettingsMenu,新增,
+EB70DBAD46B6F1C7C497AC82043CE7C3,Epic,史诗,词表(精确),2,WB_Master_OptionSwitcher; WB_T3_SettingsMenu,新增,
+3E90AFE442981FA954E0738F6EC1DC6B,Equip Torch,装备火把,词表(精确),1,WB_T3_SettingsMenu,新增,
+054E2FCB4D7A43179E157BB32E7EBC43,Example Button,示例按钮,词表(精确),1,WB_T3_PauseMenu,新增,
+880835B940CCC63C5F7B52B6055646B0,Example Page,示例页面,词表(精确),1,WB_T3_PauseMenu,新增,
+5A1514B34CFA5291D6B905A9C4AB276B,Exit Game,退出游戏,词表(精确),1,WB_T3_MainMenu,新增,
+1B43882A4E5C45015489ACBAA9C4B705,Exit to Desktop,退出到桌面,词表(精确),1,WB_DeathScreen,新增,
+597A80444B757851F1959B9DB118176D,Exit to Desktop,退出到桌面,词表(精确),1,WB_T3_PauseMenu,新增,
+FCA537AA43B288EB596DA29A467637AA,Exp:,经验：,词表(精确),1,WB_LevelExpBar_Carnal,新增,
+284079BB407106C82A6E3B946A8A4EED,Extras,附加,词表(精确),1,WB_PhotoMode,新增,
+2092DE254003973CE1D423AEC0F8AF01,FINISH,完成,词表(精确),1,WB_CheatMenuOption_Quests,新增,
+0EE946EF4C020FB42EEAB2B976DBC414,FORMLESS,无形者,词表(精确),1,WB_Stats_Main,新增,
+95FA06A648AF608943C6E5AFF0DFEFFD,FORMLESS,无形者,词表(精确),1,WB_ProMainMenu,新增,
+AAC4BDEB4F3401F1D93CDFAF18302570,FORMLESS,无形者,词表(精确),1,WB_Stats_Main,新增,
+C135164E4B59DD3091B8ACB1267FD5F7,FORMLESS,无形者,词表(精确),1,WB_ProMainMenu,新增,
+B94BCBB0469FB2BB85FCABA50B8F0796,FORMLESS & HUMAN,无形者与人类,词表(精确),1,WB_FormScreen,新增,
+D0DDB036472D1494FD3CBF87167B2E57,FPS Limit,帧率上限,词表(精确),1,WB_T3_SettingsMenu,新增,
+0665AC9C467E2BBA0223428B8FFEECA4,FRAME GENERATION,帧生成,词表(精确),1,WB_Options_AdvancedVideo,新增,
+CA1CAA0F494778A273D85AB87F0C908F,FRAME WARP,帧扭曲,词表(精确),1,WB_Options_AdvancedVideo,新增,
+DDF60958487A1CF79C0CB88A6A25024E,Face,面部,词表(精确),1,WB_CosmeticsWindow,新增,
+B276812747E5E2D012FDE7B389F6D6AB,Fade,淡出,词表(精确),1,WB_CosmeticsWindow,新增,
+C8520AB04B23E64135262F8AB43DB264,Female Voice,女声,词表(精确),1,WB_Options_Gameplay,新增,
+0F92DA56462FB87F9D6C25BC93A842C0,Feminine,女性化,词表(精确),1,WB_FormScreen,新增,
+EE82E77440B00F00C883679CF7811707,Feminine,女性化,词表(精确),1,WB_T3_NewGame,新增,
+07EAAB05403F5D35C3D832B124F3B407,Feminine (Override),女性化（覆盖）,词表(精确),1,WB_T3_NewGame,新增,
+DD43CE8A472716C4E44517895D86ECA5,Feminine (Override),女性化（覆盖）,词表(精确),1,WB_T3_SettingsMenu,新增,
+EC1244BF4CA6B1138C6973BBEACEE018,Fertility,生育力,词表(精确),1,WB_Stats_Full,新增,
+2794E20942F7BB15ABEF6DA876773944,Field of View (FOV),视场角 (FOV),词表(精确),1,WB_Options_AdvancedVideo,新增,
+B559D1D34D5099792575F3BB447846F0,Field of View (FOV),视场角 (FOV),词表(精确),1,WB_T3_SettingsMenu,新增,
+64089A5F4C9AAB60435A889C2D818988,Fishing,钓鱼,词表(精确),1,WB_Options_KeyRebinding,新增,
+9BF5DA8C4ADF34CF4F991D999C656A02,Fix the camera on the nearest enemy. Press again to release.,把镜头固定在最近的敌人身上。再按一次解除。,词表(精确),1,WB_T3_SettingsMenu,新增,
+CDE2D2EF43A223071BCAA0B7EFBFACFD,Flacid,疲软,词表(精确),1,WB_GenitalScreen,新增,
+0E72A87E428C54150B2BB986C54527D7,Focus,聚焦,词表(精确),1,WB_DSS2,新增,
+3D87FB4B4BAF0B19894B74A6DFB359BD,Focus,聚焦,词表(精确),1,WB_v2DSS2,新增,
+A59EC28F43CE11B4FCBCC7AA7DBFC02C,Focus,聚焦,词表(精确),1,WB_PhotoMode,新增,
+AA5CEAA14907C8E31F571296CED631A8,For best performance/quality - we recommend a maximum of 70% resolution scale.,为获得最佳性能/画质，建议分辨率缩放最高不超过 70%。,词表(精确),1,WB_Options_Video,新增,
+84D39B004BEE2D6AEB65D395D934267A,Forms,形态,词表(精确),1,WB_CheatMenu,新增,
+EC2EF80E42ADC58C0283A1973CD7956E,Forms Unlocked,已解锁形态,词表(精确),1,WB_Stats_Full,新增,
+A8A6AC9549E61E9B6565349911EC5623,Frame Generation Method,帧生成方式,词表(精确),1,WB_T3_SettingsMenu,新增,
+F4EEF38B41DE838D553D15BE3E9E6DB3,Frame Rate Limitation,帧率上限,词表(精确),1,WB_Options_AdvancedVideo,新增,
+0008476445474C579C0ABC9306B44AE3,Fullscreen,全屏,词表(精确),1,WB_T3_SettingsMenu,新增,
+D3C081D94D6AC34934BC32A4CBF879DE,GAMEPLAY,玩法,词表(精确),1,WB_Options_AdvancedVideo,新增,
+D848820245F7D3220281ABBB4A7A34C3,GAMEPLAY,玩法,词表(精确),1,WB_T3_SettingsMenu,新增,
+FD7B988D47548E89429CA39D0C1BAAC3,GHOST,幽灵,词表(精确),1,WB_CheatMenu,新增,
+38C94B9047292CDA23E237A4B7CDB078,Game Details,游戏详情,词表(精确),1,WB_T3_NewGame,新增,
+7A1DE67E43FB8E9F2DDEBF88080E6BD4,"Game Difficulty - this scales the damage taken, damage dealt and level of certain enemies",游戏难度 — 影响受到的伤害、造成的伤害以及特定敌人的等级,词表(精确),1,WB_T3_NewGame,新增,
+B70ECE30487070271CEEEFBB370EE352,Gameplay,玩法,词表(精确),1,WB_T3_SettingsMenu,新增,
+52080ECC424460CFF47A5E9F22C021B5,Gamma,伽马,词表(精确),1,WB_T3_SettingsMenu,新增,
+D3A8797D4C998AB127AAABAEB350AE0B,Gilded Fold Reputation,镀金折笼声望,词表(精确),1,WB_Stats_Full,新增,
+C27A0D694E6BE98B31276689E0C60946,Global Illumination,全局光照,词表(精确),1,WB_T3_SettingsMenu,新增,
+EDD96251479B74F3E791E8BD88C892DA,Global Illumination Quality,全局光照质量,词表(精确),1,WB_T3_SettingsMenu,新增,
+76A81FB649C104993AE23FB46D02F361,Go Back,返回,词表(精确),1,WB_T3_PauseMenu,新增,
+07632AFA4DE8C88E8DE9E89AE23FFC83,Graphics,画面,词表(精确),1,WB_T3_SettingsMenu,新增,
+529C3473407368A5538C919FDB1389F6,HEADLINE,标题,词表(精确),1,WB_T3_SubHeadline,新增,
+E5760534401D452A6A7FB4B822208B3A,HEADLINE,标题,词表(精确),1,WB_PrimaryNotification,新增,
+926CCEE04324FF612749ECB3B56FCF24,HERE IS WHAT UPDATED,本次更新内容,词表(精确),1,WB_Noti-QuestObjectiveUpdated,新增,
+BAE4B2F046F3586C131B599A2B2B22A2,HERE IS WHAT UPDATED,本次更新内容,词表(精确),1,WB_PopupMessage_Event,新增,
+E167A6E041D37A278E3CFC8B09A21788,HERE IS WHAT UPDATED,本次更新内容,词表(精确),1,WB_UpdateNotification,新增,
+470AB0CC4831245B59B91FBC3F36F93E,Head,头部,词表(精确),1,WB_DSS2,新增,
+7704319542C2E12948BF399A96ECE3C7,Head,头部,词表(精确),1,WB_v2DSS2,新增,
+3F692B7447FB604ECAF661A3C157CF97,Heat Haze,热浪,词表(精确),1,WB_Options_AdvancedVideo,新增,
+8EC0001349E24CA5A66B42999622C89B,Help,帮助,词表(精确),1,WB_T3_Lovense,新增,
+910964B44383EEE6E516859B9295533E,Hide Clothes?,隐藏衣物？,词表(精确),1,WB_CosmeticsWindow,新增,
+427D6734497568802B82E283C069FE89,Hide Scrotum?,隐藏阴囊？,词表(精确),1,WB_GenitalScreen,新增,
+E2AA6E834DCEDF927D6C9E8F15683143,High,高,词表(精确),2,WB_Master_OptionSwitcher; WB_T3_SettingsMenu,新增,
+D97FE8AF462FD5C92553848DB4DB5334,High,高,词表(精确),1,WB_Options_Video,新增,
+FAFE52154B926728ACF60DB097F876F4,Hold Reset Selected,长按重置所选,词表(精确),1,WB_T3_NavInfo,新增,
+8AF150F04B4D2F4F24B0708F23C6C237,Hold me I'm Scared,抱紧我，我好怕,词表(精确),1,WB_T3_SettingsMenu,新增,
+C3C3F2BA4205E3A067F97EBA60037919,Hold me I'm Scared,抱紧我，我好怕,词表(精确),1,WB_T3_NewGame,新增,
+8A9745974C82DFF0A2ADB996A5B4AC98,Hold me I'm scared,抱紧我，我好怕,词表(精确),1,WB_Options_Gameplay,新增,
+EE0B7D5C49CE7CB72AC6C6804DC84D4F,I'm an example of a quest journal description,我是任务日志描述的示例,词表(精确),1,WB_QuestObjectiveDescription,新增,
+B55AA04F424B594AA242BE8ABD7CFD13,INQUISITION,审判庭,词表(精确),1,WB_Crossroads_Choice,新增,
+5EBF8CA64D14149C08586FA4757F4FB3,INSERT ITEM,放入物品,词表(精确),1,WB_InsertItemInventory,新增,
+07710C3A4340B35B76B718B40CD50F68,Image Calibration,画面校准,词表(精确),1,WB_T3_SettingsMenu,新增,
+BD3A82FA4F8C3B0049C4BA889FAA669A,Immersive HUD,沉浸式 HUD,词表(精确),1,WB_Options_Gameplay,新增,
+FC1330AF443478166983B4ADB4ABA7FE,Immersive HUD,沉浸式 HUD,词表(精确),1,WB_T3_SettingsMenu,新增,
+FEFD030544DFE0ADD97B5186245840E0,Immersive HUD mode automatically hides the UI,沉浸式 HUD 模式会自动隐藏界面,词表(精确),1,WB_Options_Gameplay,新增,
+C915D96A43EA9485AAE358B3EFF49F9A,Increase/Decrease Stat,增加/减少属性,词表(精确),1,WB_KeybindingsSwitcher,新增,
+459291574651DEBE8823B0948E969A6A,Increases critical chance and pregnancy chance,提升暴击率与受孕几率,词表(精确),1,WB_Stats_Main,新增,
+3FE08B494C12F7F5257D138CA43286E8,Increases health,提升生命值,词表(精确),1,WB_Stats_Main,新增,
+22718BC841F17BC7CE4E86AA5A0E256C,"Increases melee damage, critical damage, and armor",提升近战伤害、暴击伤害与护甲,词表(精确),1,WB_Stats_Main,新增,
+A59133434205AB1BA0AE339008D479C6,Increases ranged damage and attack speed,提升远程伤害与攻击速度,词表(精确),1,WB_Stats_Main,新增,
+7D6DDCBF454426747CDC099F80E55987,Increases sorcery power,提升法术强度,词表(精确),1,WB_Stats_Main,新增,
+F4DF1188433AB192C86EE1A0187001A4,Increases stamina and reduces attack stamina cost,提升耐力并降低攻击耐力消耗,词表(精确),1,WB_Stats_Main,新增,
+2F641B6C4943CBA2E270EF8BE04CF255,Info,信息,词表(精确),1,WB_T3_NavInfo,新增,
+BE387319440FCE5C090FE48D13106064,Interaction,交互,词表(精确),1,WB_T3_SettingsMenu,新增,
+981B3FE441AD1714DCD1628C05C062DD,Intimate Encounter,亲密遭遇,词表(精确),1,WB_WorldMap,新增,
+5763D19A4CCC3AE45B1318BBE070F76C,Inventory,背包,词表(精确),1,WB_T3_SettingsMenu,新增,
+CA12DD5B410BFD2852510EAA10618E6D,Invert Controller Look X,反转手柄视角 X,词表(精确),1,WB_T3_SettingsMenu,新增,
+2499F2A544A2DF6CA3CF889FE1B0B991,Invert Controller Look Y,反转手柄视角 Y,词表(精确),1,WB_T3_SettingsMenu,新增,
+F510DB204BD0AD87DE0498ABFA7AAAFB,Invert Mouse Look X,反转鼠标视角 X,词表(精确),1,WB_T3_SettingsMenu,新增,
+EE9A0FBF4B647B9F08819985D16E720A,Invert Mouse Look Y,反转鼠标视角 Y,词表(精确),1,WB_T3_SettingsMenu,新增,
+65589AE8440F83AB104541B0B6DAEDAA,Issue,问题,词表(精确),1,WB_T3_IssueHint,新增,
+66B5A8AB4F1B91A4F3373D9667E86530,Issue,问题,词表(精确),1,WB_T3_IssueHint,新增,
+88CE702943787AB2B30BF99A7C2E1445,Issue,问题,词表(精确),1,WB_PopupMessage,新增,
+C5B74BA94AAC72DDD6C8F8B7D55837A8,Issue,问题,词表(精确),1,WB_T3_IssueHint,新增,
+D6D208E547AEB3C553A822B5E6B76072,Issue,问题,词表(精确),1,WB_T3_IssueHint,新增,
+7102DA2E426D1355752C0D8EDBFE8DA0,Item Category,物品分类,词表(精确),1,WB_VendorInventory,新增,
+9E9DE35C420A41ABFAC403A71C2326E5,Item Category,物品分类,词表(精确),1,WB_StorageInventory,新增,
+C73B5C104423983A984B29BEC149F29B,Item Name,物品名称,词表(精确),1,WB_PopupLootReceivedSlot_Custom,新增,
+874ED874457F8DEC009087A0E6A4284F,JIMMY,JIMMY,词表(精确),1,WB_CheatMenu,新增,
+8D6273394ED5F52656F0C19330D40681,JIMMY MALE,JIMMY 男性,词表(精确),1,WB_CheatMenu,新增,
+35924C3D46864198D4A669A660E82BF0,JOURNAL ENTRY:,日志条目：,词表(精确),1,WB_QuestScreen,新增,
+35C0545345A80C4861BB97B81EB461FC,Jump,跳跃,词表(精确),1,WB_T3_SettingsMenu,新增,
+0FBC6E2E4D4CCD380F7191962F83BC43,Just the Story,纯剧情,词表(精确),1,WB_Options_Gameplay,新增,
+722D45814F7D5BEE1DF5C4BC05B54746,Just the Story,纯剧情,词表(精确),1,WB_T3_SettingsMenu,新增,
+F340F8AA4F5AB1246E8840A390A92098,Just the Story,纯剧情,词表(精确),1,WB_T3_NewGame,新增,
+000C282142879BA5DAE5B5A5BF89F196,KILL,击杀,词表(精确),1,WB_CheatMenu,新增,
+9C659712430C2F83192AACB4E0B29B5D,Key Items,关键物品,词表(精确),1,WB_CheatMenu,新增,
+D7732E924379E8FF1DE2D490DD20A363,Keybindings  ◈  Player,按键绑定  ◈  玩家,词表(精确),1,WB_T3_SettingsMenu,新增,
+0611C8E1435A04F30F7856ABBA2E923D,LEAVE,离开,词表(精确),1,WB_DSS2,新增,
+1592CB954C8B4CA9282EACA3FA7C8FB6,LEAVE,离开,词表(精确),1,WB_DSS2_Intro,新增,
+72F3737B4F6EA52913CB5D9FF87CE7BC,LEAVE,离开,词表(精确),1,WB_DSS2_Intro,新增,
+B48A2C2F46346EE77B70729B2F10AF09,LEAVE,离开,词表(精确),1,WB_DSS2_Intro_V2,新增,
+BA502DB143BD64C1CF7FDBAB2334A69A,LEAVE,离开,词表(精确),1,WB_v2DSS2,新增,
+C2915EB44FE33D9D43D0AA8774A4DD3B,LEAVE,离开,词表(精确),1,WB_DSS2_Intro_V2,新增,
+D81390BE42DD4E06BA2445ABD2B9CB58,LEAVE,离开,词表(精确),1,WB_DynamicSex,新增,
+95FDF367482F58032132C09AEEE897EA,LEVEL UP,升级,词表(精确),1,WB_Campfire,新增,
+225BC25F47C24B8CE9BBC89068487DCC,LOAD GAME,读取游戏,词表(精确),1,WB_T3_LoadGame,新增,
+4155B1BA4008A9B87F987496B75D70EE,LOAD GAME,读取游戏,词表(精确),1,WB_PauseMenu,新增,
+A59ACE334A8AB70036460CA6CAB0B03D,LOAD GAME,读取游戏,词表(精确),1,WB_SelectChapter,新增,
+F3C7CA0A4E9DD86A9ABEDE99A6A73EEF,LOAD GAME,读取游戏,词表(精确),1,WB_SelectChapter_Manual_Save_v3,新增,
+12C8A9E54AF5267B45F30DAD97FC52E1,LOADING WORLD,正在载入世界,词表(精确),1,WB_T3_LoadingScreen,新增,
+586F8E314782BB2858C8C9B9297052C5,LOADING WORLD,正在载入世界,词表(精确),1,WB_LoadingScreen-Fake_Blank,新增,
+EA47D8AE4A7C82B8F3EFC898647D9869,LOADING WORLD,正在载入世界,词表(精确),1,WB_LoadingScreen-Fake,新增,
+6CB88BFC45B75A5B902503AA944028B5,LOVENSE,LOVENSE,词表(精确),1,WB_T3_Lovense,新增,
+AC0067C542B1755E68E060A5C3F14F66,LOVENSE SETTINGS,Lovense 设置,词表(精确),1,WB_Options_Lovense,新增,
+CD2EBD2E4AFAD5D444D086BE9D84913F,Last Save:,最近存档：,词表(精确),1,WB_T3_NSM_Slot_Button,新增,
+3E3FB797463F18C6AAC332B1A6535BFA,Latency Reduction Method,延迟降低方式,词表(精确),1,WB_T3_SettingsMenu,新增,
+887A13D8481F14A84C9F3A9D1E516552,Leave Merchant,离开商人,词表(精确),1,WB_KeybindingsSwitcher,新增,
+1E07EDB74573E26DFB7E3AA22E084F82,Legs,腿部,词表(精确),1,WB_v2DSS2,新增,
+40A3A5AF495023F3581DF2839EB9E80D,Legs,腿部,词表(精确),1,WB_DSS2,新增,
+A222EA0D43986F53F77413B2C3ECBDC8,Legs,腿部,词表(精确),1,WB_CraftingList,新增,
+43E6C53A4B3C1C858290BD9EA070DB51,Level,等级,词表(精确),1,WB_Stats_Main,新增,
+E0A8FE07446EDBC2ED2FABB6B4D5F5CD,Light Attack,轻攻击,词表(精确),1,WB_T3_SettingsMenu,新增,
+E7A80F95471D8CAFE07AD5A594CFB9FB,Lightning & Shadows,闪电与暗影,词表(精确),1,WB_T3_SettingsMenu,新增,
+9973DE9B4423E67DAF3CF481CEF9EA99,Load Game,读取游戏,词表(精确),1,WB_T3_MainMenu,新增,
+9F35201447C1DFB1358137ADFCA59286,Load Game,读取游戏,词表(精确),1,WB_T3_PauseMenu,新增,
+AE3E4AEB413477B4286EDFB3E396CF2D,Load Game,读取游戏,词表(精确),1,WB_DeathScreen,新增,
+C4FAD6D6464A620E2987D9B62DE4ECE2,Load Save,读取存档,词表(精确),1,WB_T3_LoadGame,新增,
+746D801E4C78E5AF7A83A9986B604391,Look,视角,词表(精确),1,WB_T3_SettingsMenu,新增,
+C5FD08FE414A5861607B1984924ADB6A,Lovense,Lovense,词表(精确),1,WB_T3_MainMenu,新增,
+512C0FF5434C0325156260A2768114F3,Lovense Enabled,启用 Lovense,词表(精确),1,WB_T3_Lovense,新增,
+90040565407AED5474D598882CA088D3,Lovense Enabled,启用 Lovense,词表(精确),1,WB_Options_Lovense,新增,
+9573F08E4937391C1BDDF6BB0BDE5F61,Lovense Settings,Lovense 设置,词表(精确),1,WB_T3_Lovense,新增,
+F3A7C4B1434CBD10A749AD991B9746C4,Lumen,Lumen,词表(精确),1,WB_T3_SettingsMenu,新增,
+37204ECE4ED080DEACD1E5AAAFBFE714,MAP LEGEND,地图图例,词表(精确),1,WB_WorldMap,新增,
+FECBC98145F8A84F14138285508E5DA4,MARKER NAME,标记名称,词表(精确),1,WB_WorldMarker,新增,
+FDE32F7346C06E69DE593BB2BBED8FEE,MIRACLE OF LIFE,生命奇迹,词表(精确),1,WB_LargePopup,新增,
+1E0AD3F446475824C443BC9BAD497C0D,MISSION NOTIFICATION,任务通知,词表(精确),1,WB_Mission,新增,
+0095F7484F1A9BC9368E9AA93BFC3538,MORPH,形态,词表(精确),1,WB_CosmeticsWindow,新增,
+6173F7DB4563C5C56AF9ACACC49E756D,Main Menu,主菜单,词表(精确),1,WB_DeathScreen,新增,
+C22F41314D6516466DA1F49F429EA139,Main Menu,主菜单,词表(精确),1,WB_T3_PauseMenu,新增,
+5A266437456D3094E6B00D9132845F16,Main Quests,主线任务,词表(精确),1,WB_QuestScreen,新增,
+4995C30F4145AB2616E7B8B74235F409,Makes the character walk.,使角色行走。,词表(精确),1,WB_T3_SettingsMenu,新增,
+86B29091456074831B07AEB58E3CCD88,Makes the player crouch.,使玩家蹲下。,词表(精确),1,WB_T3_SettingsMenu,新增,
+9F3862FF4CE9A8869BC923B89D0C019B,Makes the player jump.,使玩家跳跃。,词表(精确),1,WB_T3_SettingsMenu,新增,
+0145B6B544520AF158209CB643D78707,Makes the player sprint.,使玩家冲刺。,词表(精确),1,WB_T3_SettingsMenu,新增,
+4209EE7A46910738741C4DB994A35B74,Makeup Colour,妆容颜色,词表(精确),1,WB_CosmeticsWindow,新增,
+9300535D43D2F9B21688B68AC6FBB273,Male Voice,男声,词表(精确),1,WB_Options_Gameplay,新增,
+E380114948908A81D527F7B7AD65489A,Map Legend,地图图例,词表(精确),1,WB_KeybindingsSwitcher,新增,
+C934F72B4417429E4B015CB42AFA10E1,Markings,印记,词表(精确),1,WB_CosmeticsWindow,新增,
+BF71AD4D415262E823EDA691530DA70C,Masculine,男性化,词表(精确),1,WB_T3_NewGame,新增,
+E3E4EBA647B545EE817B96BAC9FCF22A,Masculine,男性化,词表(精确),1,WB_FormScreen,新增,
+AA3FC0CA492E884630B39488A60F6D12,Masculine (Override),男性化（覆盖）,词表(精确),1,WB_T3_SettingsMenu,新增,
+E415FBD1403CEE8CDEEA89A32B57FD57,Masculine (Override),男性化（覆盖）,词表(精确),1,WB_T3_NewGame,新增,
+D25FC1764FCBF889572AB59ADB226198,Medium,中,词表(精确),2,WB_Master_OptionSwitcher; WB_T3_SettingsMenu,新增,
+041C402C44C53FE6FBBB1F8800AC916E,Medium,中,词表(精确),1,WB_Options_Video,新增,
+41410E5C4CC3885AFF7135903009CED2,Melee Weapon Damage,近战武器伤害,词表(精确),1,WB_Stats_Full,新增,
+B46F2D4445D766D9495C9D9611D5EBB9,Memreport -full,内存报告 -full,词表(精确),1,WB_CheatMenu,新增,
+AD037540491B411105E1098BF2BE381D,Merchant,商人,词表(精确),1,WB_WorldMap,新增,
+A2554F3C4AE1A75573AFBA8F9E1A9F4F,Minimizes the delay between your input and the action on screen.,尽量缩短输入与屏幕动作之间的延迟。,词表(精确),1,WB_T3_SettingsMenu,新增,
+0AC7D73140FA98708BA9A3ADA8B77741,Motion Blur,动态模糊,词表(精确),1,WB_Options_AdvancedVideo,新增,
+E89B8F7144C6EDEB2914E0BEAABE31B4,Motion Blur,动态模糊,词表(精确),1,WB_T3_SettingsMenu,新增,
+79E13BDA481B82E7ECFA6A8A33065E31,Mouse Look Sensitivity,鼠标视角灵敏度,词表(精确),1,WB_T3_SettingsMenu,新增,
+F6F2ED9F40292A98F06E7798ADEFDA46,Move,移动,词表(精确),1,WB_T3_SettingsMenu,新增,
+8D3B786D48A4E2B6FFA15BA111BD9F27,Move Backward,向后移动,词表(精确),1,WB_T3_SettingsMenu,新增,
+125538494A3FAFB3BA2F4DB2B6C9EC0B,Move Forward,向前移动,词表(精确),1,WB_T3_SettingsMenu,新增,
+DE3422464AE12F86222FF8A846B205AD,Move Left,向左移动,词表(精确),1,WB_T3_SettingsMenu,新增,
+4CBF61C242101B55DDFDDEB694E34B20,Move Map,移动地图,词表(精确),1,WB_KeybindingsSwitcher,新增,
+3AB905434AE65CB36EE9E6B6DB67A588,Move Right,向右移动,词表(精确),1,WB_T3_SettingsMenu,新增,
+0870C69C48E681140C3ABDAEB3895A6F,Movement Shake,移动晃动,词表(精确),1,WB_T3_SettingsMenu,新增,
+A32E990541B4CFB724B846BB833D51CB,Moves the player backwards.,将玩家向后移动。,词表(精确),1,WB_T3_SettingsMenu,新增,
+57379D1E412DA2F74745DF89B82B714A,Moves the player by a joystick.,通过摇杆移动玩家。,词表(精确),1,WB_T3_SettingsMenu,新增,
+12DE72D745ADC6F086D8448311B97DDA,Moves the player forwards.,将玩家向前移动。,词表(精确),1,WB_T3_SettingsMenu,新增,
+09FB1EC347B4E4C907B6C380714E3873,Moves the player to the left.,将玩家向左移动。,词表(精确),1,WB_T3_SettingsMenu,新增,
+83B03C9B40E57A86580CD680199B0D07,Moves the player to the right.,将玩家向右移动。,词表(精确),1,WB_T3_SettingsMenu,新增,
+5593540847249475CBEC7D923A8D8375,Music Volume,音乐音量,词表(精确),1,WB_T3_SettingsMenu,新增,
+64958E4B4D19A53AACADFEBA2CE80E09,N/A,不适用,词表(精确),1,WB_Stats_Full,新增,
+07314F674E7B260E0BA36A93A50AF8DF,N/A,不适用,词表(精确),1,WB_Stats_Full,新增,
+1279AC7F4BCB25A70B8063A6FDAA81C4,N/A,不适用,词表(精确),1,WB_Stats_Full,新增,
+44C52CA74E596621C65301BF82BBC743,N/A,不适用,词表(精确),1,WB_Stats_Full,新增,
+64F290F84D4B53AC36A048BBCC0FF4CF,N/A,不适用,词表(精确),1,WB_Stats_Full,新增,
+7DDE69734D14AC78377B9684CC824DF6,N/A,不适用,词表(精确),1,WB_Stats_Full,新增,
+7DEA45594AF293C0AC4A219819B81BE1,N/A,不适用,词表(精确),1,WB_Stats_Full,新增,
+85FAE76F4B88BB462152BE91F4F9C682,N/A,不适用,词表(精确),1,WB_Stats_Full,新增,
+D57E10614B5C9EC1AA4C218D271B8743,N/A,不适用,词表(精确),1,WB_Stats_Full,新增,
+DF8BB4CA46DEE164F54C45A576617081,N/A,不适用,词表(精确),1,WB_Stats_Full,新增,
+CFA903194D43F844DAAF26B22F1F762A,NEW GAME SETUP,新游戏设置,词表(精确),1,WB_T3_NewGame,新增,
+32EDBE8D4BD45FA50FE054964AB1BA89,NONE,无,词表(精确),1,WB_GenitalScreen,新增,
+59B5D1854DB28D0A68F8FDA2A7250808,NORMAL LEVEL UP,普通升级,词表(精确),1,WB_CheatMenu,新增,
+78B2E7764887A9A75186C087A81FC863,NVIDIA DLSS,NVIDIA DLSS,词表(精确),1,WB_Options_AdvancedVideo,新增,
+49D640E14FF7E4A5E36B4AB82DC2B399,NVIDIA DLSS 4,NVIDIA DLSS 4,词表(精确),1,WB_Options_AdvancedVideo,新增,
+149D5F6242D81C1E915D9CA9EB915709,NVIDIA REFLEX LOW LATENCY,NVIDIA REFLEX 低延迟,词表(精确),1,WB_Options_AdvancedVideo,新增,
+B581667E4D450752F21A8EAB254245C3,Name,名称,词表(精确),2,WB_Options_Lovense; WB_T3_Lovense,新增,
+2A25070D449A7D147B92DE8C6228318E,"Native AA acts as a premium Anti-Aliasing mode, rendering at full resolution to provide the sharpest image possible without shimmering. The quality presets render the game at lower internal resolutions and use AI to reconstruct the detail, significantly boosting your frame rate while maintaining high visual fidelity.",Native AA 是一种高级抗锯齿模式，以完整分辨率渲染，提供最锐利的画面且无闪烁。画质预设会以较低的内部渲染分辨率运行游戏，再用 AI 重建细节，在保持高画质的同时显著提升帧率。,词表(精确),1,WB_T3_SettingsMenu,新增,
+4D2F5B6E4EE11569B46B709416CCEB2B,"Native AA acts as a premium Anti-Aliasing mode, rendering at full resolution to provide the sharpest image possible without shimmering. The quality presets render the game at lower internal resolutions and use AI to reconstruct the detail, significantly boosting your frame rate while maintaining high visual fidelity.",Native AA 是一种高级抗锯齿模式，以完整分辨率渲染，提供最锐利的画面且无闪烁。画质预设会以较低的内部渲染分辨率运行游戏，再用 AI 重建细节，在保持高画质的同时显著提升帧率。,词表(精确),1,WB_T3_SettingsMenu,新增,
+AF90159D46FEA21DCCF7459FC0D0CC1E,"Native AA acts as a premium Anti-Aliasing mode, rendering at full resolution to provide the sharpest image possible without shimmering. The quality presets render the game at lower internal resolutions and use AI to reconstruct the detail, significantly boosting your frame rate while maintaining high visual fidelity.",Native AA 是一种高级抗锯齿模式，以完整分辨率渲染，提供最锐利的画面且无闪烁。画质预设会以较低的内部渲染分辨率运行游戏，再用 AI 重建细节，在保持高画质的同时显著提升帧率。,词表(精确),1,WB_T3_SettingsMenu,新增,
+F3C7B1C945796EAD91A5F0B2B6883A7E,"Native AA acts as a premium Anti-Aliasing mode, rendering at full resolution to provide the sharpest image possible without shimmering. The quality presets render the game at lower internal resolutions and use AI to reconstruct the detail, significantly boosting your frame rate while maintaining high visual fidelity.",Native AA 是一种高级抗锯齿模式，以完整分辨率渲染，提供最锐利的画面且无闪烁。画质预设会以较低的内部渲染分辨率运行游戏，再用 AI 重建细节，在保持高画质的同时显著提升帧率。,词表(精确),1,WB_T3_SettingsMenu,新增,
+61E59E36460B112F6602148A2D344BE2,Navigate,导航,词表(精确),1,WB_T3_NavInfo,新增,
+F255926840F47789D856FCADC07E7C29,New Game,新游戏,词表(精确),1,WB_T3_MainMenu,新增,
+6E4BE3534B0F00BEFF41BEA2E289C22D,New Quest,新任务,词表(精确),1,WB_WorldMap,新增,
+86FD1D564C7B05840440AEA6F52C01C0,New Quest Available,有新任务可接,词表(精确),1,WB_WorldMapPopup,新增,
+EE130C8B4FF62715F79B139E9C90422E,New Quest Item,新任务物品,词表(精确),1,WB_PopupLootReceivedSlot_Custom,新增,
+77AAF1BE4D93BF5B46011A8E0F001F93,No,否,词表(精确),1,WB_CosmeticsWindow,新增,
+393B15E141919B8E5F4876885DBEF512,None,无,词表(精确),1,WB_T3_SettingsMenu,新增,
+8450B27745E765F5EA785D8E1B0F5D0F,None,无,词表(精确),1,WB_NSM_KeyInfoOnlyKey_1,新增,
+A5FB20134DFAE9CFA6BA40B06155547B,None,无,词表(精确),1,WB_NSM_KeyInfoOnlyKey_KeySelector,新增,
+76D154504F1BF5FFBA9295BA43954617,Normal,普通,词表(精确),1,WB_Options_Gameplay,新增,
+8190903B40B3840CC26037A4515DA17B,Normal,普通,词表(精确),1,WB_T3_SettingsMenu,新增,
+E3DAC4384A743BDC028F28A8B22829A3,Normal,普通,词表(精确),1,WB_T3_NewGame,新增,
+8638360C4E0AF1791E843885A985F0DF,Notification Text,通知文本,词表(精确),1,WB_OptionNoti,新增,
+80F2901C48399D374CA631B2EF22E746,Off,关,词表(精确),1,WB_Options_Lovense,新增,
+6715DA2B49FE7A6F2B40A5B08A439DB8,Off,关,词表(精确),1,WB_Options_Gameplay,新增,
+13B9502F4BCC34362328A2B7E0F3AB38,Off,关,词表(精确),1,WB_Options_Video,新增,
+3209DE1440FA7CB75628A592C09AAAD8,Off,关,词表(精确),1,WB_Master_Toggler,新增,
+3F0A66AC473F7C7196ED0197EC73CFDC,Off,关,词表(精确),1,WB_T3_SettingsMenu,新增,
+5DEFAD2B4DEE6E515CEFF7B85EFA7262,Off,关,词表(精确),1,WB_T3_SettingsMenu,新增,
+A46530564DCFA3DF95588C9E80022D17,Off,关,词表(精确),1,WB_T3_SettingsMenu,新增,
+BD0D34074A32144D1C985D86306A46A3,Off,关,词表(精确),1,WB_CosmeticsWindow,新增,
+CBF7480F4761ACA5DB371D844284D7E9,Off,关,词表(精确),1,WB_T3_SettingsMenu,新增,
+D4C49F904C79D71A731004B6F0DEE7BF,Off,关,词表(精确),1,WB_Options_Lovense,新增,
+D6C95C4A42B8863883131B947B9ADEE4,Off,关,词表(精确),1,WB_Options_Gameplay,新增,
+EC46D48A4D1B6B24D6912CAD4B55F012,Off,关,词表(精确),1,WB_T3_SettingsMenu,新增,
+ACCFCD304502BF81E7FC3FB3E3E87C52,On,开,词表(精确),1,WB_Options_Lovense,新增,
+622D301D4A70664A65C9FE9A4ED8D482,On,开,词表(精确),1,WB_Options_Gameplay,新增,
+1FE3287B410A4AD96A42068756D4703F,On,开,词表(精确),1,WB_CosmeticsWindow,新增,
+4AF71E0B416DD806AF48EE97D38763BF,On,开,词表(精确),1,WB_Options_Lovense,新增,
+4C4867BE4CD1023953DEF7BEFB5FC17E,On,开,词表(精确),1,WB_Options_Gameplay,新增,
+8764B704464547EDFE8D5C899511AA10,On,开,词表(精确),1,WB_Master_Toggler,新增,
+A6555CFF40C51D8639235994AAFCA116,Open [Quests] to view progress,打开 [任务] 查看进度,词表(精确),1,WB_PopupMessage_Event,新增,
+C506F96F4D2FDE80A757259C7BF4BD83,Open [Quests] to view progress,打开 [任务] 查看进度,词表(精确),1,WB_Noti-QuestObjectiveUpdated,新增,
+36B7D1CF4E52362A5D42A7B68D430D6A,Open the Radial Menu [TAB] to activate,按 [TAB] 打开环形菜单,词表(精确),2,WB_Noti_Unlock; WB_PopupUnlocked,新增,
+022930654C98F54A094488ABF7BE8C2C,Open the quick-select wheel to swap items and abilities.,打开快速选择轮盘以切换物品与技能。,词表(精确),1,WB_T3_SettingsMenu,新增,
+607ACD3F4B6A7178F4E2F49437ECD48C,"Open your bag, equipment, and gear.",打开你的背包、装备与物品。,词表(精确),1,WB_T3_SettingsMenu,新增,
+E801E7B74016721A740C3188651799DC,"Open, pick up, talk, mount, and use whatever you're looking at.",开门、拾取、交谈、骑乘，以及使用你正对着的任何东西。,词表(精确),1,WB_T3_SettingsMenu,新增,
+BDF410044243C3A74FAA838DB5EA2B4D,Overall Graphics Quality,整体画质,词表(精确),1,WB_T3_SettingsMenu,新增,
+8AE4A2834C600073F44753A1C1CC3ACB,Overall Volume,总音量,词表(精确),1,WB_T3_SettingsMenu,新增,
+ED78F67542574F85273A25B668EB07B8,PHOTOMODE [BETA],拍照模式 [BETA],词表(精确),1,WB_PauseMenu,新增,
+F6B191454AAAC1B99C221C9F9F9A54E6,PLAYER SETTINGS,玩家设置,词表(精确),1,WB_Options_Gameplay,新增,
+7C9C63D3495250FA9E1026B7F9721A20,PRIMARY NOTIFICATION,主要通知,词表(精确),1,WB_PrimaryNotification,新增,
+7A1D7F0F41AE972065378A985804EBBE,PROGRESS,进度,词表(精确),1,WB_v2DSS2,新增,
+9567C3CE4BB57E5DDF2E489F4528482C,PROGRESS,进度,词表(精确),1,WB_DSS2,新增,
+6E7E823640E8440CFA11B6A285F4A15E,Pan,平移,词表(精确),1,WB_DSS2,新增,
+C46E93BD4EFABD3B18FDDCA9B39D6FB6,Pan,平移,词表(精确),1,WB_PhotoMode,新增,
+E100F4994F3E9744B2E0B6B30D0A19DA,Pan,平移,词表(精确),1,WB_v2DSS2,新增,
+119CD3624CCC866A9154BFB427C191C1,Pigmentation,色素,词表(精确),1,WB_CosmeticsWindow,新增,
+F44519774B8E0E2C4A306F8A3F5DEFDC,Pigmentation,色素,词表(精确),1,WB_MorphSlider,新增,
+BA81D4EA441D88ECB1AAB2BDDCF1D436,Platform,平台,词表(精确),2,WB_Options_Lovense; WB_T3_Lovense,新增,
+A740D045436C3D384A4EDB9E9880D044,Player,玩家,词表(精确),1,WB_DSS2,新增,
+B7BD2D4240DD2DCE3DBC6EBCDD0185EF,Player,玩家,词表(精确),1,WB_v2DSS2,新增,
+B635E967414AA135742F72A0C85AE49F,Player Location,玩家位置,词表(精确),1,WB_MapLegend_Item,新增,
+DA91440F4A81BD868BC9879B057CBFFE,Player Location,玩家位置,词表(精确),1,WB_MapLegend_Item,新增,
+B32C73714CD30EE3CF3C028FC2AFEADB,Player Voice,玩家语音,词表(精确),1,WB_Options_Gameplay,新增,
+1134DF5B48C48FA7BD76549CAE214784,Playtime,游戏时长,词表(精确),1,WB_ChapterText,新增,
+90A888C04F2A74E062B1AD9AB71C0259,Playtime:,游戏时长：,词表(精确),1,WB_T3_NSM_Slot_Button,新增,
+C09977A348C94B9C5049F3AC7490A2E2,Point of Intrest,兴趣点,词表(精确),1,WB_WorldMap,新增,
+FAC106F04CBC102313922FABE31BE82A,Post Process Quality,后处理质量,词表(精确),1,WB_T3_SettingsMenu,新增,
+273726EC49DEF8086E5E51BFB13D3931,Pregnancy,受孕,词表(精确),1,WB_Stats_Full,新增,
+17979E99481AB8F7348C58949BF15096,Press,按下,词表(精确),1,WB_TutorialPopup,新增,
+35D7BB4E42BA51D2C81F51941C12C084,Press,按下,词表(精确),1,WB_DemoTutNoti2_300x400,新增,
+AB150B1E418B599B91C130BF5A8AB7EB,Press,按下,词表(精确),1,WB_DemoTutNoti1_300x400,新增,
+7FBA71E44925254ED3A752B0AFCC95EC,Press [TAB] to release,按 [TAB] 松手,词表(精确),1,WB_CI_Radial,新增,
+421A04FC43628961F97A4B9DB0DA4E81,Preview Voice,试听语音,词表(精确),1,WB_T3_NewGame,新增,
+70EB1F1E4FBFFFD48C5F8CA55B3DB977,Prologue,序章,词表(精确),1,WB_T3_NewGame,新增,
+61BD65E24E3FE5BF18E2A8B868D63828,Pull the camera closer to your character.,把镜头拉近角色。,词表(精确),1,WB_T3_SettingsMenu,新增,
+E6516F6043FCA3B0CC4F1CA02AF3EF0A,Pulls out your torch for dark places.,取出火把，照亮黑暗之处。,词表(精确),1,WB_T3_SettingsMenu,新增,
+26EE653F4962A21224382F844D6EDC0C,Purchase Sorcery / Drag Sorcery into hotbar to use with the radial menu,购买法术后拖入快捷栏即可通过环形菜单使用,词表(精确),1,WB_KeybindingsSwitcher,新增,
+FFB3784545BB0533B75A80A609745081,Push the camera back for a wider view.,拉远镜头以获得更宽的视野。,词表(精确),1,WB_T3_SettingsMenu,新增,
+4667447948F250BD59CA9AAFA6A35DC2,QUALITY + DLAA,画质 + DLAA,词表(精确),1,WB_Options_AdvancedVideo,新增,
+DA5A1BA341A11A1BEC60A39B636D8F8F,QUEST LIST,任务列表,词表(精确),1,WB_QuestScreen,新增,
+B0B6A8674BAD5DEB2F072CA9C03398AE,QUEST STARTED,任务已开始,词表(精确),1,WB_PopupGeneric,新增,
+3A2E415243DF6715A42528B7F11656DE,Quality Preset,画质预设,词表(精确),1,WB_T3_SettingsMenu,新增,
+8A8AF53F47F1A51BAA25C2932CD9ECCD,Quest Objectives,任务目标,词表(精确),1,WB_CheatMenu,新增,
+E2692BE74343E7C63206598977709B7B,Quests,任务,词表(精确),1,WB_CheatMenu,新增,
+A858E2704C38758A3D597989F425EFA6,Quests Completed,已完成任务,词表(精确),1,WB_Stats_Full,新增,
+46CD536F4E87413860B23ABBD6B00E33,Quicksave,快速保存,词表(精确),1,WB_T3_LoadGameSlot,新增,
+800180234FAC236693FE839BD76DFC48,Quicksave Slots,快速存档栏位,词表(精确),1,WB_Options_Gameplay,新增,
+C9D66E2240B7B576520E8BAAD1581CFB,RAY RECONSTRUCTION,光线重建,词表(精确),1,WB_Options_AdvancedVideo,新增,
+F74A8CC3402A828456BEABA684CA5E81,REP: ANUBITE +,声望：阿努比斯人 +,词表(精确),1,WB_CheatMenu,新增,
+14ED478E444B92A54B09F9841E10CED5,REP: ANUBITE -,声望：阿努比斯人 -,词表(精确),1,WB_CheatMenu,新增,
+454FFF494896E8F8646F0BB1A2B120A8,REP: BAST +,声望：芭丝特 +,词表(精确),1,WB_CheatMenu,新增,
+E638F260408F9EBB5361CDA584FEEEC8,REP: BAST -,声望：芭丝特 -,词表(精确),1,WB_CheatMenu,新增,
+C16522FA42582543DE880F8CCCC09563,RESET POINTS,重置点数,词表(精确),1,WB_AbilitiesWindow,新增,
+927808574E9A52135D6511AE8C9D88F2,REST - EVENING,休息 - 傍晚,词表(精确),1,WB_Campfire,新增,
+4999FD1648D1DBE3DBF7698FB9F0BBCA,REST - MIDDAY,休息 - 正午,词表(精确),1,WB_Campfire,新增,
+557AF8104D4D823348C3259AD3A618D6,REST - MORNING,休息 - 清晨,词表(精确),1,WB_Campfire,新增,
+A3FDEA9141BC58B3AB5F3FBEE1FB1466,RESTART,重新开始,词表(精确),1,WB_DynamicSex,新增,
+6EB48D5040A5B4E23FE9CBBA3D200CED,ROMANCE QUESTS,恋爱任务,词表(精确),1,WB_QuestScreen,新增,
+56ED92844C53EDE00A8C51A36409C19A,Radial Menu,环形菜单,词表(精确),1,WB_T3_SettingsMenu,新增,
+AECCA31F400612F162D31EB3D439CBEE,Radial Selection Method,环形菜单选择方式,词表(精确),1,WB_T3_SettingsMenu,新增,
+4C555D664BB9BC1B2FA6B1ACB8B8C607,Raise your guard to reduce incoming damage.,举盾格挡以减少受到的伤害。,词表(精确),1,WB_T3_SettingsMenu,新增,
+073B39E14C36191C5381D3AD79ECC88B,Range Weapon Damage,远程武器伤害,词表(精确),1,WB_Stats_Full,新增,
+CB7F7D97424157E559C5E3906B9478B4,Ready your melee weapon. Press again to sheathe.,准备近战武器。再按一次收起。,词表(精确),1,WB_T3_SettingsMenu,新增,
+6E565B0B4E72B8DD60094EA65243A17B,Ready your ranged weapon. Press again to sheathe.,准备远程武器。再按一次收起。,词表(精确),1,WB_T3_SettingsMenu,新增,
+C2FA91C14AC3244C2D49B08733C0EE97,Reflection Quality,反射质量,词表(精确),1,WB_T3_SettingsMenu,新增,
+B4A30E384A5FFE6ABD28A19CAC259FE8,Reflections,反射,词表(精确),1,WB_T3_SettingsMenu,新增,
+43AF273A448C2BD0B8FB2BB10AD42C85,Refresh Toy List,刷新玩具列表,词表(精确),1,WB_T3_Lovense,新增,
+8CF89A4747CFFA4BA097809CA63AE6F6,Refresh Toy List,刷新玩具列表,词表(精确),1,WB_Options_Lovense,新增,
+7D320C184E753B6892A2A9B279630DB8,Rendering,渲染,词表(精确),1,WB_T3_SettingsMenu,新增,
+47AAE1E64D6F54FE237F4EA58474B433,Requires Level,需要等级,词表(精确),1,WB_ToolTip,新增,
+63FF41D14F341A2D6F0B92BF14A8100E,Reset,重置,词表(精确),1,WB_T3_SettingsMenu,新增,
+B7DD41A04FD841BD6D0104BD6466063F,Reset,重置,词表(精确),1,WB_MorphSlider,新增,
+280F3EB9468C6A2022F13C87225326A2,Reset All,全部重置,词表(精确),1,WB_T3_NavInfo,新增,
+A0A9CD3D4B83BD2D1EE3F783614B53B2,Reset Position,重置位置,词表(精确),1,WB_KeybindingsSwitcher,新增,
+C53EC07D48AFFAA0BB708085435256E7,Reset to default,恢复默认,词表(精确),1,WB_DSS2,新增,
+0041FEF543F9424319D22FACF7074689,Reset to default,恢复默认,词表(精确),1,WB_v2DSS2,新增,
+175599C14ED5F40356270DB2CF6BAC8B,Reset to default,恢复默认,词表(精确),1,WB_v2DSS2,新增,
+5016657F4177C67AE50581B6D837F036,Reset to default,恢复默认,词表(精确),1,WB_v2DSS2,新增,
+877178B9494D5C4696BE2794F545758B,Reset to default,恢复默认,词表(精确),1,WB_v2DSS2,新增,
+9F84ADBC4CE874B3A36E9EBC2C80A2FA,Reset to default,恢复默认,词表(精确),1,WB_v2DSS2,新增,
+A53A55264B9448D2FC535E96FECBF7E8,Reset to default,恢复默认,词表(精确),1,WB_v2DSS2,新增,
+63106DB541A4E27D92D34CAD473F53F7,Resolution,分辨率,词表(精确),1,WB_T3_SettingsMenu,新增,
+D7C9BEF54586587D8116F28C98CF160F,Resolution locked in Windowed Fullscreen mode.,窗口化全屏模式下分辨率已锁定。,词表(精确),1,WB_T3_SettingsMenu,新增,
+47427C2C4D5F2DB4E85EB9A1DCA1812A,Resolution will be adapted to fit the Windowed display area.,分辨率将自动适应窗口显示区域。,词表(精确),1,WB_T3_SettingsMenu,新增,
+C4ACEF364B88D9A2D251BE8B8085B324,Restart required (FILLED OUT IN WB_Master_SettingsMenu),需要重启游戏才能生效,词表(精确),1,WB_T3_SettingsMenu,新增,
+0E78019C4121F7DAADEA908D7A2BE9E5,Restore Defaults,恢复默认,词表(精确),1,WB_T3_SettingsMenu,新增,
+D37323BA447A022AE56B8A96CACA6C2A,Restore Defaults,恢复默认,词表(精确),1,WB_T3_Lovense,新增,
+58AB3FD945A9DB07EA117CACDE68C0A3,Return to encounter area,返回遭遇区域,词表(精确),1,WB_QuestOOB,新增,
+AC52C61743DCFC4C334F4AB8A0C69D22,Reveal nearby loot and interactables.,显示附近的战利品与可交互物。,词表(精确),1,WB_T3_SettingsMenu,新增,
+6E47AEE740332CF13D86678022A2CD61,Reverses horizontal controller input.,反转手柄的水平输入。,词表(精确),1,WB_T3_SettingsMenu,新增,
+C7E7D7A4454D79F4A4AB4191664B6C79,Reverses horizontal mouse movement.,反转鼠标的水平移动。,词表(精确),1,WB_T3_SettingsMenu,新增,
+644A937E4DB12AB1BBD4DE983DC581E1,Reverses vertical controller input.,反转手柄的垂直输入。,词表(精确),1,WB_T3_SettingsMenu,新增,
+4970C6654BE5D308AFBD56913F15B977,Reverses vertical mouse movement.,反转鼠标的垂直移动。,词表(精确),1,WB_T3_SettingsMenu,新增,
+32C0CAF1422F8C6718E548B4A843C241,Romance,恋爱,词表(精确),1,WB_QuestScreen,新增,
+0DC8625745F5809910D025B2F7DDC7F8,Rotate,旋转,词表(精确),1,WB_v2DSS2,新增,
+17FC0E37490FBE8D93EAFAAD2B0ADCC5,Rotate,旋转,词表(精确),1,WB_DSS2,新增,
+AE9FD88B47F2D3AC955FF1A715288B6C,Rotate,旋转,词表(精确),1,WB_PhotoMode,新增,
+4E30AC6F485254C9796D9EB203709633,Rotate Player Preview,旋转角色预览,词表(精确),1,WB_KeybindingsSwitcher,新增,
+A7EA945A405B58DD6311F2A658D11A96,Ruin,废墟,词表(精确),1,WB_WorldMap,新增,
+0083654C4283000E1F9A15A8A21988F1,SHOW ALL COLOURS,显示全部颜色,词表(精确),1,WB_CosmeticsWindow,新增,
+48949A6C4A0BEE5D236EAEB83FEAE757,SHOW ALL COLOURS,显示全部颜色,词表(精确),1,WB_CosmeticsWindow,新增,
+8812260B48F7645D919A6CBBC215CFE4,SHOW ALL COLOURS,显示全部颜色,词表(精确),1,WB_CosmeticsWindow,新增,
+AF98F57143028FF82C3B5EA9298203B6,SHOW ALL COLOURS,显示全部颜色,词表(精确),1,WB_CosmeticsWindow,新增,
+F3C7534B42CE1BC6F3E4FDA1DF9EFC7E,SKILL TEXT,技能文本,词表(精确),1,WB_ProgressNotification,新增,
+84C9E1554AF48BEB446C70B9F2D2CCC5,SKINS,皮肤,词表(精确),1,WB_GenitalScreen,新增,
+FCA316344A319EB4799B5D991F95509F,SLOT 1,栏位 1,词表(精确),1,WB_ProMainMenu,新增,
+7AB9228843C6580AB2F410BE2A8DF11B,SLOT 1 [ACTIVE],栏位 1 [使用中],词表(精确),1,WB_SelectChapter,新增,
+EC551DA44DD4FD9FD1DC2F87E66B7683,SLOT 1 [ACTIVE],栏位 1 [使用中],词表(精确),1,WB_SelectChapter_Manual_Save_v3,新增,
+144DDFD64B358FE339198DB9C2336DCC,SLOT 2,栏位 2,词表(精确),1,WB_SelectChapter_Manual_Save_v3,新增,
+2FCDB24B4B95B1ADF5AD94B8338C484E,SLOT 2,栏位 2,词表(精确),1,WB_ProMainMenu,新增,
+6840B70743D282098B95D09521C69869,SLOT 2,栏位 2,词表(精确),1,WB_SelectChapter,新增,
+032AF9EF41F03C110EB9B3BD4F1FEC2E,SLOT 3,栏位 3,词表(精确),1,WB_ProMainMenu,新增,
+590FF5B845A382F7AE8886BC81C5104F,SLOT 3,栏位 3,词表(精确),1,WB_SelectChapter_Manual_Save_v3,新增,
+FD16F4224A7B475A8F9F708B9360194B,SLOT 3,栏位 3,词表(精确),1,WB_SelectChapter,新增,
+40F11CDC4A4A984D1D11F3839AFF09B8,SLOT 4,栏位 4,词表(精确),1,WB_SelectChapter_Manual_Save_v3,新增,
+7F37B1E844EF3984D906C79E116EA39A,SLOT 4,栏位 4,词表(精确),1,WB_SelectChapter,新增,
+EBA903DD471B5EDB151C888025877139,SLOT 4,栏位 4,词表(精确),1,WB_ProMainMenu,新增,
+3075F1DF450B0661C74E0DA8806DEDF7,SLOT 5,栏位 5,词表(精确),1,WB_SelectChapter,新增,
+DB9C66CF452BB9A178FC358C70799833,SLOT 5,栏位 5,词表(精确),1,WB_ProMainMenu,新增,
+F2FDD0B6429AF99B2376219878364EEE,SLOT 5,栏位 5,词表(精确),1,WB_SelectChapter_Manual_Save_v3,新增,
+3895E12A4D05FF86191D59B45E043F9F,SLOT SELECTION,栏位选择,词表(精确),1,WB_T3_MainMenu,新增,
+1343CFF740548395ACEF0A8813AC8BD3,SOMETHING UPDATED,有内容已更新,词表(精确),1,WB_Noti-QuestObjectiveUpdated,新增,
+5B7FD0AB4B6763261FB10189EAA069D1,SOMETHING UPDATED,有内容已更新,词表(精确),1,WB_PopupMessage_Event,新增,
+EFC4857B4E505BB37A35EF8C3C660D6B,SOMETHING UPDATED,有内容已更新,词表(精确),1,WB_UpdateNotification,新增,
+79DA4B084BD67F36AE186887AA975591,SORCERY,法术,词表(精确),1,WB_WindowSwitcher,新增,
+2E7FB42F4EF9C55A8A322FB0309E8E64,SORCERY SCREEN,法术界面,词表(精确),1,WB_CheatMenu,新增,
+B729960F45FE316D181F37B792F8C281,STATISTICS,统计,词表(精确),1,WB_Stats_Full,新增,
+B45BFC1945FA17B050AC11A809969340,STORAGE CHEST,储物箱,词表(精确),1,WB_WindowSwitcher,新增,
+D7F5FC374C56CDCE29BA6FA5E1C89AFD,STORAGE CHEST,储物箱,词表(精确),1,WB_StorageInventory,新增,
+28B5C86A4834853AE657038F67866A50,SUPER RESOLUTION,超级分辨率,词表(精确),1,WB_Options_AdvancedVideo,新增,
+061527C844F75C5A1A33F2BC58BF1C7B,Save Game,保存游戏,词表(精确),1,WB_T3_PauseMenu,新增,
+3D639E164A1E741A973321A07DC52C60,Save Game Infomation,存档信息,词表(精确),1,WB_SelectChapter_Manual_Save_v3,新增,
+D0A681934B5B30B7C13D4EB00381541D,Save Game Infomation,存档信息,词表(精确),1,WB_SelectChapter,新增,
+08E336254583DF705FE912B9AE3A4B77,"Scales the damage taken, damage dealt and level of certain enemies",影响受到的伤害、造成的伤害以及特定敌人的等级,词表(精确),1,WB_T3_SettingsMenu,新增,
+F4CC91C3419D86D9C944D1B669181AE5,Screen Space,屏幕空间,词表(精确),1,WB_T3_SettingsMenu,新增,
+E82DCB2A4694AAA574891199FB5F735F,Second part if needed,第二部分（如需）,词表(精确),1,WB_T3_Tutorial,新增,
+8D49207C435C7992DCEDCA90C516E9C8,Select,选择,词表(精确),1,WB_KeybindingsSwitcher,新增,
+0D42CBC149B678BB0F672FA586D83CF6,Select,选择,词表(精确),1,WB_T3_NavInfo,新增,
+7926E6FA4C1B17D1DE896EB5231A02F0,Select,选择,词表(精确),1,WB_KeybindingsSwitcher,新增,
+CE9A816642F69C29529532A6975DAF62,Select Ability,选择技能,词表(精确),1,WB_KeybindingsSwitcher,新增,
+C6ECAC144D08797414A873AB8660AEF8,Select Cosmetic,选择外观,词表(精确),1,WB_KeybindingsSwitcher,新增,
+D7628431488A7437DA33E6BACD4926EF,Select Cosmetics,选择外观,词表(精确),1,WB_KeybindingsSwitcher,新增,
+FE69BDD241B7252466D730A8B6A7BFB4,Select Quest,选择任务,词表(精确),1,WB_KeybindingsSwitcher,新增,
+A68E1949424D76E7847DA78BCD64849D,Select Stat,选择属性,词表(精确),1,WB_KeybindingsSwitcher,新增,
+57F27FBB4C4630550FC1EE81B4846E9B,Select Sub-Form,选择子形态,词表(精确),1,WB_KeybindingsSwitcher,新增,
+0787783C4DFF809E67DF8BB148178763,Select Sub-Type,选择子类型,词表(精确),1,WB_KeybindingsSwitcher,新增,
+5AC2CE6C409FBC0B92D2F2A7577728BC,Sets a preset for standard graphics settings.,设置标准画质设置的预设。,词表(精确),1,WB_T3_SettingsMenu,新增,
+CFB5600142275A86160BA49918D34220,Sets how far objects are rendered in the world.,设置世界中物体的渲染距离。,词表(精确),1,WB_T3_SettingsMenu,新增,
+9496E8F041ADF54417831193D5E95D34,Sets the screen resolution for the game.,设置游戏的屏幕分辨率。,词表(精确),1,WB_T3_SettingsMenu,新增,
+B5B7BA094DD750E0B368129987C850C9,"Sets your initial Formless body type, you can change this later in the story when you unlock full Character Customization.",设置你最初的「无形者」体型。剧情推进、解锁完整角色定制后可随时更改。,词表(精确),1,WB_T3_NewGame,新增,
+0F8E6576418B5DF1D54095A6C6CAC838,Setting Description,设置说明,词表(精确),1,WB_Master_Toggler,新增,
+377B40E04CBA7C33944FEB9D98DF6FF1,Setting Description,设置说明,词表(精确),1,WB_Master_KeyMapper,新增,
+474DC1F747B1D52E7990CABA842A0043,Setting Description,设置说明,词表(精确),1,WB_Master_OptionSwitcher,新增,
+5CF4AB704972C08F8EAE1E861A59698A,Setting Description,设置说明,词表(精确),1,WB_T3_InfoHover,新增,
+5DD8FA084421E4F746F3979481E797E8,Setting Description,设置说明,词表(精确),1,WB_T3_ToolTipSettingInfo,新增,
+B236B1824BF34485D4DBE7831FC7506B,Setting Description,设置说明,词表(精确),1,WB_T3_StaticSettingInfo,新增,
+B2C6E676475B8FE7CA522693D6EB932F,Setting Description,设置说明,词表(精确),1,WB_Master_Slider,新增,
+6BB36FBD4D84C93F700B2AB47DB5F6A3,Settings,设置,词表(精确),1,WB_T3_MainMenu,新增,
+E20668A54A08B6C3498917BA0D62A6C3,Settings,设置,词表(精确),1,WB_T3_PauseMenu,新增,
+0726F3F24249DF27E9D82B9CD0F04764,Shade Sight,暗影视觉,词表(精确),1,WB_T3_SettingsMenu,新增,
+D81C264B40E39656E94CE582BCCC808B,Shading Quality,着色质量,词表(精确),1,WB_T3_SettingsMenu,新增,
+A27C971646CD82EDEAAB13A0C995A0C7,Shadow Quality,阴影质量,词表(精确),1,WB_T3_SettingsMenu,新增,
+68D3A65F452F517045A2CDADD1271135,Show Clothing Options,显示服装选项,词表(精确),1,WB_DSS2,新增,
+6A0DED144F6738803078949FE5A81F88,Show Clothing Options,显示服装选项,词表(精确),1,WB_v2DSS2,新增,
+9C76B9DF48F882914004F59C0BE5525B,Shrine of Ascension,升华神殿,词表(精确),1,WB_WorldMap,新增,
+96594A654CB87B04670BED84E8B384D2,Skip,跳过,词表(精确),1,WB_T3_NewGame,新增,
+DB425B284496E3110695479D348F2CA2,Smooths edges on objects and textures.,平滑物体与纹理的边缘。,词表(精确),1,WB_T3_SettingsMenu,新增,
+2F72661D482CF2D48F7BAFB1BAF69B9A,Sorceries Unlocked,已解锁法术,词表(精确),1,WB_Stats_Full,新增,
+AFABBC83459D30BDEF938EBF20070C55,Sorcery,法术,词表(精确),1,WB_T3_SettingsMenu,新增,
+76540C404D7D2CE26D786CA84144FF93,Sorcery Damage,法术伤害,词表(精确),1,WB_Stats_Full,新增,
+BD961A0948E8B53C39F16A938E229D29,Sound Effects Volume,音效音量,词表(精确),1,WB_T3_SettingsMenu,新增,
+AAAE3387426122FC1C6418AD026753D8,Sprint,冲刺,词表(精确),1,WB_T3_SettingsMenu,新增,
+0D4F7FE4400FD4E341E798B50E587300,Start Game,开始游戏,词表(精确),1,WB_T3_NewGame,新增,
+86D7FE5E4DC3243ECEF3BF8A6BAACE7A,Start with Lovense Running?,随游戏启动 Lovense？,词表(精确),1,WB_Options_Lovense,新增,
+A7FA65F74DA9782F93D7B2AD9DA94007,Startup with Lovense?,是否随游戏启动 Lovense？,词表(精确),1,WB_T3_Lovense,新增,
+D46AFC7F4CA740827A3E04A54DD13A52,Status,状态,词表(精确),2,WB_Options_Lovense; WB_T3_Lovense,新增,
+B0CE2FFB44B6B591697BF0BFB4B0E40A,Steam Stats,Steam 统计,词表(精确),1,WB_CheatMenu,新增,
+E6FF66B14CDD3EDB73484099C6995745,Sub Headline,副标题,词表(精确),1,WB_T3_SubHeadline,新增,
+16EDD1F640CCA7B4EC6D05A421256337,Suggested Level 3,建议等级 3,词表(精确),1,WB_QuestName,新增,
+A64FDD1F408D294B21DC04967057B20A,Summon Mount,召唤坐骑,词表(精确),1,WB_T3_SettingsMenu,新增,
+0C4493E249CE0145BFD7E78CCACC6239,Summons your mount.,召唤你的坐骑。,词表(精确),1,WB_T3_SettingsMenu,新增,
+1CA6D91C4D1B92B67271178FA129250B,Survival Expert,生存专家,词表(精确),1,WB_T3_SettingsMenu,新增,
+8536842745E88FB1F7116CA06C7A75EB,Survival Expert,生存专家,词表(精确),1,WB_Options_Gameplay,新增,
+BF6B34DA45BFE74B7D3CC1874F048BAF,Survival Expert,生存专家,词表(精确),1,WB_T3_NewGame,新增,
+01E2875C494FC5831846098763CCD986,Swap to Cosmetics,切换到外观,词表(精确),1,WB_KeybindingsSwitcher,新增,
+FCBEDDC64E34724BACAFB4883A7E0DFB,Swap to Cosmetics,切换到外观,词表(精确),1,WB_KeybindingsSwitcher,新增,
+F1199FFB4B3AC264143F9996EF9FC08D,Swap to Forms,切换到形态,词表(精确),1,WB_KeybindingsSwitcher,新增,
+1C7807854F5523FD49A764A767E6A6F5,Swap to Genitals,切换到生殖器,词表(精确),1,WB_KeybindingsSwitcher,新增,
+A75E317A4D516E0CD6540AA788A0E0CB,Synchronizes the frame rate with the monitor to prevent screen tearing.,将帧率与显示器同步，防止画面撕裂。,词表(精确),1,WB_T3_SettingsMenu,新增,
+2981342D455298E204C5B6A1833F1284,TAA,TAA,词表(精确),1,WB_T3_SettingsMenu,新增,
+8463EA9145319F1CFA21C195EF7820DA,"THANK YOU SIR, MY WORK HERE IS DONE",谢谢您，先生，我的工作完成了,词表(精确),1,WB_CheatMenu,新增,
+6152B4FB446E0117F06EFABEC15AE527,TRACK QUEST,追踪任务,词表(精确),1,WB_QuestScreen,新增,
+09CCFDBD4C9B71328D0CD6BEA8FB7F8D,TUTORIAL TITLE,教程标题,词表(精确),1,WB_T3_Tutorial,新增,
+F78AB25B43A93F25DDC24C9C2FFCCF37,Tal'Senet,塔尔·塞奈特,词表(精确),1,WB_QuestName,新增,
+D8D836974FF18CD453411088F6659A75,Target Lock On,锁定目标,词表(精确),1,WB_T3_SettingsMenu,新增,
+01675EAA4520AD3D486D818B3BBEBAA4,Task Text,任务文本,词表(精确),1,WB_Task,新增,
+76042B8A49F861AAD50D97923DA1C77C,Tattoo colour,纹身颜色,词表(精确),1,WB_CosmeticsWindow,新增,
+A7049DE14F422CFBF41B8FA8BFBCF29D,Test All,全部测试,词表(精确),2,WB_Options_Lovense; WB_T3_Lovense,新增,
+FDC6013E4DA7E3A4DF53E5B605DC5EFB,Text,文本,词表(精确),1,WB_T3_Tutorial,新增,
+1792C823461D8F757869E1B2AEA08206,Text,文本,词表(精确),1,WB_T3_Tutorial_DisplayBox,新增,
+2AF9855F43BB7CDCD5B432B6902021FD,Text,文本,词表(精确),1,WB_T3_NSM_Button,新增,
+537814414A14E61E57416E92F26D4F7D,Text,文本,词表(精确),1,WB_DemoTutNoti2_300x400,新增,
+67EB68B54E272A300F571780EA3A0734,Text,文本,词表(精确),1,WB_DemoTutNoti1_300x400,新增,
+8265306E48747581821F79B8A823E2F1,Text,文本,词表(精确),1,WB_T3_HintText,新增,
+B068592447073D53C62512A1770BDD54,Text,文本,词表(精确),1,WB_T3_Tutorial_DisplayBox,新增,
+CB562FCD4512E781D00969BA2793813D,Text,文本,词表(精确),1,WB_T3_NSM_Slot_Button,新增,
+CBD333E145269515B0501CACCA3B8EF2,Text,文本,词表(精确),1,WB_NSM_KeyInfoWithText_1,新增,
+DE58D857465090344168228F49A3929C,Text,文本,词表(精确),1,WB_NSM_KeyInfoWithText_1,新增,
+E141A23843B95A5BBEB769BE8E119CC7,Text,文本,词表(精确),1,WB_Master_SettingsCategoryButton,新增,
+CA1F8F4E4E40AFCB90F59684EE1DCAF2,Texture Quality,纹理质量,词表(精确),1,WB_T3_SettingsMenu,新增,
+429C35734B4FFE7BEA0196982AA4C343,The FPS Limit setting is disabled while V-Sync is active.,开启垂直同步时，帧率上限设置不可用。,词表(精确),1,WB_T3_SettingsMenu,新增,
+553148DF43384D14617EB29CC1F2F53B,The amount of Autosave slots stored before overwriting.,覆盖前保留的自动存档栏位数量。,词表(精确),1,WB_Options_Gameplay,新增,
+3F53DF564595192B3845B3BEAC503BCF,The amount of Quicksave slots stored before overwriting.,覆盖前保留的快速存档栏位数量。,词表(精确),1,WB_Options_Gameplay,新增,
+B3B4219041698DBE566206BEC5E023F6,This automatically hides the HUD when you are not in combat,非战斗状态下自动隐藏 HUD,词表(精确),1,WB_T3_SettingsMenu,新增,
+E9B405EA46463F367BB443A77207C147,This severed head of a Syphon Beetle makes both an impressive trophy and a makeshift shield.,这只虹吸甲虫的断头既是威风凛凛的战利品，也是应急的盾牌。,词表(精确),1,WB_ToolTipItemStats,新增,
+E7F5C1A7478232C87BD6D082EF4A6A3A,Times Impregnating,受孕次数,词表(精确),1,WB_Stats_Full,新增,
+C422445F4C2F79C0E907F9A861AD731E,Times Pregnant,受孕次数,词表(精确),1,WB_Stats_Full,新增,
+854A18B549862755995DE5894938C922,Title,标题,词表(精确),2,WB_Master_KeyMapper; WB_Master_Toggler,新增,
+8464B3EC4B21440CB32E47B0C7F8B658,Title,标题,词表(精确),1,WB_Master_OptionSwitcher,新增,
+B12B36E3417F550A1E05F0BF8C08FE1C,Title,标题,词表(精确),1,WB_T3_StaticSettingInfo,新增,
+F6098FAD41FB3D7928621E804565CFB1,Title,标题,词表(精确),1,WB_Master_Slider,新增,
+17E451F841A87AFA66CD20AF28480A29,To Light Attack use,轻攻击请按,词表(精确),1,WB_T3_Tutorial,新增,
+DACBA6C34C86B643058CD8973B37F13C,Toggle,开关,词表(精确),1,WB_T3_SettingsMenu,新增,
+C14D8D464B9CFC23B1CBA4B29B11FD18,Toggle Camera Controls,切换摄像机控制,词表(精确),1,WB_v2DSS2,新增,
+EDC10CF5478DA39D1A5458992FFC00A5,Toggle Camera Controls,切换摄像机控制,词表(精确),1,WB_DSS2,新增,
+A1FEEF6844EA91C2D286E6835CA1CFD7,Toggle HUD,切换 HUD,词表(精确),1,WB_v2DSS2,新增,
+ED881F824C0F71D5063D5BA3E5959D78,Toggle HUD,切换 HUD,词表(精确),1,WB_DSS2,新增,
+6EAEB4E14DA864D7ABBD319F7153B5F6,Toggle Map Legend,切换地图图例,词表(精确),1,WB_KeybindingsSwitcher,新增,
+2AC515914A5F10FF4DEAA1AEA6C9FC6D,Toggle Melee Weapon,切换近战武器,词表(精确),1,WB_T3_SettingsMenu,新增,
+5D987958492AF478B85C8EBD74509693,Toggle POV,切换视角,词表(精确),1,WB_v2DSS2,新增,
+A2EEAE1E458C2240F75EBCA2EBEE7067,Toggle POV,切换视角,词表(精确),1,WB_DSS2,新增,
+77DF5B35410CB9DABF583BB0391D4E11,Toggle Ranged Weapon,切换远程武器,词表(精确),1,WB_T3_SettingsMenu,新增,
+6E840D564F922FB8B280EA985A0DBD2D,Toggle Walk,切换行走,词表(精确),1,WB_T3_SettingsMenu,新增,
+97754305409285DBE03EB39FF74BC4CB,Toggle the visual effects of immersive camera shakes.,开关沉浸式镜头晃动的视觉效果。,词表(精确),1,WB_T3_SettingsMenu,新增,
+F6A953BA4382F2F0203AF58262DF2AD1,Toggles if Blood visual effects are displayed or not.,开关血液视觉效果是否显示。,词表(精确),1,WB_T3_SettingsMenu,新增,
+8456575148EB8F1CD2F2C9AD789925DE,Tool Tip Entry Text,提示条目文本,词表(精确),1,WB_TT_Entry,新增,
+BA68ECA649E23413A79147BC99A71CF8,Total Essence,精华总量,词表(精确),1,WB_Stats_Full,新增,
+B62C2B8F45CC51A72A3567BBEAFE3EDE,Total Gold,金币总量,词表(精确),1,WB_Stats_Full,新增,
+60AA71254820AD2E4F55D697E28B0A8E,Total Pure Essence,纯净精华总量,词表(精确),1,WB_Stats_Full,新增,
+9A0FE6684DA2D13DEF4A61949BC9E5F3,Town ,城镇,词表(精确),1,WB_WorldMap,新增,
+1F689E2F473D44101BEFDBACC44AF06A,Track Quest,追踪任务,词表(精确),1,WB_KeybindingsSwitcher,新增,
+19CAEA6F493A1BCD8CC42DA65A9680A2,Tracked Quest Objective,已追踪任务目标,词表(精确),1,WB_WorldMap,新增,
+2DB8C40F46BE6AAF962C81A85784F1F0,Turn Page Left,翻到上一页,词表(精确),1,WB_KeybindingsSwitcher,新增,
+48CC17504F1D0607C7644A92376343CD,Turn Page Right,翻到下一页,词表(精确),1,WB_KeybindingsSwitcher,新增,
+9943511340D50608C1545889BDD8ECC5,Tutorial Headline,教程标题,词表(精确),1,WB_DemoTutNoti1_300x400,新增,
+DCFB61764244190674A785A58446A6D2,Tutorial Headline,教程标题,词表(精确),1,WB_DemoTutNoti2_300x400,新增,
+09BD3B2D40A66994C75D3AAF8D8F3ABE,UI/GAMEPLAY,界面/玩法,词表(精确),1,WB_Options_Gameplay,新增,
+EA902E5E45B5DCA8A3AC53AB546EF9D7,UNLOCK FORM,解锁形态,词表(精确),1,WB_FormScreen,新增,
+A0DECAE74FBDB0523B2373A155BED4E8,UNLOCKED: AADI,已解锁：AADI,词表(精确),2,WB_Noti_Unlock; WB_PopupUnlocked,新增,
+C3487F794799600188394C95F970B45E,UPDATE TOY LIST,刷新玩具列表,词表(精确),1,WB_Options_Lovense,新增,
+4B9DA8B74B5181EAC1A4778BED793124,Unlimited,无限制,词表(精确),1,WB_Options_AdvancedVideo,新增,
+5A726650495E1C45621D1C90D53A0EFC,Unlimited,无限制,词表(精确),1,WB_T3_SettingsMenu,新增,
+62FBED484670066E298F93A816920B11,Unlock/Transform,解锁/变身,词表(精确),1,WB_KeybindingsSwitcher,新增,
+603B1C2442974252AB31D3A1D1530D05,Upscaling Method,超分方式,词表(精确),1,WB_T3_SettingsMenu,新增,
+040A7B154E65535170F00080B9E62F81,Upscaling Quality,超分质量,词表(精确),1,WB_T3_SettingsMenu,新增,
+851289F1484CC911E64571B52514C926,Upscaling Quality,超分质量,词表(精确),1,WB_T3_SettingsMenu,新增,
+9D8F68964DC1AC1717B6C8A3E9DB85D5,Upscaling Quality,超分质量,词表(精确),1,WB_T3_SettingsMenu,新增,
+BDEA1E5E47160AE1B42DB0AE60BEC29E,Upscaling Quality,超分质量,词表(精确),1,WB_T3_SettingsMenu,新增,
+9F9DB432430F8889FDCFFB8B516DACDE,Upscaling Sharpness,超分锐度,词表(精确),1,WB_T3_SettingsMenu,新增,
+7F41C8EF444E50F079AB17BF61AE9A47,Upscaling and Frame Generation,超分与帧生成,词表(精确),1,WB_T3_SettingsMenu,新增,
+55F6F81440E54A193F65A3AA88985E54,Use HTTPS (SSL Port),使用 HTTPS (SSL 端口),词表(精确),1,WB_T3_Lovense,新增,
+8DEB804841A06B19EEBEEB93524DAFC6,Use HTTPS (SSL port),使用 HTTPS (SSL 端口),词表(精确),1,WB_Options_Lovense,新增,
+298759EF471E361CC3C42093C06039F3,Use Input Device,使用输入设备,词表(精确),1,WB_T3_Lovense,新增,
+4C90C16C49B6D8556168D2AE1F4BC59A,Use Input Device?,使用输入设备？,词表(精确),1,WB_Options_Lovense,新增,
+5316E6C243BAA5E571CCB3B73EF32DBC,Use a secure HTTPS connection when communicating with the Lovense service.,与 Lovense 服务通信时使用安全的 HTTPS 连接。,词表(精确),1,WB_T3_Lovense,新增,
+1549C13D417AEB4C395BE88BFEE28956,Use the item in the selected quick slot.,使用所选快捷栏中的物品。,词表(精确),1,WB_T3_SettingsMenu,新增,
+6EDE23FD44DF0911CDBEEA9A886FAC21,Use the item in the selected quick slot.,使用所选快捷栏中的物品。,词表(精确),1,WB_T3_SettingsMenu,新增,
+FDFDF4264655DCC21BCECFA447BC9623,Use the item in the selected quick slot.,使用所选快捷栏中的物品。,词表(精确),1,WB_T3_SettingsMenu,新增,
+1AF4F8A944279116445C839F7EC90300,User Interface Volume,界面音量,词表(精确),1,WB_T3_SettingsMenu,新增,
+347D106449761CDAB189E194E3BB6F7D,"Uses advanced GPU technology to generate additional frames between rendered frames, increasing perceived smoothness and frame rate. May increase latency or introduce visual artifacts depending on hardware and settings. It is recommended to be used together with a Latency Reduction method.",利用先进的 GPU 技术在已渲染帧之间生成额外帧，提升流畅感与帧率。视硬件与设置不同，可能增加延迟或产生画面瑕疵。建议与延迟降低方案搭配使用。,词表(精确),1,WB_T3_SettingsMenu,新增,
+CC825BC447709CE4E75AEAA5BECA91B0,VENDOR INVENTORY,商人库存,词表(精确),1,WB_VendorInventory,新增,
+AC64F6D54BDBBAE1F0123D8C66FB675D,VIEW ON MAP,在地图上查看,词表(精确),1,WB_QuestScreen,新增,
+1EC401064A67DD7AEF106986856C3A5A,VISUALS,视觉效果,词表(精确),1,WB_T3_SettingsMenu,新增,
+A269CEE546F34D0BD3D746A1945BA130,VOLUMES,音量,词表(精确),1,WB_T3_SettingsMenu,新增,
+1A29C4B74F89E5FED3BD3381CFECFA6B,VSync,垂直同步,词表(精确),1,WB_T3_SettingsMenu,新增,
+580DF25147EBBAB34F585B8CE02F0C66,Version,版本,词表(精确),1,WB_ChapterText,新增,
+27A5040B46E93594EFC31C851375AE55,Video,画面,词表(精确),1,WB_T3_SettingsMenu,新增,
+802A049747AF4DB0466EF397E93EDC60,View Distance Quality,视距质量,词表(精确),1,WB_T3_SettingsMenu,新增,
+BD1BF8C54E0153DB5CBB81863C6A6D61,Village,村庄,词表(精确),1,WB_WorldMap,新增,
+3A6C08C0430B8FD89CC163A099124688,Voice Selection,语音选择,词表(精确),1,WB_T3_NewGame,新增,
+CB5C2AD24AB54046B7BC1887E831D13E,Voice Selection,语音选择,词表(精确),1,WB_T3_SettingsMenu,新增,
+D619F1A34BB5EC5DB09DDEAAD512EECF,WALK,行走,词表(精确),1,WB_CheatMenu,新增,
+021566CD424F79EB9CDDAE9CE65C402F,WARNING,警告,词表(精确),1,WB_QuestOOB,新增,
+94001F6840C7FCA314FFD286C05297E7,WORLD MAP,世界地图,词表(精确),1,WB_UpperUIBar,新增,
+136023564479312F66FF29846498C6F8,Weapons,武器,词表(精确),1,WB_CraftingList,新增,
+B29171D34F629BDE1D02F7AC8E28D37B,Weapons,武器,词表(精确),1,WB_QuestScreen,新增,
+5E7C61334FCA2252D6E59197501BF674,"When using DLSS, we highly recommend a Resolution Scale of 65-70%. And 100% when using DLAA.",使用 DLSS 时，强烈建议将分辨率缩放设为 65-70%；使用 DLAA 时设为 100%。,词表(精确),1,WB_Options_AdvancedVideo,新增,
+BD5FB8E84A26F400283AE8B822F0FFA1,Window Mode,窗口模式,词表(精确),1,WB_T3_SettingsMenu,新增,
+BCF12E0A4CE62B7E81B6D7AFCCA26E5C,Windowed,窗口化,词表(精确),1,WB_T3_SettingsMenu,新增,
+622712314EA3F8348ECFCF92958FE5F9,Windowed Fullscreen,窗口化全屏,词表(精确),1,WB_T3_SettingsMenu,新增,
+0901ACA841399EF86C81688BBBC5A468,YOU HAVE NO QUESTS,你没有任务,词表(精确),1,WB_QuestScreen,新增,
+CA6A3C994CA31EB2FCE33287A14B0712,Yes,是,词表(精确),1,WB_CosmeticsWindow,新增,
+50694BF94AE36766DC4F47AA9E7CC813,You can craft only near the Forge.,只能在熔炉附近制作。,词表(精确),1,WB_CraftingWindow,新增,
+C921DA24446BD584F44190A338B7792A,Zoom,缩放,词表(精确),1,WB_PhotoMode,新增,
+E75D2760440574057FC79684F69F68CF,Zoom,缩放,词表(精确),1,WB_v2DSS2,新增,
+E932E07B488D1E599A4374AF86E48AC1,Zoom,缩放,词表(精确),1,WB_KeybindingsSwitcher,新增,
+F20B888B4B51D0E96957939538437658,Zoom,缩放,词表(精确),1,WB_DSS2,新增,
+2EDE486145D415041D99AEACB8C5CB78,action,动作,词表(精确),1,WB_DemoTutNoti2_300x400,新增,
+730542514E9B164F2723CE95D586C0CB,action,动作,词表(精确),1,WB_DemoTutNoti1_300x400,新增,
+6349AC0B46093358C2273A835F0C5DD7,add 1 ability point,添加 1 点技能点,词表(精确),1,WB_CheatMenu,新增,
+705B5B4C45924FEBBA2A40BF243F7E29,add carnal xp,添加 CARNAL 经验,词表(精确),1,WB_CheatMenu,新增,
+FAA1A9804E4C99E78783BD9DE5B02112,add mana regen,添加法力回复,词表(精确),1,WB_CheatMenu,新增,
+5002E12C47820B93522D56BFBA805FCC,batch consumables,批量消耗品,词表(精确),1,WB_CheatMenu,新增,
+FC09006646D249971FB0E7BD6D7F2F9C,cosmetics,外观,词表(精确),1,WB_CheatMenu,新增,
+DAA73F2847C8A8F17790389684A569B7,enable knocking people up,启用使人受孕,词表(精确),1,WB_CheatMenu,新增,
+5F917FE7489DCB64DBC3D7ADBD285631,equip horse cock,装备马阳具,词表(精确),1,WB_CheatMenu,新增,
+6574E6A3411F81CFA5E044B9C19D981A,equip normal dong,装备普通阳具,词表(精确),1,WB_CheatMenu,新增,
+D1DAF0164F3361FA0F0D60A1010DBE14,form shrine,形态神殿,词表(精确),1,WB_CheatMenu,新增,
+95257CE8403AEA301D3EA4A8AC7C0F89,get pregnant,怀孕,词表(精确),1,WB_CheatMenu,新增,
+1275E92447586A149F40BD8FD2C67E65,horizontal box.,水平框。,词表(精确),1,WB_DemoTutNoti2_300x400,新增,
+31832B954FFDB12C640716922554F23A,horizontal box.,水平框。,词表(精确),1,WB_DemoTutNoti1_300x400,新增,
+4BD969C74A562EFB0568CC8AFE3EEC21,images,图像,词表(精确),1,WB_DemoTutNoti2_300x400,新增,
+DE84B8E64F317C6EC507089DC0B1A052,images,图像,词表(精确),1,WB_DemoTutNoti1_300x400,新增,
+E3C16963482FC75CF74F39B2B1EB825A,level presence stat,提升存在感属性,词表(精确),1,WB_CheatMenu,新增,
+08B92B7348C0422D8348C7A76F2C47C3,screenshot,截图,词表(精确),1,WB_CheatMenu,新增,
+70F4289B4AD501EDA1D2A6B5E8F8AE6C,stat memory,统计内存,词表(精确),1,WB_CheatMenu,新增,
+DA437CB14309DAE981E1F084AE987691,stat unit/fps,统计单元/帧率,词表(精确),1,WB_CheatMenu,新增,
+BE9959D741281BF997C0058FE6C3497C,test: DRAQHOK,测试：德拉霍克,词表(精确),1,WB_CheatMenu,新增,
+0FCE1C7149C8C24F86AF409A44F24620,test: fold,测试：褶皱,词表(精确),1,WB_CheatMenu,新增,
+9103223A4EA902BEE0DF7791E9FCE0A1,test: ikenna,测试：伊肯纳,词表(精确),1,WB_CheatMenu,新增,
+74171E9F4C8FA9BD03D3CBAF769F304A,test: no rest,测试：无需休息,词表(精确),1,WB_CheatMenu,新增,
+899F79DB4949E6CCDFDAD79B030251C9,text,文本,词表(精确),1,WB_DamageText,新增,
+09FFC08E438E9C1C0CD5D8A7422D5FD2,to do some,去做一些,词表(精确),1,WB_DemoTutNoti2_300x400,新增,
+97E250B24FF894142D7D35B5E08FCFD7,to do some,去做一些,词表(精确),1,WB_DemoTutNoti1_300x400,新增,
+667035714FB7DAB500A321A95952CC81,unlock all campfires,解锁所有篝火,词表(精确),1,WB_CheatMenu,新增,
+84A2D1464F9B8DA8298A6C91A2104A48,unreal trace: screenshot,虚幻追踪：截图,词表(精确),1,WB_CheatMenu,新增,
+6A0ACFBC47E813F4235BA784B3D3E03D,unreal trace: start,虚幻追踪：开始,词表(精确),1,WB_CheatMenu,新增,
+9ECD31EA46E09BBE54F394BB2CC6D7BC,unreal trace: stop,虚幻追踪：停止,词表(精确),1,WB_CheatMenu,新增,
+AF44AB504CA40A81AC7069831FD4135F,uses a per-line implementation of,按行实现,词表(精确),1,WB_DemoTutNoti2_300x400,新增,
+C2DA250F429E1065BA95DFA3CA8C670C,uses a per-line implementation of,按行实现,词表(精确),1,WB_DemoTutNoti1_300x400,新增,
+4F5B57CB4994AC08EAAAA9845544C09B,within a,在,词表(精确),1,WB_DemoTutNoti2_300x400,新增,
+C21002654571CE9689FDA3BB4C08E54A,within a,在,词表(精确),1,WB_DemoTutNoti1_300x400,新增,
+E51D97BD4DFEBACB904FB287B6021FDE,x2 Add Custom Waypoint,x2 添加自定义标记,词表(精确),1,WB_KeybindingsSwitcher,新增,
+E58232934FBFEBD67714CF8AB2DFF86C,Art Director Name #1,艺术总监姓名 #1,词表(精确),1,WB_SingleName,更新,覆盖原值 'Art Director Name #1'
