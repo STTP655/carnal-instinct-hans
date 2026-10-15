@@ -1,0 +1,3276 @@
+--[[ UI 汉化运行时替换 mod (v1)
+原理：
+  遍历所有 UMG TextBlock，把 Text 属性按映射表替换成中文。
+  纯运行时操作，不修改任何游戏文件；退出游戏即失效。
+已验证能力（见 UE4SS.log）：
+  - FindAllOf("TextBlock") 可枚举（实测 1869 条非空）
+  - FText 可构造（FText("中文") 实测成功）
+  - 可读 obj.Text:ToString()
+待验证：
+  - 是否可写 obj.Text = FText(...)
+
+说明：
+  - 只翻译真正的游戏 UI 文本；占位符/测试文本/制作人员名单保持原样
+  - 每 2 秒重扫一次，共 5 分钟，覆盖动态创建的界面
+]]
+
+local MOD = "[UIZh] "
+
+-- ============ 翻译映射表 ============
+local MAP = {
+    -- 画面设置
+    ["Anti Aliasing Method"] = "抗锯齿方式",
+    ["Anti Aliasing Quality"] = "抗锯齿质量",
+    ["Overall Graphics Quality"] = "整体画质",
+    ["Global Illumination"] = "全局光照",
+    ["Global Illumination Quality"] = "全局光照质量",
+    ["View Distance Quality"] = "视距质量",
+    ["Post Process Quality"] = "后处理质量",
+    ["Reflection Quality"] = "反射质量",
+    ["Shading Quality"] = "着色质量",
+    ["Texture Quality"] = "纹理质量",
+    ["Effects Quality"] = "特效质量",
+    ["Frame Generation Method"] = "帧生成方式",
+    ["DLSS Frame Generation Mode"] = "DLSS 帧生成模式",
+    ["Frame Generation"] = "帧生成",
+    ["Upscaling Method"] = "超分方式",
+    ["Upscaling Quality"] = "超分质量",
+    ["Upscaling Sharpness"] = "超分锐度",
+    ["Native AA (DLAA)"] = "原生抗锯齿 (DLAA)",
+    ["UPSCALING AND FRAME GENERATION"] = "超分与帧生成",
+    ["Field of View (FOV)"] = "视场角 (FOV)",
+    ["Windowed Fullscreen"] = "窗口化全屏",
+    ["Resolution locked in Windowed Fullscreen mode."] = "窗口化全屏模式下分辨率已锁定。",
+    ["Resolution will be adapted to fit the Windowed display area."] = "分辨率将自动适应窗口显示区域。",
+    ["Adjusts how the game window is displayed on your screen."] = "调整游戏窗口在屏幕上的显示方式。",
+    ["Enhances image clarity and edge detail. Higher values make the image look crisper but can introduce \"haloing\" or shimmering. Adjust this to find the best balance between a sharp look and a stable image."] =
+        "增强画面清晰度与边缘细节。数值越高画面越锐利，但可能出现光晕或闪烁。请调整至锐利与稳定之间的最佳平衡。",
+    ["The FPS Limit setting is disabled while V-Sync is active."] = "开启垂直同步时，帧率上限设置不可用。",
+    ["Depending on your hardware this may take a few minutes, please wait for the process to complete."] =
+        "根据硬件性能，此过程可能需要几分钟，请耐心等待完成。",
+    ["Performing Shader Compilation"] = "正在编译着色器",
+    ["Preloading Shaders"] = "正在预载着色器",
+    ["Color Blind Mode"] = "色盲模式",
+    ["Color Blindness Intensity"] = "色盲强度",
+    ["IMAGE CALIBRATION"] = "画面校准",
+    ["Toggle the visual effects of immersive camera shakes."] = "开关沉浸式镜头晃动的视觉效果。",
+    ["This automatically hides the HUD when you are not in combat"] = "非战斗状态下自动隐藏 HUD",
+
+    -- 音频
+    ["User Interface Volume"] = "界面音量",
+    ["Sound Effects Volume"] = "音效音量",
+    ["Dialogue Volume"] = "对话音量",
+    ["Ambient Volume"] = "环境音量",
+    ["Voice Selection"] = "语音选择",
+    ["Voice Acting and Additional Sounds from"] = "配音与附加音效：",
+    ["Additional Sounds From:"] = "附加音效：",
+    ["Additional Animation work From"] = "附加动画制作：",
+
+    -- 操作 / 按键
+    ["KEYBINDINGS  ◈  PLAYER"] = "按键绑定  ◈  玩家",
+    ["PLAYER SETTINGS"] = "玩家设置",
+    ["Keyboard / Mouse"] = "键盘 / 鼠标",
+    ["Controller Look"] = "手柄视角",
+    ["Controller Look Sensitivity"] = "手柄视角灵敏度",
+    ["Mouse Look Sensitivity"] = "鼠标视角灵敏度",
+    ["Invert Controller Look X"] = "反转手柄视角 X",
+    ["Invert Controller Look Y"] = "反转手柄视角 Y",
+    ["Invert Mouse Look X"] = "反转鼠标视角 X",
+    ["Invert Mouse Look Y"] = "反转鼠标视角 Y",
+    ["Move Character Up / Down"] = "角色上移 / 下移",
+    ["Rotate Player Preview"] = "旋转角色预览",
+    ["Use Input Device"] = "使用输入设备",
+    ["Radial Selection Method"] = "环形菜单选择方式",
+    ["Latency Reduction Method"] = "延迟降低方式",
+    ["Buy / Sell Item"] = "买卖物品",
+    ["Camera Zoom In"] = "镜头拉近",
+    ["Camera Zoom Out"] = "镜头拉远",
+    ["Change Categories"] = "切换分类",
+    ["Close Abilities"] = "关闭技能",
+    ["Close Abilities Window"] = "关闭技能窗口",
+    ["Close Character"] = "关闭角色",
+    ["Close Cosmetics"] = "关闭外观",
+    ["Close Genitals"] = "关闭生殖器",
+    ["Equip / Unequip Item"] = "装备 / 卸下物品",
+    ["Hide / Expand Tab"] = "隐藏 / 展开页签",
+    ["Increase/Decrease Stat"] = "增加/减少属性",
+    ["Item Comparison"] = "物品对比",
+    ["Open [Quests] to view progress"] = "打开 [任务] 查看进度",
+    ["Open the Radial Menu [TAB] to activate"] = "按 [TAB] 打开环形菜单",
+    ["Press [TAB] to release"] = "按 [TAB] 松手",
+    ["Quicksort Inventory"] = "整理背包",
+    ["Restore Defaults"] = "恢复默认",
+    ["HOLD RESET SELECTED"] = "长按重置所选",
+    ["Select Cosmetic"] = "选择外观",
+    ["Select Cosmetics"] = "选择外观",
+    ["Select Sub-Form"] = "选择子形态",
+    ["Select Sub-Type"] = "选择子类型",
+    ["Switch Autosave"] = "自动存档开关",
+    ["Switch Crafting Panel"] = "切换制作面板",
+    ["Switch Inventory Panel"] = "切换背包面板",
+    ["Swap to Cosmetics"] = "切换到外观",
+    ["Swap to Genitals"] = "切换到生殖器",
+    ["Toggle Map Legend"] = "切换地图图例",
+    ["Toggle Melee Weapon"] = "切换近战武器",
+    ["Toggle Ranged Weapon"] = "切换远程武器",
+    ["Turn Page Right"] = "翻到下一页",
+    ["Unequip Ability"] = "卸下技能",
+    ["Unlock / Select Form"] = "解锁 / 选择形态",
+    ["Unlock/Transform"] = "解锁/变身",
+    ["View Full Character"] = "查看完整角色",
+    ["Find Current Position"] = "定位当前位置",
+    ["x2 Add Custom Waypoint"] = "x2 添加自定义标记",
+    ["Custom Waypoint"] = "自定义标记",
+    ["To Light Attack use"] = "轻攻击请按",
+
+    -- 界面标签
+    ["Setting Description"] = "设置说明",
+    ["Descriptions Label"] = "说明标签",
+    ["Objectives Label"] = "目标标签",
+    ["Notification Text"] = "通知文本",
+    ["Tool Tip Entry Text"] = "提示条目文本",
+    ["KEYBINDING TEXT"] = "按键文本",
+    ["Tutorial Headline"] = "教程标题",
+    ["MULTI STATE OPTION TEXT"] = "多状态选项文本",
+    ["Game Designers"] = "游戏设计师",
+    ["THANK YOU FOR PLAYING"] = "感谢游玩",
+    ["With Special Thanks To:"] = "特别鸣谢：",
+    ["Associate Developers"] = "助理开发者",
+    ["Team Carnal Instinct"] = "Carnal Instinct 团队",
+
+    -- 存档 / 任务 / 通知
+    ["There is No Save Available."] = "没有可用的存档。",
+    ["Save Game Infomation"] = "存档信息",
+    ["Current Mission Name"] = "当前任务名称",
+    ["Quest Objectives"] = "任务目标",
+    ["Quest Objectives:"] = "任务目标：",
+    ["Quest Name Info"] = "任务名称信息",
+    ["Quest Objectives"] = "任务目标",
+    ["New Quest Available"] = "有新任务可接",
+    ["Quests Completed"] = "已完成任务",
+    ["MISSION NOTIFICATION"] = "任务通知",
+    ["PRIMARY NOTIFICATION"] = "主要通知",
+    ["Notification Text"] = "通知文本",
+    ["Do you want to abandon the quest?"] = "确定要放弃该任务吗？",
+    ["Are you sure to quit the game?"] = "确定要退出游戏吗？",
+    ["Are you sure you want to DESTROY?"] = "确定要销毁吗？",
+    ["Are you sure question?"] = "确认操作？",
+    ["New Item was added to your Inventory!"] = "背包中新增了一件物品！",
+    ["+999 Experience Points"] = "+999 经验值",
+    ["Points Available:"] = "可用点数：",
+    ["Ability Points Required"] = "所需技能点",
+    ["SOLARIS"] = "索拉里斯",
+
+    -- 属性 / 形态
+    ["Increases melee damage, critical damage, and armor"] = "提升近战伤害、暴击伤害与护甲",
+    ["Increases stamina and reduces attack stamina cost"] = "提升耐力并降低攻击耐力消耗",
+    ["Increases critical chance and pregnancy chance"] = "提升暴击率与受孕几率",
+    ["Increases ranged damage and attack speed"] = "提升远程伤害与攻击速度",
+    ["Increases sorcery power"] = "提升法术强度",
+    ["Increases health"] = "提升生命值",
+    ["Can affect interactions with other characters"] = "会影响与其他角色的互动",
+    ["Base Stats Increased"] = "基础属性提升",
+    ["Total Pure Essence"] = "纯净精华总量",
+    ["Times Impregnating"] = "受孕次数",
+    ["Forms Unlocked"] = "已解锁形态",
+    ["Sorceries Unlocked"] = "已解锁法术",
+    ["Points Available:"] = "可用点数：",
+    ["Gilded Fold Reputation"] = "镀金折笼声望",
+    ["FORM + HUMAN"] = "形态 + 人类",
+    ["FORMLESS & HUMAN"] = "无形者与人类",
+    ["SOMETHING UPDATED"] = "有内容已更新",
+    ["HERE IS WHAT UPDATED"] = "本次更新内容",
+    ["PRO MAIN MENU / UPDATE NOTES"] = "主菜单 / 更新说明",
+
+    -- 外观 / 颜色
+    ["ASHEN DRAKE HORNS"] = "灰烬龙角",
+    ["BODY HAIR COLOURS"] = "体毛颜色",
+    ["CANON EYE COLOURS"] = "原生瞳色",
+    ["CANON HAIR COLOURS"] = "原生发色",
+    ["CANON SKIN COLOURS"] = "原生肤色",
+    ["SHOW ALL COLOURS"] = "显示全部颜色",
+    ["DETECTED TOY LIST"] = "已检测玩具列表",
+    ["UPDATE TOY LIST"] = "刷新玩具列表",
+    ["Refresh Toy List"] = "刷新玩具列表",
+    ["LOVENSE SETTINGS"] = "Lovense 设置",
+    ["Lovense Enabled"] = "启用 Lovense",
+    ["Startup with Lovense?"] = "是否随游戏启动 Lovense？",
+    ["Device IP Override"] = "设备 IP 覆盖",
+    ["Device Port Override"] = "设备端口覆盖",
+    ["Use HTTPS (SSL Port)"] = "使用 HTTPS (SSL 端口)",
+
+    -- 物品 / 法术
+    ["Purchase Sorcery / Drag Sorcery into hotbar to use with the radial menu"] =
+        "购买法术后拖入快捷栏即可通过环形菜单使用",
+    ["Scroll of Teleportation"] = "传送卷轴",
+    ["Tome of the Ancients"] = "上古之书",
+    ["Crafting Ingrediants"] = "制作材料",
+    ["You can craft only near the Forge."] = "只能在熔炉附近制作。",
+    ["Locked. Requires FIreball - Rank 1"] = "未解锁。需要火球 - 等级 1",
+    ["Huntress' Blessing"] = "女猎手祝福",
+    ["Melee Weapon Damage"] = "近战武器伤害",
+    ["Range Weapon Damage"] = "远程武器伤害",
+    ["Consumable Slot 1"] = "消耗品栏 1",
+    ["Consumable Slot 2"] = "消耗品栏 2",
+    ["Consumable Slot 3"] = "消耗品栏 3",
+
+    -- 角色 / 世界
+    ["Player Location"] = "玩家位置",
+    ["Player Interaction:"] = "玩家交互：",
+    ["Active Profile:"] = "当前档案：",
+    ["Assigned Station:"] = "分配岗位：",
+    ["Station Time Remaining:"] = "岗位剩余时间：",
+    ["Task Time Remaining:"] = "任务剩余时间：",
+    ["RESTRICTED AREA"] = "限制区域",
+    ["Suggested Level 3"] = "建议等级 3",
+    ["Return to encounter area"] = "返回遭遇区域",
+    ["Damaris wants to sit on your face"] = "达玛丽斯想坐到你脸上",
+    ["Damaris liked that"] = "达玛丽斯喜欢这样",
+    ["MIRACLE OF LIFE"] = "生命奇迹",
+    ["Kethra's Chosen"] = "凯斯拉的选民",
+    ["Inquisitor of Bast & Ascended Anubites"] = "巴斯特审判官与升华阿努比斯",
+    ["PLAYER SETTINGS"] = "玩家设置",
+    ["FINDERS KEEPERS"] = "先到先得",
+    ["Finders Keepers"] = "先到先得",
+    ["More Infomation"] = "更多信息",
+    ["TALES OF THE VOID"] = "虚空传说",
+    ["HOME FROM HOME"] = "宾至如归",
+    ["YOU HAVE UNLOCKED"] = "你已解锁",
+
+    -- ===== 设置界面大标签 =====
+    ["VIDEO"] = "画面",
+    ["AUDIO"] = "音频",
+    ["SOUNDS"] = "音效",
+    ["CONTROLS"] = "操作",
+    ["GAMEPLAY"] = "玩法",
+    ["GRAPHICS"] = "画面",
+    ["DISPLAY"] = "显示",
+    ["RENDERING"] = "渲染",
+    ["VOLUMES"] = "音量",
+    ["VISUALS"] = "视觉效果",
+    ["ACCESSIBILITY"] = "无障碍",
+    ["UI/GAMEPLAY"] = "界面/玩法",
+    ["QUALITY PRESET"] = "画质预设",
+    ["SLOT SELECTION"] = "栏位选择",
+    ["NEW GAME SETUP"] = "新游戏设置",
+    ["GAME DETAILS"] = "游戏详情",
+    ["CHARACTER"] = "角色",
+    ["COSMETICS"] = "外观",
+    ["INVENTORY"] = "背包",
+    ["QUESTS"] = "任务",
+    ["SKINS"] = "皮肤",
+    ["FORMS"] = "形态",
+    ["SORCERY"] = "法术",
+    ["CRAFTING"] = "制作",
+    ["STATISTICS"] = "统计",
+    ["ATTRIBUTES"] = "属性",
+    ["MAP LEGEND"] = "地图图例",
+    ["WORLD MAP"] = "世界地图",
+    ["CAMERA"] = "镜头",
+    ["WARNING"] = "警告",
+    ["PATRONS"] = "赞助者",
+    ["Writers"] = "编剧",
+    ["ANIMATORS"] = "动画师",
+    ["GAME MODE NAME"] = "游戏模式名称",
+    ["GAME MODE TYPE"] = "游戏模式类型",
+    ["CREDITS"] = "制作名单",
+    ["Credits"] = "制作名单",
+    ["Settings"] = "设置",
+    ["INFO"] = "信息",
+
+    -- ===== 画面/音频设置项 =====
+    ["Shadow Quality"] = "阴影质量",
+    ["Motion Blur"] = "动态模糊",
+    ["Window Mode"] = "窗口模式",
+    ["Resolution"] = "分辨率",
+    ["FPS Limit"] = "帧率上限",
+    ["VSync"] = "垂直同步",
+    ["Gamma"] = "伽马",
+    ["Overall Volume"] = "总音量",
+    ["Music Volume"] = "音乐音量",
+    ["Difficulty"] = "难度",
+    ["Movement Shake"] = "移动晃动",
+    ["Blood Effects"] = "血液效果",
+    ["Immersive HUD"] = "沉浸式 HUD",
+    ["Reflections"] = "反射",
+    ["Lumen"] = "Lumen",
+    ["Quality"] = "质量",
+    ["High"] = "高",
+    ["Medium"] = "中",
+    ["Normal"] = "普通",
+    ["Platform"] = "平台",
+    ["Gamepad"] = "手柄",
+    ["Control"] = "控制",
+    ["NAVIGATE"] = "导航",
+    ["LOOK"] = "视角",
+    ["Block %"] = "格挡 %",
+
+    -- ===== 按钮 / 动作 =====
+    ["Continue"] = "继续",
+    ["New Game"] = "新游戏",
+    ["Load Game"] = "读取游戏",
+    ["Load Save"] = "读取存档",
+    ["Exit Game"] = "退出游戏",
+    ["CLOSE"] = "关闭",
+    ["Close"] = "关闭",
+    ["APPLY"] = "应用",
+    ["Apply"] = "应用",
+    ["RESET ALL"] = "全部重置",
+    ["Reset All"] = "全部重置",
+    ["Reset"] = "重置",
+    ["Reset Points"] = "重置点数",
+    ["Reset Position"] = "重置位置",
+    ["SetPosition"] = "设置位置",
+    ["DEFAULTS"] = "默认值",
+    ["Default"] = "默认",
+    ["Defauld"] = "默认",
+    ["SELECT"] = "选择",
+    ["Select"] = "选择",
+    ["Select Quest"] = "选择任务",
+    ["Select Ability"] = "选择技能",
+    ["Select Stat"] = "选择属性",
+    ["FINISH"] = "完成",
+    ["Skip"] = "跳过",
+    ["Back"] = "返回",
+    ["Take"] = "拿取",
+    ["Take All"] = "全部拿取",
+    ["Drop Item"] = "丢弃物品",
+    ["Craft Item"] = "制作物品",
+    ["CRAFT"] = "制作",
+    ["Delete Save"] = "删除存档",
+    ["Delete Slot"] = "删除栏位",
+    ["Sort by Type"] = "按类型排序",
+    ["SORT BY:"] = "排序方式：",
+    ["Quick Sorting"] = "快速整理",
+    ["Track Quest"] = "追踪任务",
+    ["Equip Ability"] = "装备技能",
+    ["Equip Torch"] = "装备火把",
+    ["Change Form"] = "切换形态",
+    ["Change Style"] = "切换样式",
+    ["UNLOCK FORM"] = "解锁形态",
+    ["Swap to Forms"] = "切换到形态",
+    ["Close Forms"] = "关闭形态",
+    ["Close Quests"] = "关闭任务",
+    ["Close Stats"] = "关闭属性",
+    ["Close Vendor"] = "关闭商人",
+    ["Close Map"] = "关闭地图",
+    ["Close Window"] = "关闭窗口",
+    ["Compare Item"] = "对比物品",
+    ["Target Lock On"] = "锁定目标",
+    ["Summon Mount"] = "召唤坐骑",
+    ["Summoning"] = "召唤",
+    ["Toggle Walk"] = "切换行走",
+    ["Sprint"] = "冲刺",
+    ["Crouch"] = "蹲下",
+    ["Climb"] = "攀爬",
+    ["Jump"] = "跳跃",
+    ["Interact"] = "交互",
+    ["Interaction"] = "交互",
+    ["Rotate"] = "旋转",
+    ["Move Map"] = "移动地图",
+    ["Drag Map"] = "拖动地图",
+    ["Zoom"] = "缩放",
+    ["Pan"] = "平移",
+    ["Turn Page Left"] = "翻到上一页",
+    ["Send Pattern"] = "发送图案",
+    ["Send Preset"] = "发送预设",
+    ["Send Commands"] = "发送指令",
+
+    -- ===== 存档 / 状态 =====
+    ["Playtime:"] = "游戏时长：",
+    ["Playtime"] = "游戏时长",
+    ["Last Save:"] = "最近存档：",
+    ["GAME SAVED"] = "游戏已保存",
+    ["Autosaving"] = "自动保存中",
+    ["Autosave"] = "自动保存",
+    ["Quicksave"] = "快速保存",
+    ["Version"] = "版本",
+    ["Status"] = "状态",
+    ["Countdown"] = "倒计时",
+    ["Every 10 min"] = "每 10 分钟",
+    ["Every 60 sec"] = "每 60 秒",
+    ["Every 3 min"] = "每 3 分钟",
+    ["Every 5 min"] = "每 5 分钟",
+    ["LOADING WORLD"] = "正在载入世界",
+    ["YOU DIED"] = "你死了",
+
+    -- ===== 游戏内容 / 世界 =====
+    ["MERCHANT"] = "商人",
+    ["Leave Merchant"] = "离开商人",
+    ["INQUISITION"] = "审判庭",
+    ["ANUBITES"] = "阿努比斯",
+    ["FORMLESS"] = "无形者",
+    ["Demigod"] = "半神",
+    ["DESTROY"] = "销毁",
+    ["INSERT ITEM"] = "放入物品",
+    ["EMPTY SLOT"] = "空栏位",
+    ["Empty"] = "空",
+    ["Empty..."] = "空...",
+    ["Gained:"] = "获得：",
+    ["LEVEL"] = "等级",
+    ["Rank 1"] = "等级 1",
+    ["Requires Level"] = "需要等级",
+    ["Experience"] = "经验",
+    ["Exp:"] = "经验：",
+    ["Pregnancy"] = "受孕",
+    ["Fertility"] = "生育力",
+    ["Armor"] = "护甲",
+    ["Weight"] = "重量",
+    ["Total Gold"] = "金币总量",
+    ["Total Value"] = "总价值",
+    ["Total Essence"] = "精华总量",
+    ["Presence"] = "存在感",
+    ["Protection"] = "防护",
+    ["Sporeburst"] = "孢子爆裂",
+    ["Air Crush"] = "空气碾压",
+    ["LION BLADE"] = "狮刃",
+    ["Shade Sight"] = "暗影视觉",
+    ["Clockmaker"] = "钟表匠",
+    ["Transgressor"] = "越界者",
+    ["Hunter"] = "猎人",
+    ["Spider Lord"] = "蜘蛛领主",
+    ["Void"] = "虚空",
+    ["Arcana"] = "奥秘",
+    ["Blood"] = "血液",
+    ["Fire"] = "火焰",
+    ["Cold"] = "冰霜",
+    ["Cloud"] = "云",
+    ["Grim"] = "阴暗",
+    ["Chest"] = "胸部",
+    ["Head"] = "头部",
+    ["Legs"] = "腿部",
+    ["Body Type"] = "体型",
+    ["Clothing"] = "服装",
+    ["Weapons"] = "武器",
+    ["Consumables"] = "消耗品",
+    ["Other Items"] = "其他物品",
+    ["Quest Items"] = "任务物品",
+    ["Key Items"] = "关键物品",
+
+    -- ===== 数据字段标签 =====
+    ["Item Name"] = "物品名称",
+    ["Item Category"] = "物品分类",
+    ["Category"] = "分类",
+    ["Description"] = "描述",
+    ["Desc"] = "描述",
+    ["Title"] = "标题",
+    ["Name"] = "名称",
+    ["Name 2"] = "名称 2",
+    ["Profile Name"] = "档案名称",
+    ["Role Name"] = "角色名称",
+    ["Role Name 2"] = "角色名称 2",
+    ["Quest Tab."] = "任务页签",
+    ["Quests Label"] = "任务标签",
+    ["QUEST NAME"] = "任务名称",
+    ["QUEST TYPE"] = "任务类型",
+    ["QUEST STARTED"] = "任务已开始",
+    ["New Quest Item"] = "新任务物品",
+    ["JOURNAL ENTRY:"] = "日志条目：",
+    ["LORE"] = "传说",
+    ["LORE TYPE"] = "传说类型",
+    ["MARKER NAME"] = "标记名称",
+    ["HEADLINE"] = "标题",
+    ["OPTION MISSING"] = "缺少选项",
+    ["Option Text"] = "选项文本",
+    ["Button"] = "按钮",
+    ["BUTTONTEXT"] = "按钮文本",
+    ["FieldText"] = "字段文本",
+    ["Text Block"] = "文本块",
+    ["Text"] = "文本",
+    ["SKILL TEXT"] = "技能文本",
+    ["Task Text"] = "任务文本",
+    ["StatName"] = "属性名称",
+    ["AbilityName"] = "技能名称",
+    ["Sub-Cat"] = "子分类",
+
+    -- ===== 通用词 =====
+    ["N/A"] = "不适用",
+    ["NONE"] = "无",
+    ["Off"] = "关",
+    ["On"] = "开",
+    ["Toggle"] = "开关",
+    ["Test All"] = "全部测试",
+    ["Move"] = "移动",
+    ["Press"] = "按下",
+    ["Start"] = "开始",
+    ["Stop"] = "停止",
+    ["End"] = "结束",
+    ["Help"] = "帮助",
+    ["Issue"] = "问题",
+    ["Focus"] = "聚焦",
+    ["State"] = "状态",
+    ["Index"] = "索引",
+    ["Date"] = "日期",
+    ["Time"] = "时间",
+    ["Key"] = "按键",
+    ["Tab"] = "页签",
+    ["Block"] = "格挡",
+    ["Profile"] = "档案",
+    ["Station"] = "岗位",
+    ["NPC Name"] = "NPC 名称",
+    ["Player Name"] = "玩家名称",
+
+    -- ===== 任务界面 =====
+    ["MAIN QUESTS"] = "主线任务",
+    ["SIDE QUESTS"] = "支线任务",
+    ["ROMANCE QUESTS"] = "恋爱任务",
+    ["QUEST LIST"] = "任务列表",
+    ["TRACK QUEST"] = "追踪任务",
+    ["VIEW ON MAP"] = "在地图上查看",
+    ["NEW QUEST AVAILABLE"] = "有新任务可接",
+    ["Tracked Quest Objective"] = "已追踪任务目标",
+    ["ADVANCED STATISTICS"] = "高级统计",
+    ["LOAD GAME"] = "读取游戏",
+    ["Exit to Desktop"] = "退出到桌面",
+    ["RESET POINTS"] = "重置点数",
+    ["Point of Intrest"] = "兴趣点",
+    ["STORAGE CHEST"] = "储物箱",
+    ["OPEN THE DOOR"] = "开门",
+    ["CHOOSE A SIDE"] = "选择阵营",
+    ["HUMAN FEMALE"] = "人类女性",
+    ["Area currently under development"] = "该区域仍在开发中",
+    ["CONTENT FILTERS (COMING SOON)"] = "内容过滤器（即将推出）",
+    ["Tattoo colour"] = "纹身颜色",
+    ["Readable text."] = "可读文本。",
+    ["Already read."] = "已读。",
+    ["LMB + RMB"] = "左键 + 右键",
+    ["+2 Item"] = "+2 物品",
+    ["Page 1 / 10"] = "第 1 / 10 页",
+    ["name of the item"] = "物品名称",
+    ["Dynamic"] = "动态",
+    ["TUTORIAL TITLE"] = "教程标题",
+    ["UNLOCKED: AADI"] = "已解锁：AADI",
+    ["Suggested Level 1"] = "建议等级 1",
+    ["Suggested Level 2"] = "建议等级 2",
+    ["Suggested Level 3"] = "建议等级 3",
+    ["Suggested Level 4"] = "建议等级 4",
+    ["Suggested Level 5"] = "建议等级 5",
+    ["Suggested Level 6"] = "建议等级 6",
+    ["Suggested Level 7"] = "建议等级 7",
+    ["Suggested Level 8"] = "建议等级 8",
+    ["Suggested Level 9"] = "建议等级 9",
+    ["Suggested Level 10"] = "建议等级 10",
+    ["Current POI"] = "当前兴趣点",
+    ["Current POI:"] = "当前兴趣点：",
+    ["Target POI"] = "目标兴趣点",
+    ["Target POI:"] = "目标兴趣点：",
+    ["Current Time:"] = "当前时间：",
+    ["Message:"] = "消息：",
+    ["State:"] = "状态：",
+    ["Interrupted: "] = "已中断：",
+    ["Task Index:"] = "任务索引：",
+    ["Animation:"] = "动画：",
+    ["NPC: "] = "NPC：",
+    [" | HP :"] = " | 生命值：",
+    [" / Timer: "] = " / 计时器：",
+    ["NPC Manager - Dialogue"] = "NPC 管理器 - 对话",
+    ["NPC Manager - Time of Day"] = "NPC 管理器 - 时刻",
+    ["Congratulations! "] = "恭喜！",
+    ["Make your decision"] = "做出你的决定",
+
+    -- ===== 任务名 / 游戏内容 =====
+    ["A Bump in the Path"] = "路上的坎坷",
+    ["A Call to Adventure"] = "冒险的召唤",
+    ["The Avarice of Birds"] = "飞鸟的贪婪",
+    ["The Price of Speed"] = "速度的代价",
+    ["THE PRODIGAL SON"] = "浪子回头",
+    ["THE QUALITY OF COPPER"] = "铜的品质",
+    ["TROUBLES AT IKENNI VILLA"] = "伊肯尼别墅的麻烦",
+    ["LIGHTNING & SHADOWS"] = "闪电与暗影",
+    ["SIN'S REWARD"] = "罪孽的报偿",
+    ["ROMANCE: DAMARIS"] = "恋爱：达玛丽斯",
+    ["EVENT: Kehm Farmstead"] = "事件：凯姆农庄",
+    ["Shrine of Ascension"] = "升华神殿",
+    ["Bull's Shield"] = "蛮牛之盾",
+    ["Kab'Alrah"] = "卡布·阿尔拉",
+    ["Kab'Siron"] = "卡布·西隆",
+    ["Tal'Senet"] = "塔尔·塞奈特",
+    ["Speak with Amhak"] = "与阿姆哈克交谈",
+    ["Catch up with Amhak over some drinks"] = "与阿姆哈克喝几杯叙叙旧",
+    ["Investigate Amhak's Camp for clues"] = "调查阿姆哈克的营地寻找线索",
+    ["Journey to the Temple of Pahnu"] = "前往帕赫努神殿",
+    ["Find Kab'Siron"] = "找到卡布·西隆",
+    ["Find and retrieve the lost sceptre"] = "找到并取回失落的权杖",
+    ["Find Damaris at the Taberna"] = "在酒馆找到达玛丽斯",
+    ["Meet Damaris outside"] = "在外面与达玛丽斯会面",
+    ["Talk to Damaris"] = "与达玛丽斯交谈",
+    ["I should speak with Damaris."] = "我应该和达玛丽斯谈谈。",
+    ["I should seek out Damaris at The Rampant Lioness."] = "我应该去「狂怒母狮」找达玛丽斯。",
+    ["I need to decide how to approach my relationship with Demaris."] = "我需要决定如何处理与达玛丽斯的关系。",
+    ["Damaris has asked me to join her for a walk outside."] = "达玛丽斯邀我到外面散步。",
+    ["After speaking to Amara at the Shrine of Ascension, to gain more power and change the world I need to obtain the essence of demigods. For the essence of Pahnu I need to travel to their temple in the desert."] =
+        "在升华神殿与阿玛拉交谈后，我得知要想获得更强大的力量、改变这个世界，就必须取得半神的精华。而要得到帕赫努的精华，我得前往他们在沙漠中的神殿。",
+    ["All of Amhak's notes relate to a Dungeon on Mehden Island called Kab'Siron, we should head there to look for any clues."] =
+        "阿姆哈克的所有笔记都指向梅登岛上名为卡布·西隆的地牢，我们应该去那里寻找线索。",
+    ["Amhak has been investigating clues relating to more Ritual Vessels, I should check with him and the Artefacts in his camp"] =
+        "阿姆哈克一直在调查更多仪式容器的线索，我应该去问他，并查看他营地里的器物。",
+    ["I've inspected Amhak's tomb findings and they all point to one location - Kab'Siron, I should speak to him about it."] =
+        "我已查看阿姆哈克的墓穴发现，它们都指向同一个地点——卡布·西隆，我应该和他谈谈。",
+    ["I've met up with Amhak outside the Taberna, I should find out if he has any clues relating to more Vessels."] =
+        "我在酒馆外与阿姆哈克会合了，应该问问他是否有更多容器的线索。",
+    ["The mysterious woman told me about the artifact she used to teleport herself to The Shrine of Ascension. Apparently a karrow bird flew off with it, but if I find it, I can keep it."] =
+        "那位神秘女子告诉我，她用一件器物把自己传送到了升华神殿。据说一只卡萝鸟把它叼走了，但如果我找到它，就可以留下。",
+
+    -- ===== 长文本（种族 / 法术说明）=====
+    ["The most numerous of the multiple feline species that can be found across Sabu, Felians are a humanoid cat-like race that shares many traits with the Carak people of the plains. Felians are primarily bipedal by nature, though some more primitive subspecies are known to run on all fours when hunting."] =
+        "费利安人是萨布各地众多猫科种族中数量最多的一支，外形似人而具猫的特征，与平原上的卡拉克人有诸多相似之处。他们天生以双足行走，但已知有一些更原始的亚种在狩猎时会四肢并用。",
+    ["Void is the most common mode through which sorcery is wielded. It was not always this way, but since the introduction of Kethra into the realm and the ensuing meddling by the Daughters of the Void, it has been so. "] =
+        "虚空是施展法术最常见的途径。起初并非如此，但自凯斯拉降临此界、虚空之女随之插手以来，便成了如今的模样。",
+    ["\"Beware the Cursed Ones, for their unmet lusts have seen Kethra's curse twist them into hungry, mindless monsters who, until their death, desire only to kill.\""] =
+        "“当心那些被诅咒者——未得满足的欲望让凯斯拉的诅咒将他们扭曲成饥渴而无知的怪物，至死只余杀意。”",
+    ["\"Sorcery has always been present in Sabu, but even amongst demi-gods, only a rare few have ever wielded it with authority.\""] =
+        "“法术始终存在于萨布，但即便在半神之中，也只有极少数人能真正驾驭它。”",
+    ["\"My name is Kethra, God Queen of Lust;"] = "“吾名凯斯拉，欲望之神后；",
+}
+
+-- ===== 批次2：地名 / 任务文本 / 长描述（原文自动取自游戏内存）=====
+local EXTRA = {
+    ["\"My name is Kethra, God Queen of Lust;"] = "“吾名凯斯拉，欲望之神后；",
+    ["\"None have yet to sight Kethra since her return, but her renewed presence has been harshly felt throughout Sabu nevertheless.\""] = "“自凯斯拉归来，尚无人见过她的身影，但她重现的气息已让整个萨布为之震动。”",
+    ["\"Yellow fruit is a staple in the Sabuthi diet. It's a wonder it hasn't been given a more proper name.\""] = "“黄色果实是萨布提人的主食。奇怪的是它至今没得到一个更体面的名字。”",
+    ["A BUMP IN THE PATH"] = "路上的坎坷",
+    ["A relatively rare subtype of Lesser Canid, Jackals are found with surprising frequency in positions of power and wealth throughout Sabu. Despite belonging to the same family as other Lesser Canids the Jackals are seen as a distinct people, primarily due to their physical likeness to the Demigod Anubis. A Jackal's keen hearing and extraordinary sense of smell make them naturally effective at detecting stealthy opponents, whilst their association with Anubis benefits their charisma and aids them in leading others. An obsession with maintaining the purity of the bloodline means that Jackals are particularly inbred and that no significant subtypes exist."] = "胡狼人是小型犬科中相当罕见的一支，却在萨布各地的权贵之中出人意料地常见。虽与其他小型犬科同源，胡狼人却被视为一个独特的族群，主要因为他们外形酷似半神阿努比斯。胡狼人听觉敏锐、嗅觉出众，天生擅长察觉潜行的对手；而与阿努比斯的渊源又增益了他们的魅力，有助于领导他人。对血统纯正的执念使他们近亲繁衍严重，因而没有明显的亚种分化。",
+    ["Adjusts midtone brightness without affecting contrast."] = "调整中间调亮度，不影响对比度。",
+    ["Adjusts the angle of vision for a wider or narrower view."] = "调整视野角度，以获得更宽或更窄的视野。",
+    ["An Anubite priestess named Amansi has asked me to look for Amhak, her 'dimwitted half-brother'. There must be someone around here who knows where he went..."] = "一位名叫阿曼西的阿努比斯女祭司让我去找阿姆哈克，她那“脑子不太灵光的弟弟”。这附近应该有人知道他去了哪儿……",
+    ["Applies blur effects when the camera or objects are in motion."] = "当镜头或物体移动时应用模糊效果。",
+    ["Caps the maximum frames per second."] = "限制每秒最大帧数。",
+    ["Cleanse Tal'Senet"] = "净化塔尔·塞奈特",
+    ["Dhrakoq port"] = "德拉科克港",
+    ["Find Kab'Sehet"] = "找到卡布·塞赫特",
+    ["Find the Aadi seller"] = "找到阿迪商人",
+    ["Free Onha from the Jar"] = "把翁哈从罐子里救出来",
+    ["Garden of Kebechet"] = "凯贝切特花园",
+    ["GATHERING POWER"] = "汇聚力量",
+    ["Get there fast"] = "尽快赶到",
+    ["I can hear some odd noises coming from a nearby pot, is someone stuck?"] = "我听到旁边的罐子里传出怪声，是有人被困住了吗？",
+    ["I should bring these notes back to the farmer, but what should I tell him?"] = "我应该把这些笔记带回去给农夫，可我该怎么跟他说？",
+    ["I spoke with Amhak's servant who told me Amhak went to explore some nearby ruins, a tomb called 'Kab'Sehet'. I should make my way there."] = "我和阿姆哈克的仆人谈过，他说阿姆哈克去探索附近的废墟了，一座叫“卡布·塞赫特”的墓穴。我该动身去那里。",
+    ["I've acquired an Aadi on trial from Hakor, if I pay him 1,000 gold, I can get the mount as my very own."] = "我从哈科尔那儿得到了一只在试用期的阿迪。只要付他 1,000 金币，这坐骑就归我了。",
+    ["I've been tasked to find a farmer's son and fieldhand who have a habit of sneaking off. They can't have gone too far."] = "我受托去寻找农夫的儿子和一个习惯偷溜出门的田工。他们应该还没走远。",
+    ["I've discovered a helpless but clearly aroused stranger trapped inside a pot, I should see what I can do to help, maybe I can get hold of some Fish Oil from a vendor.."] = "我发现一个无助却明显动情的陌生人被困在罐子里。我该想想怎么帮她，也许能从商人那里弄到些鱼油……",
+    ["I've found a camp not too far from the farmer's land, perhaps this is where they snuck off to. I should have a look around."] = "我在离农夫的土地不远处发现了一处营地，也许他们就是溜到这儿来了。我该四处看看。",
+    ["I've found a note from a stablemaster on Tal'Senet, he's gone to Medhen island, if I find them, I can buy my own Aadi."] = "我在塔尔·塞奈特找到一位马厩主留下的字条，他去了梅登岛。如果能找到他们，我就能买下自己的阿迪。",
+    ["I've found Amhak, but he's trapped. I should eliminate the enemies keeping him trapped."] = "我找到阿姆哈克了，但他被困住了。我该消灭困住他的敌人。",
+    ["I've found Hakor, I should see about acquiring my own steed."] = "我找到哈科尔了，该去设法弄一匹自己的坐骑。",
+    ["I've found Kab'Sehet. Amhak must be within. I should have a look around."] = "我找到卡布·塞赫特了。阿姆哈克一定在里面。我该四处看看。",
+    ["I've managed to find some Fish Oil, let's see if this can help get her lubed up and out of the pot."] = "我弄到了一些鱼油，看看能不能帮她润滑一下、从罐子里出来。",
+    ["I've successfully saved Amhak. I should check in on him back at the Anubite camp."] = "我成功救出了阿姆哈克。我该回阿努比斯营地看看他。",
+    ["Inquire about a Mount"] = "打听坐骑",
+    ["Investigate the Strange Cries"] = "调查奇怪的叫声",
+    ["It seems Amhak's other half-sister, Astari, would like a word with me."] = "看来阿姆哈克的另一个妹妹阿斯塔里想和我谈谈。",
+    ["It would seem the Anubites are causing Safiya great distress. I should look into it. Maybe I can negotiate a peace between them."] = "看来阿努比斯人给萨菲娅带来了很大困扰。我该去查一查，也许能在他们之间促成和解。",
+    ["Kab'Sehet"] = "卡布·塞赫特",
+    ["Make the island safe for habitation"] = "让岛屿变得适合居住",
+    ["Meet with Tabu"] = "与塔布会面",
+    ["Meet with the Anubites"] = "与阿努比斯人会面",
+    ["Nenu \"The Bard\""] = "内努“吟游诗人”",
+    ["Now Amhak wishes to speak with me. To offer thanks, no doubt. It sure feels good to be helpful."] = "现在阿姆哈克想和我谈谈，想必是要道谢。能帮上忙的感觉真好。",
+    ["Purchase an Aadi"] = "购买一只阿迪",
+    ["Return to Onha with the Lube"] = "带着润滑油回到翁哈那里",
+    ["Return to the Farmer"] = "回到农夫那里",
+    ["Safiya has accepted the deal to share her daughters. I should return to Tabu with the good news."] = "萨菲娅接受了分享她女儿们的交易。我该带着好消息回到塔布那里。",
+    ["Search for Amhak"] = "寻找阿姆哈克",
+    ["Search for Anhur and the Fieldhand"] = "寻找安胡尔和那个田工",
+    ["Search for survivors"] = "寻找幸存者",
+    ["Seed Swollen. Stamina reduced by 25."] = "种子膨胀。耐力降低 25。",
+    ["Seek out survivors"] = "寻找幸存者",
+    ["Sergeant Tabu has agreed to allow me to make a deal with Safiya. If I can convince her to share her adopted daughters with his soldiers, then he will make sure that the priestess will allow Safiya access to her pool."] = "塔布军士同意让我与萨菲娅做一笔交易。只要我能说服她把收养的女儿们分享给他的士兵，他就会确保女祭司允许萨菲娅使用她的水池。",
+    ["Shrine of Jedet"] = "杰德特神殿",
+    ["Speak to Amhak"] = "与阿姆哈克交谈",
+    ["Speak to Amhak at the Anubite camp"] = "在阿努比斯营地与阿姆哈克交谈",
+    ["Speak to Astari"] = "与阿斯塔里交谈",
+    ["Speak with Safiya"] = "与萨菲娅交谈",
+    ["THE AVARICE OF BIRDS"] = "飞鸟的贪婪",
+    ["The most numerous of the multiple feline species that can be found across Sabu, Felians are a humanoid cat-like race that shares many traits with the Carak people of the plains. Felians are primarily bipedal by nature, though some more primitive subspecies are known to run on all fours when hunting."] = "费利安人是萨布各地众多猫科种族中数量最多的一支，外形似人而具猫的特征，与平原上的卡拉克人有诸多相似之处。他们天生以双足行走，但已知一些更原始的亚种在狩猎时会四肢并用。",
+    ["THE PRICE OF SPEED"] = "速度的代价",
+    ["The Rampant Lioness"] = "狂怒母狮",
+    ["This severed head of a Syphon Beetle makes both an impressive trophy and a makeshift shield."] = "这只虹吸甲虫的断头既是威风凛凛的战利品，也是应急的盾牌。",
+    ["Town "] = "城镇",
+    ["Track Anhur's location"] = "追踪安胡尔的位置",
+    ["Void is the most common mode through which sorcery is wielded. It was not always this way, but since the introduction of Kethra into the realm and the ensuing meddling by the Daughters of the Void, it has been so. "] = "虚空是施展法术最常见的途径。起初并非如此，但自凯斯拉降临此界、虚空之女随之插手以来，便成了如今的模样。",
+    ["WOULD YOU?"] = "你愿意吗？",
+    ["You've received Hatha blessing"] = "你获得了哈莎的祝福",
+}
+for k, v in pairs(EXTRA) do MAP[k] = v end
+
+-- 长文本用前缀索引兜底：内存里的字符串可能有不可见差异（尾随空格等），
+-- 前缀匹配可覆盖这类情况。两侧都按字节切，比较基准一致。
+-- COMPACT：忽略空格/连字符/下划线/撇号后的索引，用于吸收 SORCERY vs Sorcery、
+--          Tal'Senet vs Tal-Senet 这类变体。**必须在启动时预建**，
+--          绝不能在查表时遍历（那会把每帧调用的 SetText hook 拖垮）。
+local function compact_key(x)
+    return (x:lower():gsub("[%s%-_']", ""))
+end
+
+local PREFIX = {}
+local LOWER = {}
+local COMPACT = {}
+for k, v in pairs(MAP) do
+    if #k >= 20 then
+        PREFIX[k:sub(1, 20)] = v
+    end
+    if not LOWER[k:lower()] then
+        LOWER[k:lower()] = v
+    end
+    local ck = compact_key(k)
+    if not COMPACT[ck] then
+        COMPACT[ck] = v
+    end
+end
+
+-- 查表：精确 -> 去尾空格 -> 去首尾空格 -> 长文本前缀
+local function lookup(s)
+    if not s then return nil end
+    local zh = MAP[s]
+    if zh then return zh end
+    local t = s:gsub("%s+$", "")
+    zh = MAP[t]
+    if zh then return zh end
+    t = t:gsub("^%s+", "")
+    zh = MAP[t]
+    if zh then return zh end
+    if #s >= 20 then
+        zh = PREFIX[s:sub(1, 20)]
+        if zh then return zh end
+    end
+    -- 大小写/标点变体兜底（SORCERY vs Sorcery 等），两级索引均为 O(1)
+    zh = LOWER[s:lower()]
+    if zh then return zh end
+    zh = COMPACT[compact_key(s)]
+    if zh then return zh end
+    return nil
+end
+
+-- ===== 批次3：任务目标 / 属性 / 剧情（原文自动取自游戏内存）=====
+local EXTRA3 = {
+    ["A CALL TO ADVENTURE"] = "冒险的召唤",
+    ["A mysterious woman asked me to meet her at The Shrine of Ascension. She made it sound like something of great importance that should be done quickly."] = "一位神秘女子要我去升华神殿见她。她说得似乎事关重大，应当尽快前去。",
+    ["Attack Stamina Cost"] = "攻击耐力消耗",
+    ["Clear Kehm Farmstead of enemies"] = "清除凯姆农庄的敌人",
+    ["Critical Damage Chance"] = "暴击几率",
+    ["Critical Damage Multiplier"] = "暴击伤害倍率",
+    ["Damaris has told me that Mehden island may have a blacksmith which can remove my mask, I should go there and find them."] = "达玛丽斯告诉我，梅登岛上也许有位铁匠能取下我的面具，我该去那里找他。",
+    ["Defeat the Felreq"] = "击败费尔雷克",
+    ["EVENT: KEHM FARMSTEAD"] = "事件：凯姆农庄",
+    ["Find Utnas at the temple"] = "在神殿找到乌特纳斯",
+    ["Follow the Villager to the Blacksmith"] = "跟着村民去铁匠那里",
+    ["I have landed on Mehden Island, I should look for this Blacksmith"] = "我已登上梅登岛，该去找那位铁匠了",
+    ["I have learned that I can use Sorcery, the kind of mystical abilites such as those of the Felreq, but I need to learn them at The Shrine of Ascension. Once I've learned, I should show the mysterious woman what I can do."] = "我得知自己能够使用法术——就像费尔雷克那种神秘能力，但必须去升华神殿学习。学会之后，我该向那位神秘女子展示我的本事。",
+    ["I've communed with the shrine. I should speak to the mysterious woman now."] = "我已与神殿沟通。现在该和那位神秘女子谈谈了。",
+    ["Kehm Farmstead is swarming with foes. I must defeat them."] = "凯姆农庄到处都是敌人。我必须击败他们。",
+    ["Learn and use a Sorcery"] = "学习并使用一个法术",
+    ["Meet Amara at The Shrine of Ascension"] = "在升华神殿与阿玛拉会面",
+    ["Save the Trapped Villager"] = "救出被困的村民",
+    ["Search for the Blacksmith"] = "寻找铁匠",
+    ["Talk to Amara"] = "与阿玛拉交谈",
+    ["The iconic mask and leather neckwear of an Anubite Warrior."] = "阿努比斯战士标志性的面具与皮革颈饰。",
+    ["Travel to Mehden Island"] = "前往梅登岛",
+}
+for k, v in pairs(EXTRA3) do MAP[k] = v end
+
+-- ===== 批次4：地名 / 界面标签 / 引言 =====
+local EXTRA4 = {
+    ["\"If you're looking for a nice way to relax at the end of an adventure, consider fishing.\""] = "“若想在冒险结束后好好放松，不妨试试钓鱼。”",
+    ["\"Kethra's curse is over a millennia old, and the need to fulfil desire to avoid certain death has shaped Sabuthi culture.\""] = "“凯斯拉的诅咒已延续千年有余。为免于横死而必须满足欲望，这一需求塑造了萨布提人，也塑造了他们的一切。”",
+    ["\"My name is Kethra, God Queen of Lust;"] = "“吾名凯斯拉，欲望之神后；",
+    ["A Road Paved with Good Intent"] = "善意铺就之路",
+    ["Anubite Forward Camp"] = "阿努比斯前哨营地",
+    ["FAST TRAVEL"] = "快速旅行",
+    ["Fast Travel - Travel to this location?"] = "快速旅行 - 要前往此地点吗？",
+    ["LAW AND ORDER"] = "法律与秩序",
+    ["LEVEL UP"] = "升级",
+    ["REST - EVENING"] = "休息 - 傍晚",
+    ["REST - MIDDAY"] = "休息 - 正午",
+    ["REST - MORNING"] = "休息 - 清晨",
+    ["REST - NIGHT"] = "休息 - 夜晚",
+    ["RITUAL OF THE FIFTH STEP"] = "第五步仪式",
+    ["Shipwright's Encampment"] = "造船匠营地",
+    ["Temple of Zulmun"] = "祖尔蒙神殿",
+    ["The Gilded Fold"] = "镀金折笼",
+    ["The Great Temple of Anubis"] = "阿努比斯大神殿",
+    ["Welcome to the Fold"] = "欢迎来到折笼",
+}
+for k, v in pairs(EXTRA4) do MAP[k] = v end
+
+-- ===== 批次5：法律声明 / 杂项标签 =====
+local EXTRA5 = {
+    ["\"optional\""] = "\"可选\"",
+    ["A Game By"] = "游戏制作",
+    ["Interrupted:"] = "已中断：",
+    ["/ Timer:"] = "/ 计时器：",
+    ["NPC:"] = "NPC：",
+    ["to open your inventory."] = "打开你的背包。",
+    ["Carnal Instinct uses Unreal® Engine."] = "Carnal Instinct 使用 Unreal® 引擎。",
+    ["Unreal® is a trademark or registered trademark of Epic Games, Inc. in the United States of America and elsewhere."] = "Unreal® 是 Epic Games, Inc. 在美国及其他地区的商标或注册商标。",
+    ["Unreal® Engine, Copyright 1998 – 2026, Epic Games, Inc. All rights reserved."] = "Unreal® 引擎，版权所有 1998 – 2026，Epic Games, Inc. 保留所有权利。",
+    ["Second part if needed"] = "第二部分（如需）",
+    ["Richard Gerald Pinkall-Pollei"] = "Richard Gerald Pinkall-Pollei",
+    ["Alluvian Est-Endrati"] = "Alluvian Est-Endrati",
+}
+for k, v in pairs(EXTRA5) do MAP[k] = v end
+
+-- ===== 批次6：物品描述 / 界面标签（来自自动落盘的 missing.txt）=====
+local EXTRA6 = {
+    ["\"Ritual vessels often contain the essence of a demi-god, trapped within by The Inquisition of Bast long ago.\""] = "“仪式容器中往往封存着半神的精华——很久以前被巴斯特审判庭囚禁其中。”",
+    ["Hot Local Singles"] = "本地热情单身者",
+    ["WHOSE WHO"] = "谁是谁",
+    ["Lost and Found"] = "失物招领",
+    ["YOU HAVE NO QUESTS"] = "你没有任务",
+    ["NO REST FOR THE WICKED"] = "恶人无宁日",
+    ["The Stonebound Tribunal"] = "石缚法庭",
+    ["Take this eye to a dungeon without a stone watcher to open the door for yourself."] = "把这颗眼球带到没有石守卫的地牢，门就会为你打开。",
+    ["This gritty powder was people once."] = "这撮粗糙的粉末，曾经是人。",
+    ["This idol to the demi-god Sobek is in surprisingly good condition. It's gemmed eyes glimmer with something peculiar. It would no doubt fetch a high price, if you were willing to part with it...."] = "这尊索贝克半神像保存得出奇完好。它镶宝的眼睛闪着某种异样的光。若你舍得放手，它无疑能卖个好价钱……",
+    ["A crude oil-soaked rag wrapped around a stout wooden handle, lights the way in dark places. Use the Radial Menu. Or Keyboard [Y] during gameplay to equip."] = "一块浸了油的粗布缠在结实的木柄上，能在黑暗中照明。用环形菜单装备，或在游戏中按键盘 [Y]。",
+    ["The richly-adorned, linen bra of an Anubite Warrior."] = "阿努比斯战士华丽的亚麻胸衣。",
+    ["QUEST ITEMS"] = "任务物品",
+    ["Serves as proof of your allegiance to the Anubites."] = "作为你效忠阿努比斯人的凭证。",
+    ["Can be read."] = "可阅读。",
+    ["Fresh, life-giving water from the Euphoris River, useful for potion crafting."] = "来自尤弗里斯河的鲜活生命之水，可用于调制药剂。",
+    ["The stinking, entrails of a wild beast. Make sure to wash your hands before you eat anything. Used in crafting."] = "野兽散发恶臭的内脏。吃东西前记得洗手。用于制作。",
+    ["Strong, lightweight, and no longer needed by their previous owner. Used in crafting."] = "结实、轻便，前主人已经用不上了。用于制作。",
+    ["An ornate shield featuring engravings said to depict the bright Sabuthi sunrise."] = "一面华丽的盾牌，上面的雕纹据说描绘着萨布提明亮的日出。",
+    ["Restores:"] = "恢复：",
+    ["A purer, rare batch of Osirup."] = "一批更纯净、稀有的奥西鲁普。",
+    ["Adds for Duration:"] = "持续时间内附加：",
+    ["Duration: 60 seconds"] = "持续时间：60 秒",
+    ["An elixir prized by those wishing to appear more beguiling. Or maybe it just makes your breath smell good."] = "一种备受追求魅力者推崇的药剂。又或者它只是让你的口气变清新。",
+    ["This slimy, stamina-boosting elixir glows softly within its bottle."] = "这瓶黏滑的耐力增益药剂在瓶中微微发光。",
+    ["A brutal edge that tears through flesh and bone, spilling blood with every strike."] = "锋利的凶刃，能撕裂血肉与骨骼，每一击都鲜血四溅。",
+    ["A common enough but comfortable garment."] = "一件寻常但舒适的衣物。",
+    ["This intricately wired collection of gilded beads is synonymous with members of the Jackal Cult. The design of the garment ensures that no erogenous zone is obsucred, enabling maximum access for the pleasurable rituals of the Anubites."] = "这串工艺繁复的镀金珠饰是胡狼教成员的标志。这种设计确保没有任何敏感部位被遮挡，便于阿努比斯人进行享乐仪式。",
+    ["These two metal straps form part of a high-status slave outfit. The built-in rings allow for the wearer to be pinned into all manner of poses."] = "这两条金属束带是高等奴隶装束的一部分。内置的环扣可将穿戴者固定成各种姿势。",
+    ["The richly-adorned, linen skirt of an Anubite Warrior."] = "阿努比斯战士华丽的亚麻短裙。",
+    ["An ancient helm handed down from one generation of Centaur to the next over centuries."] = "一顶古老的头盔，数百年来在半人马一族中世代相传。",
+    ["The loose fitting clothing of a Jackal Cult Priestess. Large cutouts allow access for \"rituals\"."] = "胡狼教女祭司的宽松衣袍。大幅镂空便于进行“仪式”。",
+    ["A common enough but comfortable garment. Worn by citizens and sopranos alike."] = "一件寻常但舒适的衣物。平民与歌唱家都穿它。",
+    ["This uncomfortable looking outfit indicates the wearer is a high-value slave of the Gilded Fold. The plates and straps bind tightly to the wearer without restricting movement."] = "这套看着就不舒服的装束表明穿戴者是镀金折笼的高价奴隶。甲片与束带紧贴身体，却不影响活动。",
+}
+for k, v in pairs(EXTRA6) do MAP[k] = v end
+
+-- ===== 批次7：UI 资产全集补齐（离线扒取）=====
+local EXTRA7 = {
+    ["Native AA acts as a premium Anti-Aliasing mode, rendering at full resolution to provide the sharpest image possible without shimmering. The quality presets render the game at lower internal resolutions and use AI to reconstruct the detail, significantly boosting your frame rate while maintaining high visual fidelity."] = "Native AA 是一种高级抗锯齿模式，以完整分辨率渲染，提供最锐利的画面且无闪烁。画质预设会以较低的内部渲染分辨率运行游戏，再用 AI 重建细节，在保持高画质的同时显著提升帧率。",
+    ["Uses advanced GPU technology to generate additional frames between rendered frames, increasing perceived smoothness and frame rate. May increase latency or introduce visual artifacts depending on hardware and settings. It is recommended to be used together with a Latency Reduction method."] = "利用先进的 GPU 技术在已渲染帧之间生成额外帧，提升流畅感与帧率。视硬件与设置不同，可能增加延迟或产生画面瑕疵。建议与延迟降低方案搭配使用。",
+    ["Controls how DLSS generates additional frames to improve smoothness and performance. Higher settings can increase motion fluidity but may affect responsiveness or visual stability depending on system performance."] = "控制 DLSS 如何生成额外帧以提升流畅度与性能。较高设置可增强动态流畅感，但可能影响响应速度或画面稳定性（视系统性能而定）。",
+    ["Sets your initial Formless body type, you can change this later in the story when you unlock full Character Customization."] = "设置你最初的「无形者」体型。剧情推进、解锁完整角色定制后可随时更改。",
+    ["For a perfectly timed defense, release your block just before an attack lands to parry and leave your enemy vulnerable."] = "在攻击命中的瞬间松开格挡即可完美防御，招架敌人并使其露出破绽。",
+    ["Disables Con-Non-Con scenes, if this is on you will still have dialog choices and lead-in to these scenarious"] = "禁用强制性场景。开启后，涉及这些场景的对话选项与前置情节仍会保留",
+    ["Approach objects and characters to interact with the world around you. When you're close enough, press:"] = "靠近物体或角色即可与周围世界互动。足够近时，按：",
+    ["Choose your voice and confirm to start the game. This can be changed at any time in the settings"] = "选择你的语音并确认开始游戏。随时可在设置中更改",
+    ["Defeated enemies leave behind Essence, which can be used to unlock powerful Forms and Sorceries."] = "被击败的敌人会留下精髓，可用于解锁强大的形态与法术。",
+    ["When using DLSS, we highly recommend a Resolution Scale of 65-70%. And 100% when using DLAA."] = "使用 DLSS 时，强烈建议将分辨率缩放设为 65-70%；使用 DLAA 时设为 100%。",
+    ["Be careful where you step. Broken pottery can make noise and risk alerting the Kravenrook."] = "注意脚下。破碎的陶器会发出声响，可能惊动克拉文洛克。",
+    ["Game Difficulty - this scales the damage taken, damage dealt and level of certain enemies"] = "游戏难度 — 影响受到的伤害、造成的伤害以及特定敌人的等级",
+    ["Brace yourself against incoming attacks by blocking at the right moment. Hold:"] = "在攻击到来时按对时机格挡以护住自己。按住：",
+    ["Determines the responsiveness of the joystick for controlling camera movement."] = "决定摇杆控制镜头移动的响应速度。",
+    ["Once locked on, your movement and attacks will stay focused on your target."] = "锁定后，你的移动与攻击将持续对准目标。",
+    ["Determines the responsiveness of the mouse for controlling camera movement."] = "决定鼠标控制镜头移动的响应速度。",
+    ["Use a secure HTTPS connection when communicating with the Lovense service."] = "与 Lovense 服务通信时使用安全的 HTTPS 连接。",
+    ["Use interaction to speak with characters, interact with objects and more."] = "用交互与角色交谈、与物体互动等。",
+    ["Allow a Lovense device to be used as an input device for game controls."] = "允许将 Lovense 设备用作游戏操作的输入设备。",
+    ["Synchronizes the frame rate with the monitor to prevent screen tearing."] = "将帧率与显示器同步，防止画面撕裂。",
+    ["Controls how light bounces and spreads between surfaces in the scene."] = "控制光线在场景表面之间反弹与扩散的方式。",
+    ["Lock onto an enemy to keep your focus on them during combat. Press:"] = "锁定敌人，在战斗中保持专注。按：",
+    ["Choose your starting form. This can be changed later in the story."] = "选择你的初始形态。剧情推进后可随时更改。",
+    ["You can interact with the Gilded Fold cage, to place Sehet inside."] = "你可以与镀金折笼互动，把 Sehet 放进去。",
+    ["Applies visual adjustments for different types of color blindness."] = "针对不同类型的色盲应用画面调整。",
+    ["Scales the damage taken, damage dealt and level of certain enemies"] = "影响受到的伤害、造成的伤害以及特定敌人的等级",
+    ["Adjusts the detail and accuracy of indirect lighting calculations."] = "调整间接光照计算的细节与精确度。",
+    ["Controls effects such as bloom, depth of field, and color grading."] = "控制泛光、景深与色彩分级等效果。",
+    ["When you have a ranged weapon equipped, you can access that with:"] = "装备远程武器后，可通过以下方式取用：",
+    ["Minimizes the delay between your input and the action on screen."] = "尽量缩短输入与屏幕动作之间的延迟。",
+    ["Automatically start the Lovense service when the game launches."] = "游戏启动时自动开启 Lovense 服务。",
+    ["Open, pick up, talk, mount, and use whatever you're looking at."] = "开门、拾取、交谈、骑乘，以及使用你正对着的任何东西。",
+    ["When your weapon is drawn, the Jump button becomes your Dodge."] = "拔出武器时，跳跃键会变为闪避。",
+    ["Holding Sprint while attacking will result in a heavy attack."] = "攻击时按住冲刺会打出重攻击。",
+    ["Fix the camera on the nearest enemy. Press again to release."] = "把镜头固定在最近的敌人身上。再按一次解除。",
+    ["Controls how reflective surfaces are rendered in the scene."] = "控制场景中反射表面的渲染方式。",
+    ["Always show static settings info - Mouse & Nice Navigation"] = "始终显示静态设置信息 - 鼠标与 Nice 导航",
+    ["Controls the quality of textures on objects and surfaces."] = "控制物体与表面纹理的质量。",
+    ["Difficulty will change the damage taken (CHANGE IN-GAME)"] = "难度会改变受到的伤害（需在游戏内更改）",
+    ["The amount of Quicksave slots stored before overwriting."] = "覆盖前保留的快速存档栏位数量。",
+    ["Open the quick-select wheel to swap items and abilities."] = "打开快速选择轮盘以切换物品与技能。",
+    ["The amount of Autosave slots stored before overwriting."] = "覆盖前保留的自动存档栏位数量。",
+    ["Always show static settings info - Only Nice Navigation"] = "始终显示静态设置信息 - 仅 Nice 导航",
+    ["Adjusts the precision and stability of edge smoothing."] = "调整边缘平滑的精确度与稳定性。",
+    ["Determines the quality of particle and visual effects."] = "决定粒子与视觉特效的质量。",
+    ["Toggles if Blood visual effects are displayed or not."] = "开关血液视觉效果是否显示。",
+    ["Open it or close sub pages and then close pause menu"] = "直接打开它，或关闭子页面后再关闭暂停菜单",
+    ["Adjusts the resolution and accuracy of reflections."] = "调整反射的分辨率与精确度。",
+    ["Select your equipped sorcery with the Radial Menu."] = "用环形菜单选择已装备的法术。",
+    ["Adjusts the volume of UI sounds and notifications."] = "调整界面音效与通知的音量。",
+    ["Ready your ranged weapon. Press again to sheathe."] = "准备远程武器。再按一次收起。",
+    ["Ready your melee weapon. Press again to sheathe."] = "准备近战武器。再按一次收起。",
+    ["Controls the strength of the color blind effect."] = "控制色盲效果的强度。",
+    ["Keep an eye out for any loot they may drop too!"] = "也要留意它们掉落的战利品！",
+    ["Sets how far objects are rendered in the world."] = "设置世界中物体的渲染距离。",
+    ["All Keys - Automatically adapt to Input Device"] = "所有按键 - 自动适应输入设备",
+    ["Immersive HUD mode automatically hides the UI"] = "沉浸式 HUD 模式会自动隐藏界面",
+    ["Decline if key is already used in other input"] = "若该键已被其他输入使用则拒绝",
+    ["Sets a preset for standard graphics settings."] = "设置标准画质设置的预设。",
+    ["Adjusts the resolution and detail of shadows."] = "调整阴影的分辨率与细节。",
+    ["Adjusts the master volume for all game audio."] = "调整所有游戏音频的总音量。",
+    ["Adjusts the volume of gameplay sound effects."] = "调整游戏音效的音量。",
+    ["Accepts joystick inputs for camera movement."] = "接受摇杆输入以移动镜头。",
+    ["Add all supported Latency Reduction methods"] = "添加所有支持的延迟降低方式",
+    ["Raise your guard to reduce incoming damage."] = "举盾格挡以减少受到的伤害。",
+    ["Adjusts the volume of environmental sounds."] = "调整环境音的音量。",
+    ["Clear other input key if already existing"] = "若已存在则清除其他输入的按键",
+    ["Pull the camera closer to your character."] = "把镜头拉近角色。",
+    ["Use the item in the selected quick slot."] = "使用所选快捷栏中的物品。",
+    ["Sets the screen resolution for the game."] = "设置游戏的屏幕分辨率。",
+    ["Automatically Mouse, Keyboard & Gamepad"] = "自动适应鼠标、键盘与手柄",
+    ["Do not always show static settings info"] = "不始终显示静态设置信息",
+    ["To perform a quick, light attack press:"] = "执行快速轻攻击请按：",
+    ["Determines the general shading quality."] = "决定整体着色质量。",
+    ["Visible for keyboard and gamepad input"] = "对键盘与手柄输入可见",
+    ["Apply Unapplied Changes Before Closing"] = "关闭前应用未生效的更改",
+    ["Cast the Sorcery in the selected slot."] = "施放所选栏位中的法术。",
+    ["Push the camera back for a wider view."] = "拉远镜头以获得更宽的视野。",
+    ["Smooths edges on objects and textures."] = "平滑物体与纹理的边缘。",
+    ["Adjusts the volume of spoken dialogue."] = "调整对话语音的音量。",
+    ["Reveal nearby loot and interactables."] = "显示附近的战利品与可交互物。",
+    ["Pulls out your torch for dark places."] = "取出火把，照亮黑暗之处。",
+    ["Reverses horizontal controller input."] = "反转手柄的水平输入。",
+    ["Allow same keys for different inputs"] = "允许不同输入使用相同按键",
+    ["On Specific Percent Value Increasing"] = "当特定百分比值增加时",
+    ["On Specific Percent Value Decreasing"] = "当特定百分比值减少时",
+    ["Read whats new in the latest patch."] = "查看最新补丁的内容。",
+    ["Add all supported upscaling methods"] = "添加所有支持的超分方式",
+    ["Only Keyboard (initially) & Gamepad"] = "仅键盘（初始）与手柄",
+    ["Only Gamepad (initially) & Keyboard"] = "仅手柄（初始）与键盘",
+    ["Close sub pages and then pause menu"] = "关闭子页面后再关闭暂停菜单",
+    ["Open your bag, equipment, and gear."] = "打开你的背包、装备与物品。",
+    ["Reverses vertical controller input."] = "反转手柄的垂直输入。",
+    ["Reverses horizontal mouse movement."] = "反转鼠标的水平移动。",
+    ["Auto adjusting visibility disabled"] = "自动调整可见性已禁用",
+    ["Open and directly close pause menu"] = "打开并直接关闭暂停菜单",
+    ["Default is Based on Form Selected"] = "默认取决于所选形态",
+    ["Reverses vertical mouse movement."] = "反转鼠标的垂直移动。",
+    ["Add all Frame Generation methods"] = "添加所有帧生成方式",
+    ["To access your Inventory, press:"] = "打开背包请按：",
+    ["Always On Specific Percent Value"] = "特定百分比值始终开启",
+    ["Click here to open our Patreon."] = "点击此处打开我们的 Patreon。",
+    ["Continue with your latest save."] = "继续最近一次存档。",
+    ["Add all supported DLSS SR modes"] = "添加所有支持的 DLSS SR 模式",
+    ["Add all supported XeSS SR modes"] = "添加所有支持的 XeSS SR 模式",
+    ["Add all supported DLSS FG modes"] = "添加所有支持的 DLSS FG 模式",
+    ["Moves the player by a joystick."] = "通过摇杆移动玩家。",
+    ["On Below Specific Percent Value"] = "低于特定百分比值时",
+    ["On Above Specific Percent Value"] = "高于特定百分比值时",
+    ["Enhanced Input System (ue5.1+)"] = "增强输入系统（UE5.1+）",
+    ["Only directly close pause menu"] = "仅直接关闭暂停菜单",
+    ["Moves the player to the right."] = "将玩家向右移动。",
+    ["Upscaling and Frame Generation"] = "超分与帧生成",
+    ["On Specific Percent Value Both"] = "特定百分比值两者皆触发",
+    ["Moves the player to the left."] = "将玩家向左移动。",
+    ["Futanari x Futanari Content"] = "扶她 x 扶她内容",
+    ["Start with Lovense Running?"] = "随游戏启动 Lovense？",
+    ["Moves the player backwards."] = "将玩家向后移动。",
+    ["Current and Target Progress"] = "当前与目标进度",
+    ["Manually load a save file."] = "手动读取存档。",
+    ["Moves the player forwards."] = "将玩家向前移动。",
+    ["NVIDIA REFLEX LOW LATENCY"] = "NVIDIA REFLEX 低延迟",
+    ["Futanari x Female Content"] = "扶她 x 女性内容",
+    ["Makes the character walk."] = "使角色行走。",
+    ["Controller Sensitivity X"] = "手柄灵敏度 X",
+    ["Controller Sensitivity Y"] = "手柄灵敏度 Y",
+    ["Vertical Synchronisation"] = "垂直同步",
+    ["Ready to add new Binding"] = "准备添加新绑定",
+    ["Makes the player crouch."] = "使玩家蹲下。",
+    ["Makes the player sprint."] = "使玩家冲刺。",
+    ["Futanari x Male Content"] = "扶她 x 男性内容",
+    ["Only Keyboard and Mouse"] = "仅键盘与鼠标",
+    ["Visible for mouse input"] = "对鼠标输入可见",
+    ["Only unapplied settings"] = "仅未生效的设置",
+    ["Visual Effects Quality"] = "视觉特效质量",
+    ["Makes the player jump."] = "使玩家跳跃。",
+    ["On Increasing Progress"] = "进度增加时",
+    ["On Decreasing Progress"] = "进度减少时",
+    ["On Percent Value Empty"] = "百分比值为空时",
+    ["Frame Rate Limitation"] = "帧率上限",
+    ["Male x Female Content"] = "男性 x 女性内容",
+    ["Anti-Aliasing Quality"] = "抗锯齿质量",
+    ["Progress Change Color"] = "进度变化颜色",
+    ["Complete Progress Bar"] = "完成进度条",
+    ["On Percent Value Full"] = "百分比值满时",
+    ["Use HTTPS (SSL port)"] = "使用 HTTPS (SSL 端口)",
+    ["Add all FSR SR modes"] = "添加所有 FSR SR 模式",
+    ["Add all TSR SR modes"] = "添加所有 TSR SR 模式",
+    ["Close only sub pages"] = "仅关闭子页面",
+    ["Only open pause menu"] = "仅打开暂停菜单",
+    ["Masculine (Override)"] = "男性化（覆盖）",
+    ["On Progress Changing"] = "进度变化时",
+    ["SUPPORT OUR PATREON"] = "支持我们的 PATREON",
+    ["Start your journey."] = "开始你的旅程。",
+    ["Mouse Sensitivity X"] = "鼠标灵敏度 X",
+    ["Mouse Sensitivity Y"] = "鼠标灵敏度 Y",
+    ["Male x Male Content"] = "男性 x 男性内容",
+    ["Hold Reset Selected"] = "长按重置所选",
+    ["Feminine (Override)"] = "女性化（覆盖）",
+    ["Summons your mount."] = "召唤你的坐骑。",
+    ["Lightning & Shadows"] = "闪电与暗影",
+    ["Sound Effect Looped"] = "循环音效",
+    ["Current Quest Name"] = "当前任务名称",
+    ["CREATE MANUAL SAVE"] = "创建手动存档",
+    ["RAY RECONSTRUCTION"] = "光线重建",
+    ["Hold me I'm scared"] = "抱紧我，我好怕",
+    ["Hold me I'm Scared"] = "抱紧我，我好怕",
+    ["Texture Punctiform"] = "纹理点状",
+    ["Kilometers (m, km)"] = "公里（m, km）",
+    ["Cinematic Speaker"] = "影院扬声器",
+    ["Use Input Device?"] = "使用输入设备？",
+    ["Cine Camera Actor"] = "电影摄像机",
+    ["Mastering Attacks"] = "精通攻击",
+    ["Gilded Fold Cages"] = "镀金折笼",
+    ["Switching Weapons"] = "切换武器",
+    ["Texture Stretched"] = "纹理拉伸",
+    ["Texture Particles"] = "纹理粒子",
+    ["PHOTOMODE [BETA]"] = "拍照模式 [BETA]",
+    ["SUPER RESOLUTION"] = "超级分辨率",
+    ["AUTO Recommended"] = "自动推荐",
+    ["FRAME GENERATION"] = "帧生成",
+    ["Resolution Scale"] = "分辨率缩放",
+    ["Old Input System"] = "旧输入系统",
+    ["Manage Your Gear"] = "管理装备",
+    ["Lovense Settings"] = "Lovense 设置",
+    ["Current Progress"] = "当前进度",
+    ["SLOT 1 [ACTIVE]"] = "栏位 1 [使用中]",
+    ["Ambience Volume"] = "环境音音量",
+    ["Desktop Speaker"] = "桌面扬声器",
+    ["Survival Expert"] = "生存专家",
+    ["Quicksave Slots"] = "快速存档栏位",
+    ["Foliage Quality"] = "植被质量",
+    ["Overall Quality"] = "整体质量",
+    ["Use no template"] = "不使用模板",
+    ["Target Progress"] = "目标进度",
+    ["LOVENSE (BETA)"] = "LOVENSE (BETA)",
+    ["ADVANCED VIDEO"] = "高级画面",
+    ["GAME MODE HEAD"] = "游戏模式标题",
+    ["Depth of Field"] = "景深",
+    ["QUALITY + DLAA"] = "画质 + DLAA",
+    ["APPLY SETTINGS"] = "应用设置",
+    ["Output Profile"] = "输出配置",
+    ["Autosave Slots"] = "自动存档栏位",
+    ["Just the Story"] = "纯剧情",
+    ["\"CNC\" Roleplay"] = "「CNC」角色扮演",
+    ["Rest & Recover"] = "休息与恢复",
+    ["Example Button"] = "示例按钮",
+    ["Quality Preset"] = "画质预设",
+    ["Miles (ya, mi)"] = "英里（ya, mi）",
+    ["CHAPTER TITLE"] = "章节标题",
+    ["NVIDIA DLSS 4"] = "NVIDIA DLSS 4",
+    ["Master Volume"] = "主音量",
+    ["Only Keyboard"] = "仅键盘",
+    ["Tread Lightly"] = "轻步前行",
+    ["Unleash Magic"] = "释放魔法",
+    ["Preview Voice"] = "试听语音",
+    ["Move Backward"] = "向后移动",
+    ["XY Multiplier"] = "XY 倍率",
+    ["Delete Save?"] = "删除存档？",
+    ["Selected Key"] = "所选按键",
+    ["Key Bindings"] = "按键绑定",
+    ["Player Voice"] = "玩家语音",
+    ["Female Voice"] = "女声",
+    ["Close Widget"] = "关闭控件",
+    ["KEY BINDINGS"] = "按键绑定",
+    ["Only Gamepad"] = "仅手柄",
+    ["All settings"] = "所有设置",
+    ["Game Details"] = "游戏详情",
+    ["Example Page"] = "示例页面",
+    ["Light Attack"] = "轻攻击",
+    ["Move Forward"] = "向前移动",
+    ["Quality DLSS"] = "画质 DLSS",
+    ["Quality XeSS"] = "画质 XeSS",
+    ["Screen Space"] = "屏幕空间",
+    ["Sub Headline"] = "副标题",
+    ["Sound Effect"] = "音效",
+    ["MANUAL SAVE"] = "手动存档",
+    ["SAVE & QUIT"] = "保存并退出",
+    ["WHAT'S NEW?"] = "有什么新内容？",
+    ["Input Event"] = "输入事件",
+    ["BUTTON TEXT"] = "按钮文本",
+    ["DELETE SAVE"] = "删除存档",
+    ["DELETE SLOT"] = "删除栏位",
+    ["NVIDIA DLSS"] = "NVIDIA DLSS",
+    ["Coming Soon"] = "即将推出",
+    ["Use Pocket1"] = "使用口袋 1",
+    ["Use Pocket2"] = "使用口袋 2",
+    ["Use Pocket3"] = "使用口袋 3",
+    ["Radial Menu"] = "环形菜单",
+    ["Use Ability"] = "使用技能",
+    ["Quality FSR"] = "画质 FSR",
+    ["Quality TSR"] = "画质 TSR",
+    ["No Feedback"] = "无反馈",
+    ["Just Remove"] = "仅移除",
+    ["FRAME WARP"] = "帧扭曲",
+    ["Male Voice"] = "男声",
+    ["Toggle HUD"] = "切换 HUD",
+    ["Only Mouse"] = "仅鼠标",
+    ["Start Game"] = "开始游戏",
+    ["Move Right"] = "向右移动",
+    ["Key Right"] = "按键 Right",
+    ["Heat Haze"] = "热浪",
+    ["World Map"] = "世界地图",
+    ["Reach Out"] = "伸手",
+    ["Main Menu"] = "主菜单",
+    ["Save Game"] = "保存游戏",
+    ["Move Left"] = "向左移动",
+    ["Key Left"] = "按键 Left",
+    ["NEW GAME"] = "新游戏",
+    ["Lock On"] = "锁定",
+    ["Go Back"] = "返回",
+    ["SLOT 1"] = "栏位 1",
+    ["SLOT 2"] = "栏位 2",
+    ["SLOT 3"] = "栏位 3",
+    ["SLOT 4"] = "栏位 4",
+    ["SLOT 5"] = "栏位 5",
+}
+for k, v in pairs(EXTRA7) do MAP[k] = v end
+
+-- ===== 批次8：截图漏译项 + 常见属性/地名预判 =====
+local EXTRA8 = {
+    ["SUPPLY CAMP"] = "补给营地",
+    ["ANUBITE TEMPLE"] = "阿努比斯神殿",
+    ["WASED-HEQ"] = "瓦塞德赫克",
+    ["MEHDEN ISLAND"] = "梅登岛",
+    ["THE WESTLANDS"] = "西部荒野",
+    ["Shrine of Fertility"] = "生育神殿",
+    ["Shrine of Virility"] = "雄风神殿",
+    ["Main Quests"] = "主线任务",
+    ["TRACKED"] = "已追踪",
+    ["Tracked"] = "已追踪",
+    ["Health"] = "生命值",
+    ["Stamina"] = "耐力",
+    ["Sorcery Damage"] = "法术伤害",
+    ["Fertility"] = "生育力",
+    ["Virility"] = "雄风",
+    ["Crit Chance"] = "暴击率",
+    ["Crit Damage"] = "暴击伤害",
+    ["Bleed Chance"] = "流血几率",
+    ["Bleed Damage"] = "流血伤害",
+    ["Poison Chance"] = "中毒几率",
+    ["Poison Damage"] = "中毒伤害",
+    ["Armour"] = "护甲",
+    ["Bleed Resistance"] = "流血抗性",
+    ["Poison Resistance"] = "中毒抗性",
+    ["Times Pregnant"] = "受孕次数",
+    ["Enabled"] = "已启用",
+    ["Disabled"] = "已禁用",
+    ["Neutral"] = "中立",
+    ["Health Regeneration"] = "生命回复",
+    ["Stamina Regeneration"] = "耐力回复",
+    ["Attack Speed"] = "攻击速度",
+    ["Movement Speed"] = "移动速度",
+    ["Magic Damage"] = "魔法伤害",
+    ["Physical Damage"] = "物理伤害",
+    ["Fire Damage"] = "火焰伤害",
+    ["Critical Chance"] = "暴击几率",
+    ["Critical Damage"] = "暴击伤害",
+    ["Damage Reduction"] = "伤害减免",
+    ["Resistance"] = "抗性",
+    ["Defense"] = "防御",
+    ["Damage"] = "伤害",
+    ["Chance"] = "几率",
+    ["Cooldown"] = "冷却",
+    ["Cost"] = "消耗",
+    ["Requires"] = "需要",
+    ["Duration"] = "持续时间",
+    ["Range"] = "范围",
+    ["Radius"] = "半径",
+    ["Power"] = "威力",
+    ["Speed"] = "速度",
+    ["Level"] = "等级",
+    ["Experience"] = "经验",
+    ["Gold"] = "金币",
+    ["Essence"] = "精髓",
+    ["Value"] = "价值",
+    ["Rarity"] = "稀有度",
+    ["Quantity"] = "数量",
+    ["Amount"] = "数量",
+    ["Yes"] = "是",
+    ["No"] = "否",
+    ["True"] = "是",
+    ["False"] = "否",
+    ["All"] = "全部",
+    ["Total"] = "总计",
+    ["Current"] = "当前",
+    ["Maximum"] = "最大",
+    ["Minimum"] = "最小",
+    ["Average"] = "平均",
+    ["Unknown"] = "未知",
+    ["Locked"] = "未解锁",
+    ["Unlocked"] = "已解锁",
+    ["Equipped"] = "已装备",
+    ["Selected"] = "已选择",
+    ["Available"] = "可用",
+    ["Unavailable"] = "不可用",
+    ["Completed"] = "已完成",
+    ["In Progress"] = "进行中",
+    ["Failed"] = "失败",
+    ["Success"] = "成功",
+    ["Camp"] = "营地",
+    ["Temple"] = "神殿",
+    ["Shrine"] = "神殿",
+    ["Ruins"] = "废墟",
+    ["Cave"] = "洞穴",
+    ["Village"] = "村庄",
+    ["City"] = "城市",
+    ["Port"] = "港口",
+    ["Island"] = "岛屿",
+    ["Forest"] = "森林",
+    ["Desert"] = "沙漠",
+    ["Mountain"] = "山脉",
+    ["River"] = "河流",
+    ["Lake"] = "湖泊",
+    ["Oasis"] = "绿洲",
+    ["Dungeon"] = "地牢",
+    ["Outpost"] = "前哨",
+    ["Settlement"] = "聚落",
+    ["Encampment"] = "营地",
+    ["Farmstead"] = "农庄",
+    ["Villa"] = "别墅",
+    ["Tower"] = "高塔",
+    ["Gate"] = "大门",
+    ["Bridge"] = "桥梁",
+    ["Market"] = "市场",
+    ["Tavern"] = "酒馆",
+    ["Blacksmith"] = "铁匠铺",
+    ["Forge"] = "熔炉",
+    ["Altar"] = "祭坛",
+    ["Statue"] = "雕像",
+    ["Pyramid"] = "金字塔",
+    ["Tomb"] = "墓穴",
+    ["Crypt"] = "地窖",
+    ["Sanctum"] = "圣所",
+    ["Sanctuary"] = "圣殿",
+    ["Citadel"] = "要塞",
+    ["Fortress"] = "堡垒",
+    ["Palace"] = "宫殿",
+    ["Barracks"] = "营房",
+    ["Prison"] = "监狱",
+    ["Arena"] = "竞技场",
+    ["Theater"] = "剧场",
+    ["Bazaar"] = "集市",
+    ["Harbor"] = "港口",
+    ["Dock"] = "码头",
+    ["Mine"] = "矿场",
+    ["Quarry"] = "采石场",
+    ["Plantation"] = "种植园",
+    ["Estate"] = "庄园",
+    ["Manor"] = "庄园",
+    ["Lodge"] = "小屋",
+    ["Hut"] = "茅屋",
+    ["Tent"] = "帐篷",
+    ["Shelter"] = "避难所",
+    ["Refuge"] = "庇护所",
+    ["Hideout"] = "藏身处",
+    ["Lair"] = "巢穴",
+    ["Den"] = "兽穴",
+    ["Nest"] = "巢",
+    ["Nexus"] = "枢纽",
+    ["Portal"] = "传送门",
+    ["Waypoint"] = "传送点",
+    ["Landmark"] = "地标",
+    ["Region"] = "区域",
+    ["Zone"] = "地带",
+    ["Area"] = "区域",
+    ["District"] = "街区",
+    ["Territory"] = "领地",
+    ["Border"] = "边界",
+    ["Coast"] = "海岸",
+    ["Beach"] = "海滩",
+    ["Valley"] = "山谷",
+    ["Canyon"] = "峡谷",
+    ["Cliff"] = "悬崖",
+    ["Plateau"] = "高原",
+    ["Swamp"] = "沼泽",
+    ["Jungle"] = "丛林",
+    ["Grove"] = "树林",
+    ["Meadow"] = "草地",
+    ["Field"] = "田野",
+    ["Farm"] = "农场",
+    ["Ranch"] = "牧场",
+    ["Pasture"] = "牧场",
+    ["Well"] = "水井",
+    ["Spring"] = "泉眼",
+    ["Waterfall"] = "瀑布",
+    ["Delta"] = "三角洲",
+}
+for k, v in pairs(EXTRA8) do MAP[k] = v end
+
+-- ===== 批次9：采集补漏（含大小写变体）=====
+local EXTRA9 = {
+    ["UltraQualityPlus"] = "极高画质+",
+    ["None"] = "无",
+    ["Inventory"] = "背包",
+    ["Sorcery"] = "法术",
+    ["BACK"] = "返回",
+    ["Feminine"] = "女性化",
+    ["Prologue"] = "序章",
+    ["Battery"] = "电池",
+    ["Recieved"] = "已收到",
+    ["Tal-Senet"] = "塔尔-塞奈特",
+    ["RARITY"] = "稀有度",
+    ["VALUE"] = "价值",
+    ["WEIGHT"] = "重量",
+    ["HEADGEAR"] = "头饰",
+    ["Vitality"] = "活力",
+    ["Endurance"] = "耐久",
+    ["Strength"] = "力量",
+    ["Agility"] = "敏捷",
+    ["Fate"] = "命运",
+    ["COMPLETED"] = "已完成",
+    ["Romance"] = "恋爱",
+    ["Sabu"] = "萨布",
+    ["Honeypot"] = "蜜罐",
+    ["Mana"] = "法力",
+    ["GENERAL"] = "通用",
+    ["INGREDIENTS"] = "材料",
+    ["Campfire"] = "篝火",
+    ["Ruin"] = "废墟",
+    ["Merchant"] = "商人",
+    ["Wased-Heq"] = "瓦塞德赫克",
+    ["East-Watch"] = "东望哨",
+    ["Tjebu"] = "提耶布",
+    ["Hermit's Cave"] = "隐士洞穴",
+    ["Kusma"] = "库斯玛",
+    ["SAVE"] = "保存",
+    ["LEAVE"] = "离开",
+    ["DOWN"] = "下",
+    ["Damaris"] = "达玛丽斯",
+    ["Sheten"] = "谢滕",
+    ["Cancel"] = "取消",
+    ["Primal Cursed One"] = "原始被诅咒者",
+    ["Lovense"] = "Lovense",
+    ["TSR"] = "TSR",
+    ["TAA"] = "TAA",
+}
+for k, v in pairs(EXTRA9) do MAP[k] = v end
+
+-- ===== 批次10：地名补漏 =====
+local EXTRA10 = {
+    ["Vesper's End"] = "维斯珀之终",
+    ["Cloister of Nuriah"] = "努里亚修院",
+    ["Tomb of Q'Tesh"] = "克特什之墓",
+    ["Kab'Alrek"] = "卡布·阿尔雷克",
+}
+for k, v in pairs(EXTRA10) do MAP[k] = v end
+
+-- ===== 批次11：MSL 本地化表（操作/按键/设置界面）=====
+local EXTRA11 = {
+    ["Unbound"] = "未绑定",
+    ["Mouse Up/Down"] = "鼠标上/下",
+    ["Mouse Left/Right"] = "鼠标左/右",
+    ["Mouse Wheel"] = "鼠标滚轮",
+    ["Mouse Wheel Up"] = "滚轮向上",
+    ["Mouse Wheel Down"] = "滚轮向下",
+    ["LMB"] = "左键",
+    ["RMB"] = "右键",
+    ["MMB"] = "中键",
+    ["Look Up"] = "视角上移",
+    ["Look Down"] = "视角下移",
+    ["Look Left"] = "视角左移",
+    ["Look Right"] = "视角右移",
+    ["Trigger Axis Left"] = "左扳机轴",
+    ["Trigger Axis Right"] = "右扳机轴",
+    ["Dpad Up"] = "方向键上",
+    ["Dpad Down"] = "方向键下",
+    ["Dpad Left"] = "方向键左",
+    ["Dpad Right"] = "方向键右",
+    ["Face Up"] = "面键上",
+    ["Face Down"] = "面键下",
+    ["Face Left"] = "面键左",
+    ["Face Right"] = "面键右",
+    ["Shoulder Left"] = "左肩键",
+    ["Shoulder Right"] = "右肩键",
+    ["Trigger Left"] = "左扳机",
+    ["Trigger Right"] = "右扳机",
+    ["Thumb Left"] = "左摇杆按下",
+    ["Thumb Right"] = "右摇杆按下",
+    ["Special Left"] = "左功能键",
+    ["Special Right"] = "右功能键",
+    ["User Interface"] = "用户界面",
+    ["Vert. Sync"] = "垂直同步",
+    ["Framerate"] = "帧率",
+    ["Screen mode"] = "屏幕模式",
+    ["Textures quality"] = "纹理质量",
+    ["Shadows quality"] = "阴影质量",
+    ["Visual effects quality"] = "视觉效果质量",
+    ["Anti aliasing"] = "抗锯齿",
+    ["View distance"] = "视距",
+    ["Post process quality"] = "后处理质量",
+    ["Master volume"] = "主音量",
+    ["Music volume"] = "音乐音量",
+    ["Effects volume"] = "音效音量",
+    ["Voice volume"] = "语音音量",
+    ["Language"] = "语言",
+    ["Subtitles"] = "字幕",
+    ["Invert camera x"] = "反转镜头 X",
+    ["Invert camera y"] = "反转镜头 Y",
+    ["Vibration"] = "震动",
+    ["Camera sensitivity"] = "镜头灵敏度",
+    ["Southpaw sticks"] = "左撇子摇杆",
+    ["Swap \"Confirm/Cancel\""] = "交换「确认/取消」",
+    ["Hints"] = "提示",
+    ["Unlimited"] = "无限制",
+    ["5 Mins."] = "5 分钟",
+    ["10 Mins."] = "10 分钟",
+    ["15 Mins."] = "15 分钟",
+    ["Fullscreen"] = "全屏",
+    ["Borderless"] = "无边框",
+    ["Windowed"] = "窗口化",
+    ["English"] = "英语",
+    ["Russian"] = "俄语",
+    ["Resume"] = "继续游戏",
+    ["Options"] = "选项",
+    ["Exit"] = "退出",
+    ["Keybindings"] = "按键绑定",
+    ["Action"] = "动作",
+    ["Primary"] = "主要",
+    ["Secondary"] = "次要",
+    ["Controller"] = "手柄",
+    ["Playstation icons"] = "PlayStation 图标",
+    ["Accept"] = "接受",
+    ["Reject"] = "拒绝",
+    ["Press any controller input"] = "请按任意手柄按键",
+    ["Press any keyboard or mouse input"] = "请按任意键盘或鼠标操作",
+    ["Language Text"] = "文字语言",
+    ["Language Audio"] = "语音语言",
+    ["Load"] = "读取",
+    ["New save"] = "新存档",
+    ["Save game"] = "保存游戏",
+    ["Are you sure you want to return to main menu? Any unsaved progress may be lost."] = "确定要返回主菜单吗？未保存的进度将会丢失。",
+    ["Are you sure you want to exit? Any unsaved progress may be lost."] = "确定要退出吗？未保存的进度将会丢失。",
+    ["Are you sure you want to load game? Any unsaved progress may be lost."] = "确定要读取游戏吗？未保存的进度将会丢失。",
+    ["Are you sure you want to delete this save?"] = "确定要删除这个存档吗？",
+    ["Are you sure to overwrite this save file?"] = "确定要覆盖这个存档文件吗？",
+    ["January"] = "一月",
+    ["February"] = "二月",
+    ["March"] = "三月",
+    ["April"] = "四月",
+    ["May"] = "五月",
+    ["June"] = "六月",
+    ["July"] = "七月",
+    ["August"] = "八月",
+    ["September"] = "九月",
+    ["October"] = "十月",
+    ["November"] = "十一月",
+    ["December"] = "十二月",
+    ["Y."] = "年",
+    ["Multiplayer"] = "多人游戏",
+    ["Return"] = "返回",
+    ["Ultra"] = "极高",
+    ["Auto"] = "自动",
+    ["Host"] = "主持",
+    ["Refresh"] = "刷新",
+    ["Searching..."] = "搜索中...",
+    ["Not found"] = "未找到",
+    ["Found servers"] = "找到服务器",
+    ["Search failed"] = "搜索失败",
+    ["Delete"] = "删除",
+    ["Exit to Main Menu"] = "退出到主菜单",
+}
+for k, v in pairs(EXTRA11) do MAP[k] = v end
+
+-- ===== 批次12：装备槽位/品质/动作 + NPC 称谓（预判补充）=====
+local EXTRA12 = {
+    ["FEET"] = "足部",
+    ["FOOT"] = "足部",
+    ["HANDS"] = "手部",
+    ["HAND"] = "手部",
+    ["ACCESSORY"] = "饰品",
+    ["ACCESSORIES"] = "饰品",
+    ["NECKLACE"] = "项链",
+    ["RING"] = "戒指",
+    ["EARRING"] = "耳环",
+    ["BRACERS"] = "护腕",
+    ["BRACER"] = "护腕",
+    ["BOOTS"] = "靴子",
+    ["BOOT"] = "靴子",
+    ["GLOVES"] = "手套",
+    ["GLOVE"] = "手套",
+    ["BELT"] = "腰带",
+    ["CLOAK"] = "斗篷",
+    ["CAPE"] = "披风",
+    ["MASK"] = "面具",
+    ["HELMET"] = "头盔",
+    ["HELM"] = "头盔",
+    ["SHIELD"] = "盾牌",
+    ["MAIN HAND"] = "主手",
+    ["OFF HAND"] = "副手",
+    ["OFFHAND"] = "副手",
+    ["UNDERWEAR"] = "内衣",
+    ["OUTFIT"] = "套装",
+    ["GARMENT"] = "衣物",
+    ["ARMOR"] = "护甲",
+    ["ARMOUR"] = "护甲",
+    ["WEAPON"] = "武器",
+    ["HEAD"] = "头部",
+    ["CHEST"] = "胸部",
+    ["LEGS"] = "腿部",
+    ["BODY"] = "身体",
+    ["GENITALS"] = "生殖器",
+    ["PENIS"] = "阴茎",
+    ["VAGINA"] = "阴道",
+    ["BREASTS"] = "胸部",
+    ["HAIR"] = "头发",
+    ["EYES"] = "眼睛",
+    ["SKIN"] = "皮肤",
+    ["MAKEUP"] = "妆容",
+    ["TATTOO"] = "纹身",
+    ["TATTOOS"] = "纹身",
+    ["PIERCING"] = "穿孔",
+    ["PIERCINGS"] = "穿孔",
+    ["Common"] = "普通",
+    ["Uncommon"] = "优秀",
+    ["Rare"] = "稀有",
+    ["Epic"] = "史诗",
+    ["Legendary"] = "传说",
+    ["Mythic"] = "神话",
+    ["Poor"] = "劣质",
+    ["Fine"] = "精良",
+    ["Superior"] = "上乘",
+    ["Masterwork"] = "杰作",
+    ["Equip"] = "装备",
+    ["Unequip"] = "卸下",
+    ["Equip Item"] = "装备物品",
+    ["Drop"] = "丢弃",
+    ["Destroy"] = "销毁",
+    ["Sell"] = "出售",
+    ["Buy"] = "购买",
+    ["Compare"] = "对比",
+    ["Repair"] = "修理",
+    ["Upgrade"] = "升级",
+    ["Durability"] = "耐久度",
+    ["Durability:"] = "耐久度：",
+    ["Quality"] = "品质",
+    ["Tier"] = "层级",
+    ["Slot"] = "栏位",
+    ["Type"] = "类型",
+    ["Requirements"] = "需求",
+    ["Restrictions"] = "限制",
+    ["Guard"] = "守卫",
+    ["Soldier"] = "士兵",
+    ["Priest"] = "祭司",
+    ["Priestess"] = "女祭司",
+    ["Slave"] = "奴隶",
+    ["Master"] = "主人",
+    ["Mistress"] = "女主人",
+    ["Citizen"] = "市民",
+    ["Villager"] = "村民",
+    ["Bandit"] = "强盗",
+    ["Cultist"] = "教徒",
+    ["Inquisitor"] = "审判官",
+    ["Anubite"] = "阿努比斯人",
+    ["Formless"] = "无形者",
+    ["Demigod"] = "半神",
+    ["Merchant"] = "商人",
+    ["Blacksmith"] = "铁匠",
+    ["Trader"] = "商人",
+    ["Vendor"] = "商人",
+    ["Innkeeper"] = "旅店老板",
+    ["Barkeep"] = "酒保",
+    ["Bard"] = "吟游诗人",
+    ["Beggar"] = "乞丐",
+    ["Thief"] = "盗贼",
+    ["Assassin"] = "刺客",
+    ["Mercenary"] = "雇佣兵",
+    ["Hunter"] = "猎人",
+    ["Farmer"] = "农夫",
+    ["Fisherman"] = "渔夫",
+    ["Sailor"] = "水手",
+    ["Captain"] = "队长",
+    ["Commander"] = "指挥官",
+    ["General"] = "将军",
+    ["King"] = "国王",
+    ["Queen"] = "女王",
+    ["Prince"] = "王子",
+    ["Princess"] = "公主",
+    ["Lord"] = "领主",
+    ["Lady"] = "贵妇",
+    ["God"] = "神",
+    ["Goddess"] = "女神",
+    ["Angel"] = "天使",
+    ["Demon"] = "恶魔",
+    ["Spirit"] = "精灵",
+    ["Ghost"] = "幽灵",
+    ["Beast"] = "野兽",
+    ["Creature"] = "生物",
+}
+for k, v in pairs(EXTRA12) do MAP[k] = v end
+
+-- ===== 批次13：装备/外观/药水的显示名与说明（扒自物品蓝图）=====
+local EXTRA13 = {
+    ["Acolyte Dress"] = "侍僧长裙",
+    ["Adept Robes"] = "术士长袍",
+    ["Afro"] = "爆炸头",
+    ["Albino Scales"] = "白化鳞片",
+    ["Ancient Potion Recipe"] = "古老药剂配方",
+    ["Ashen Scales"] = "灰烬鳞片",
+    ["Bald"] = "光头",
+    ["Bald Pelt"] = "无毛皮毛",
+    ["Beast Claws"] = "兽爪",
+    ["Beast Entrails"] = "野兽内脏",
+    ["Beast Heart"] = "兽心",
+    ["Beast Teeth"] = "兽牙",
+    ["Black Coat"] = "黑色外套",
+    ["Bloody Apron"] = "染血围裙",
+    ["Blue Tonic"] = "蓝色补剂",
+    ["Blue Wraps"] = "蓝色缠布",
+    ["Broodmare's Markings"] = "母马印记",
+    ["Brown Wraps"] = "棕色缠布",
+    ["Caracal Pelt"] = "狞猫皮毛",
+    ["Carapace Shield"] = "甲壳盾",
+    ["Centaur Helmet"] = "半人马头盔",
+    ["Centauress Helmet"] = "女半人马头盔",
+    ["Charred Felian Skull"] = "焦黑费利安头骨",
+    ["Cheetah Pelt"] = "猎豹皮毛",
+    ["Common Horns"] = "普通犄角",
+    ["Copper Slave Leg Straps"] = "铜制奴隶腿带",
+    ["Copper Slaver's Finery"] = "铜制奴主华服",
+    ["Cornrows"] = "玉米编发",
+    ["Crafting Ingredient"] = "制作材料",
+    ["Crocodillian"] = "鳄鱼人",
+    ["Dark Bedlah"] = "深色贝德拉",
+    ["Dark Daughter"] = "黑暗之女",
+    ["Dark Pelt"] = "深色皮毛",
+    ["Dark Slave Leg Straps"] = "深色奴隶腿带",
+    ["Dark Slaver's Finery"] = "深色奴主华服",
+    ["Dark Wraps"] = "深色缠布",
+    ["Deathmarsh Scales"] = "亡沼鳞片",
+    ["Demi Draconid Male"] = "半龙人（雄）",
+    ["Demi Jackal"] = "半胡狼人",
+    ["Demi Jackal Male"] = "半胡狼人（雄）",
+    ["Dreadlocks"] = "脏辫",
+    ["Dunewalker Horns"] = "沙丘行者犄角",
+    ["Ear Tufts"] = "耳簇",
+    ["Elaya Oil"] = "伊拉亚油",
+    ["Empty Jar"] = "空罐",
+    ["Euphoris Scales"] = "尤弗里斯鳞片",
+    ["Fennec Jackal"] = "耳廓狐胡狼",
+    ["Formless Cage Key"] = "无形者牢笼钥匙",
+    ["Fractured Points"] = "碎裂尖角",
+    ["Gate Key"] = "大门钥匙",
+    ["Gebamilla"] = "格巴米拉",
+    ["Gilded Fold Attire"] = "镀金折笼服饰",
+    ["Gilded Fold Bindings"] = "镀金折笼束带",
+    ["Glimmerfin Snapper"] = "微光鳍鲷",
+    ["Gold Slave Leg Straps"] = "金制奴隶腿带",
+    ["Gold Slaver's Finery"] = "金制奴主华服",
+    ["Golden Bedlah"] = "金色贝德拉",
+    ["Golden Coat"] = "金色外套",
+    ["Grey Wraps"] = "灰色缠布",
+    ["Hatha's Tail"] = "哈莎之尾",
+    ["Hell Empress"] = "地狱女皇",
+    ["Herders Mask"] = "牧人面具",
+    ["Hermitess' Talisman"] = "隐修女护符",
+    ["Hilldrake Horns"] = "丘龙犄角",
+    ["Humanoid Ribcage"] = "类人肋骨",
+    ["Humanoid Skull"] = "类人头骨",
+    ["Infernal Horns"] = "地狱犄角",
+    ["Inquisitor's Armwrap"] = "审判官臂缠",
+    ["Inquisitor's Collar"] = "审判官颈环",
+    ["Inquisitor's Garb"] = "审判官服饰",
+    ["Inquisitor's Headdress"] = "审判官头饰",
+    ["Inquisitor's Helm"] = "审判官头盔",
+    ["Iridescent Scales"] = "虹彩鳞片",
+    ["Ivory Figurine"] = "象牙雕像",
+    ["Jackal Cult Armour"] = "胡狼教护甲",
+    ["Jackal Cult Vestments"] = "胡狼教法衣",
+    ["Jackal Cultist Vestment"] = "胡狼教徒法衣",
+    ["Jackal Female"] = "胡狼女性",
+    ["Jackal Male"] = "胡狼男性",
+    ["Jaguar Pelt"] = "美洲豹皮毛",
+    ["Jaguar Pelt Grey"] = "灰色美洲豹皮毛",
+    ["Junk"] = "废品",
+    ["Junk Item"] = "废品",
+    ["Jyn"] = "金",
+    ["Kemma's Necklace"] = "凯玛的项链",
+    ["King Dreadlocks"] = "王者脏辫",
+    ["Lesser Felian"] = "小型费利安",
+    ["Linen Scraps"] = "亚麻碎片",
+    ["Lion's Loose Plaits"] = "狮子松散辫",
+    ["Lion's Man Bun"] = "狮子丸子头",
+    ["Lion's Mane Plaits"] = "狮子鬃辫",
+    ["Lion's Tail Plaits"] = "狮子尾辫",
+    ["Lipped Horns"] = "唇形犄角",
+    ["Loin Cloth"] = "缠腰布",
+    ["Love Letter"] = "情书",
+    ["Lybossan"] = "莱博桑人",
+    ["Lybossan Heirloom"] = "莱博桑传家宝",
+    ["Mahogony Coat"] = "红木外套",
+    ["Male Citizen Garb"] = "男性市民服饰",
+    ["Male Citizen Skirt"] = "男性市民短裙",
+    ["Mask 1"] = "面具 1",
+    ["Mask 2"] = "面具 2",
+    ["Mask 3"] = "面具 3",
+    ["Mered's Amulet"] = "梅瑞德的护符",
+    ["Minoan Piercings"] = "米诺斯穿孔",
+    ["Minoan Tags"] = "米诺斯标记",
+    ["Minoan Tags Male"] = "米诺斯标记（雄）",
+    ["Misty Mountain Scales"] = "雾山鳞片",
+    ["Narthossi"] = "纳索西人",
+    ["Night Lotus"] = "夜莲",
+    ["Nubbed Horns"] = "短钝犄角",
+    ["Nubian"] = "努比亚人",
+    ["Ocean Scales"] = "海洋鳞片",
+    ["Painslut Straps"] = "痛苦奴束带",
+    ["Painted Lyca"] = "彩绘莱卡",
+    ["Pebble"] = "卵石",
+    ["Perwenne"] = "佩尔文",
+    ["Plated Horns"] = "板甲犄角",
+    ["Ponytail Dreadlocks"] = "马尾脏辫",
+    ["Poorly Made Copper Ingots"] = "粗制铜锭",
+    ["Pottery"] = "陶器",
+    ["Pottery Shard"] = "陶片",
+    ["Predatory Sekhru"] = "掠食塞克鲁",
+    ["Priestess Robes"] = "女祭司长袍",
+    ["Primal Fiend Clothing"] = "原始魔物衣物",
+    ["Primal Sekhru"] = "原始塞克鲁",
+    ["Primal Shield"] = "原始盾牌",
+    ["Primeval Scales"] = "太古鳞片",
+    ["Purple Wraps"] = "紫色缠布",
+    ["Queen Dreadlocks"] = "女王脏辫",
+    ["Rag Dress"] = "破布裙",
+    ["Ramsberry"] = "公羊莓",
+    ["Rebel"] = "叛逆者",
+    ["Rebel Haircut"] = "叛逆发型",
+    ["Red Wraps"] = "红色缠布",
+    ["Reeds"] = "芦苇",
+    ["Reptile Pelt"] = "爬行动物皮毛",
+    ["Ruined Loin Cloth"] = "破损缠腰布",
+    ["Sabuthi"] = "萨布提人",
+    ["Sabuthi Plaits"] = "萨布提辫",
+    ["Sabuthi Plaits 2"] = "萨布提辫 2",
+    ["Sabuthi Plaits 3"] = "萨布提辫 3",
+    ["Sabuthi Sash"] = "萨布提腰带",
+    ["Sabuthi Skirt"] = "萨布提短裙",
+    ["Salamander Scales"] = "火蜥蜴鳞片",
+    ["Salt Pouch"] = "盐袋",
+    ["Saltwater Scales"] = "咸水鳞片",
+    ["Salty."] = "咸的。",
+    ["Sandscale Minnow"] = "沙鳞小鱼",
+    ["Sanguispula"] = "血吸虫",
+    ["Serpent's Coils"] = "巨蛇盘绕",
+    ["Short"] = "短发",
+    ["Silver Bedlah"] = "银色贝德拉",
+    ["Silver Slave Leg Straps"] = "银制奴隶腿带",
+    ["Silver Slaver's Finery"] = "银制奴主华服",
+    ["Skull Cap"] = "头骨帽",
+    ["Small Stamina Potion"] = "小型耐力药水",
+    ["Snapped Cock"] = "折断的阳具",
+    ["Sobek Statuette"] = "索贝克小雕像",
+    ["Spined Horns"] = "棘刺犄角",
+    ["Starmetal Bindings"] = "星金属束带",
+    ["Starry Sky Dress"] = "星空长裙",
+    ["Stone Chisel"] = "石凿",
+    ["Stone Dust"] = "石粉",
+    ["Sumari"] = "苏马里人",
+    ["Sunbleached Bones"] = "晒白的骨头",
+    ["Tan Wraps"] = "棕褐缠布",
+    ["Thorn Crown"] = "荆棘王冠",
+    ["Thunder Scales"] = "雷霆鳞片",
+    ["Traditional Desert Garb"] = "传统沙漠服饰",
+    ["Unfertilized Drake Egg"] = "未受精的龙蛋",
+    ["Unknown"] = "未知",
+    ["Useable Item"] = "可用物品",
+    ["Venom Gland"] = "毒腺",
+    ["Vermillion Draconid Scales"] = "朱红龙人鳞片",
+    ["Virethi"] = "维雷西人",
+    ["Void Daughter"] = "虚空之女",
+    ["Warrior Bra"] = "战士胸衣",
+    ["Warrior Collar"] = "战士颈环",
+    ["Warrior Mask"] = "战士面具",
+    ["Warrior Skirt"] = "战士短裙",
+    ["Weed"] = "杂草",
+    ["White Wraps"] = "白色缠布",
+    ["Yellow Fruit"] = "黄色果实",
+    ["Zealot's Armour"] = "狂信徒护甲",
+    ["Zuganti"] = "祖甘提人",
+    ["A tool used for working stone."] = "用于加工石料的工具。",
+    ["A dark crimson, carnivorus plant."] = "一种深红色的食肉植物。",
+    ["This gritty powder was people once."] = "这撮粗糙的粉末，曾经是人。",
+    ["The skull of an unfortunate felian."] = "一个不幸费利安人的头骨。",
+    ["Tattered remains of some old clothing."] = "某件旧衣物留下的破烂残骸。",
+    ["The linen wraps of Bast's Inquisitors."] = "巴斯特审判官的亚麻缠布。",
+    ["The deep skintone of the Sumari people."] = "苏马里人深色的肤色。",
+    ["The dark skintone of the Nubian people."] = "努比亚人深色的肤色。",
+    ["The deep skintone of the Virethi people."] = "维雷西人深色的肤色。",
+    ["The deep skintone of the Zuganti people."] = "祖甘提人深色的肤色。",
+    ["A common enough but comfortable garment."] = "一件寻常但舒适的衣物。",
+    ["Many bothans died to bring us this style."] = "为了把这个发型带给你，许多博桑人牺牲了。",
+    ["The sacred armwrap of Bast's Inquisition."] = "巴斯特审判庭的神圣臂缠。",
+    ["The pale skintone of the Narthossi people."] = "纳索西人白皙的肤色。",
+    ["The tanned skintone of the Sabuthi people."] = "萨布提人晒成的肤色。",
+    ["The simple clothing of a Sabuthi commoner."] = "萨布提平民的简朴衣物。",
+    ["The enchanted collar of Bast's Inquisition."] = "巴斯特审判庭的附魔颈环。",
+    ["The tanned skintone of the Lybossan people."] = "莱博桑人晒成的肤色。",
+    ["The iconic ear tufts of the savannah hunter."] = "草原猎手标志性的耳簇。",
+    ["One of the most used plant materials in Sabu."] = "萨布最常用的植物材料之一。",
+    ["The enchanted headwear of Bast's Inquisition."] = "巴斯特审判庭的附魔头饰。",
+    ["The gruesome headwear of a primal bloodseeker."] = "原始血觅者骇人的头饰。",
+    ["The enchanted headdress of Bast's Inquisition."] = "巴斯特审判庭的附魔头冠。",
+    ["The bloodstained rags of a primal bloodseeker."] = "原始血觅者沾满血污的破布。",
+    ["Drink to increase your Damage by 5 for 30 seconds."] = "饮用后 30 秒内伤害提升 5。",
+    ["The pitch black coat of a highborn Jackal subtype."] = "高等胡狼亚种漆黑的外套。",
+    ["The iconic leather neckwear of an Anubite Warrior."] = "阿努比斯战士标志性的皮革颈饰。",
+    ["Drink to increase your Armor by 10 for 30 seconds."] = "饮用后 30 秒内护甲提升 10。",
+    ["Drink to restore small amount of Stamina over time."] = "饮用后随时间恢复少量耐力。",
+    ["The enchanted, golden collar of Bast's Inquisition."] = "巴斯特审判庭的附魔金颈环。",
+    ["The richly-adorned, linen bra of an Anubite Warrior."] = "阿努比斯战士华丽的亚麻胸衣。",
+    ["The loose yet modest clothing of a Jackal Cult Adept."] = "胡狼教术士宽松而端庄的衣物。",
+    ["The enchanted, golden headwear of Bast's Inquisition."] = "巴斯特审判庭的附魔金头饰。",
+    ["Dreadlocks. In a bun. With nothing. Ketchup optional."] = "脏辫，扎成丸子头，不加配饰。番茄酱自便。",
+    ["The enchanted, golden headdress of Bast's Inquisition."] = "巴斯特审判庭的附魔金头冠。",
+    ["The richly-adorned, linen skirt of an Anubite Warrior."] = "阿努比斯战士华丽的亚麻短裙。",
+    ["A simple hairstyle for renegades and angsty teenagers."] = "适合叛徒与叛逆少年的简洁发型。",
+    ["Tattered scraps of rough-spun cloth. Used in crafting."] = "粗纺布的破烂碎片。用于制作。",
+    ["The loose yet modest clothing of a Jackal Cult Acolyte."] = "胡狼教侍僧宽松而端庄的衣物。",
+    ["A very naughty boy has made this accessible to players."] = "某个顽皮的家伙把它开放给了玩家。",
+    ["The sleek black fur of an urban dwelling Felian subtype."] = "城市费利安亚种油亮的黑色毛皮。",
+    ["Words of affection from one star-crossed lover to another."] = "一位苦命恋人写给另一位的情话。",
+    ["The iconic mask and leather neckwear of an Anubite Warrior."] = "阿努比斯战士标志性的面具与皮革颈饰。",
+    ["Drink to increase your Maximum Health by 50 for 10 seconds."] = "饮用后 10 秒内最大生命值提升 50。",
+    ["Handcrafted with love. Nor for you, mind, but who's asking?"] = "用爱手工制作。当然不是给你做的——不过谁问了呢？",
+    ["Drink to increase your Maximum Stamina by 50 for 30 seconds."] = "饮用后 30 秒内最大耐力提升 50。",
+    ["The elaborate horns and neckwear of a northern draconid subtype."] = "北方龙人亚种繁复的犄角与颈饰。",
+    ["The vicious, razor-sharp claws of a wild beast. Used in crafting."] = "野兽锋利凶残的爪子。用于制作。",
+    ["The dappled, camouflaged scales of the mountain-dwelling Draconid."] = "山地龙人斑驳的伪装鳞片。",
+    ["Nassiros' copper ingots, such poor quality they'll likely never see use."] = "纳西罗斯的铜锭，品质太差，大概永远派不上用场。",
+    ["The fresh, bloody heart of a wild beast. Best served warm. Used in crafting."] = "野兽新鲜带血的心脏。趁热最好。用于制作。",
+    ["Deep blue, highly pigmented scales from a mostly nocturnal Draconid subtype."] = "来自一种夜行性龙人亚种的深蓝高彩度鳞片。",
+    ["A common enough but comfortable garment. Worn by citizens and sopranos alike."] = "一件寻常但舒适的衣物。市民与歌唱家都穿它。",
+    ["The reddish-brown scales of those crocodilians that stalk the Sabu marshlands."] = "出没于萨布沼泽的鳄类那红棕色鳞片。",
+    ["Baisc wrappings of worn rags, marked with dirt, sweat, and the stains of lust."] = "基本款破布缠裹，沾满尘土、汗水与欲望的痕迹。",
+    ["Basic wrappings of worn rags, marked with dirt, sweat, and the stains of lust."] = "基本款破布缠裹，沾满尘土、汗水与欲望的痕迹。",
+    ["An elaborate, hand-crafted silver undergarment, once worn by acolytes of Kethra."] = "一件精工手制的银质内衣，曾是凯斯拉侍僧的穿着。",
+    ["An elaborate, hand-crafted golden undergarment, once worn by acolytes of Kethra."] = "一件精工手制的金质内衣，曾是凯斯拉侍僧的穿着。",
+    ["This luxurious garment is made of woven silk and features star of silver thread."] = "这件华服由织锦丝绸制成，缀有银线绣成的星辰。",
+    ["A pale heavy, oval-shaped egg with a rough, stone-like shell that shimmers faintly."] = "一枚苍白色的沉重卵，有粗糙如石的壳，微微泛光。",
+    ["A dark heavy, oval-shaped egg with a rough, stone-like shell that shimmers faintly."] = "一枚深色的沉重卵，有粗糙如石的壳，微微泛光。",
+    ["An elaborate, hand-crafted dark woven undergarment, once worn by acolytes of Kethra."] = "一件精工手制的深色织造内衣，曾是凯斯拉侍僧的穿着。",
+    ["Harabi's modified pair of the slavers legstraps, inscribed with special heiroglyphs."] = "哈拉比改装过的奴主腿带，刻有特殊的象形文字。",
+    ["Strong, lightweight, and no longer needed by their previous owner. Used in crafting."] = "结实、轻便，前主人已经用不上了。用于制作。",
+    ["The distinctive fur of the desert dwelling Felian subtype, black-tufted ears and all."] = "沙漠费利安亚种独特的毛皮，包括那对黑色耳簇。",
+    ["An ancient helm handed down from one generation of Centaur to the next over centuries."] = "一顶古老的头盔，数百年来在半人马一族中世代相传。",
+    ["The mottled fur of an outcast Jackal subtype, unfairly forced to the margins of society."] = "被放逐的胡狼亚种斑驳的毛皮，他们被不公地挤到社会边缘。",
+    ["The bright yellow flower of this bitter, curative weed is named for its fruit-like scent."] = "这种味苦的药用杂草开着亮黄色花朵，因果实般的香气而得名。",
+    ["This cast metal mask obscures the wearer's identity, ideal for those that trade in flesh."] = "这副铸造金属面具能遮蔽佩戴者的身份，正适合做肉体买卖的人。",
+    ["A densely clustered set of swept back horns more common among mountain dwelling draconids."] = "一簇密集的后掠犄角，在山地龙人中更为常见。",
+    ["The deep contrasting blue-grey scales of those crocodilian's that stalk the Sabu coastline."] = "出没于萨布海岸线的鳄类那深蓝灰色对比强烈的鳞片。",
+    ["This severed head of a Syphon Beetle makes both an impressive trophy and a makeshift shield."] = "这只虹吸甲虫的断头既是威风凛凛的战利品，也是应急的盾牌。",
+    ["The white and tan fur of the diminutive Jackal subtype, well suited to life amidst the dunes."] = "体型娇小的胡狼亚种那白褐相间的毛皮，很适合在沙丘间生活。",
+    ["Harvested from marshes off the Euphoris, salt has become a staple in Sabuthi food preparation."] = "取自尤弗里斯沿岸沼泽的盐，已成为萨布提人烹饪中的必需品。",
+    ["Eat enough of these and you can build up a resistance to Q'Tawi venom! Or maybe die. Who knows?"] = "吃得够多就能对克塔维毒素产生抗性！也可能直接死掉。谁知道呢？",
+    ["A healthy oil made of elaya. Used mostly in cooking, but could be used for lubricant in a pinch."] = "由伊拉亚制成的健康油脂。多用于烹饪，紧急时也可当润滑剂。",
+    ["The loose fitting clothing of a Jackal Cult Priestess. Large cutouts allow access for \"rituals\"."] = "胡狼教女祭司的宽松衣袍。大幅镂空便于进行“仪式”。",
+    ["This loin cloth has seen better days. It's unwearable at this point, and... what are those stains?"] = "这块缠腰布已经风光不再。现在根本没法穿，而且……那些污渍是什么？",
+    ["This voracious fish is a staple on the Sabuthi dinner table. Easily recognizable by its shiny fins."] = "这种贪吃的鱼是萨布提人餐桌上的常客，靠闪亮的鱼鳍就能认出。",
+    ["No one's bothered to name this fruit, and that's okay. It's said to be a potent aphrodisiac, though!"] = "没人费心给这种果实起名，那也无妨。不过据说它是强效催情物！",
+    ["The typical green-brown drab scales of the reptilian predators who call the Euphoris River their home."] = "以尤弗里斯河为家的爬行掠食者那种典型的灰绿褐色鳞片。",
+    ["This tiny fish has rough, sandy scales, and tastes like dirt. But it's packed with Omega-3 fatty acids!"] = "这种小鱼鳞片粗糙带沙，尝起来像泥土。但富含 Omega-3 脂肪酸！",
+    ["These short clusters of horns are common among the cave-dwelling draconids of the far southern deserts."] = "这种短簇犄角在极南沙漠的穴居龙人中很常见。",
+    ["The vivid, red scales of a common Draconid. The pigmentation is drawn from an ancient and noble bloodline."] = "普通龙人鲜艳的红色鳞片。其色素源自一支古老而高贵的血脉。",
+    ["The iconic patterned fur of the forest-dwelling Felian subtype, affording ideal camoflage for stalking prey."] = "森林费利安亚种标志性的花纹毛皮，为潜行狩猎提供理想伪装。",
+    ["The round, white berries of this brambling plant have a bitter, salty taste, and are said to aid in verility."] = "这种荆棘植物的圆形白色浆果味道又苦又咸，据说有助于雄风。",
+    ["The iconic patterned fur of the savannah-dwelling Felian subtype, affording ideal camoflage for stalking prey."] = "草原费利安亚种标志性的花纹毛皮，为潜行狩猎提供理想伪装。",
+    ["The iconic patterned fur of the mountain-dwelling Felian subtype, affording ideal camoflage for stalking prey."] = "山地费利安亚种标志性的花纹毛皮，为潜行狩猎提供理想伪装。",
+    ["The stinking, entrails of a wild beast. Make sure to wash your hands before you eat anything. Used in crafting."] = "野兽散发恶臭的内脏。吃东西前记得洗手。用于制作。",
+    ["This perennial herb with pale-blue flowers is prized by the Sabuthi for the sweet liquid extracted from it's roots."] = "这种开淡蓝色花的多年生草本，因根部可提取甜液而受萨布提人珍视。",
+    ["The pale, unpigmented scales of those rare crocodilians that lurk in the subterranean lakes beneath the sands of Sabu."] = "潜伏在萨布沙下暗湖中的稀有鳄类那苍白无色的鳞片。",
+    ["The ragged hide of a large reptile. Somehow devoid of blood, pre-tanned and neatly rolled up. It even came with straps."] = "大型爬行动物的破烂皮革。不知为何毫无血迹，已预先鞣制并整齐卷好，甚至还附了束带。",
+    ["Ideally suited to underwater hunting, these sea-green scales originate from Draconid subtypes found dwelling in coastal regions."] = "这些海绿色鳞片极适合水下狩猎，来自栖居沿海地区的龙人亚种。",
+    ["When ripe, the heads of this stalky, semi-aquatic plant become a ball of cottony fluff. It's leaves are said to aid in fertility."] = "成熟时，这种茎秆粗壮半水生植物的头部会变成一团棉絮。据说其叶片有助于生育。",
+    ["These knife-like teeth once belonged to some predatory beast. Now they're yours. Like some perverse Tooth-Fairy. Used in crafting."] = "这些刀般的牙齿曾属于某种掠食野兽。现在是你的了——就像个变态的牙仙。用于制作。",
+    ["These curled horns are typical of various plains-dwelling draconids. They also grant a striking look and a devil may care attitude."] = "这种卷曲犄角是多种平原龙人的典型特征，也能带来抢眼的外形与满不在乎的气场。",
+    ["An average set of rear-facing horns, swept back from the top of the skull. Horns of this type are common among many Draconid subtypes."] = "一副普通的后向犄角，自头顶向后掠去。这类犄角在许多龙人亚种中都很常见。",
+    ["A reminder to never linger on an argument with a loved one, for death could come unexpectedly, stealing the opportunity for conciliation."] = "它提醒人们不要与所爱之人争执不休——死亡可能不期而至，夺走和解的机会。",
+    ["As white as alabaster, these scales belong to the rare Draconid subtype found only above the cloudline in the eponymous mountain range. ."] = "这些如雪花石膏般洁白的鳞片属于一种稀有龙人亚种，只在同名山脉的云线之上才能见到。",
+    ["Well suited to the primordial swamp, these scales remain from a ancient reptilian bloodline that predates that of most Drakes and Draconids."] = "这些鳞片适应原始沼泽，来自一支比绝大多数龙与龙人都更古老的爬行血脉。",
+    ["Whether particularly rare or simply an exceptionally timid Draconid subtype, these dark, shimmering scales are almost unique in all of Sabu."] = "无论是格外稀有，还是仅仅因为这种龙人亚种异常胆怯，这些深色闪光的鳞片在整个萨布都几乎独一无二。",
+    ["These two metal straps form part of a high-status slave outfit. The built-in rings allow for the wearer to be pinned into all manner of poses."] = "这两条金属束带是高等奴隶装束的一部分。内置的环扣可将穿戴者固定成各种姿势。",
+    ["Though this Amulet appears to be ordinary, Mered claimed it hummed with energy and power when he knew he needed to end a life. You sense nothing."] = "这枚护符看似普通，但梅瑞德说，当他意识到必须取人性命时，它会随能量与力量嗡鸣。而你什么也感觉不到。",
+    ["Once thought to be immune to fire, these very rare Draconids were driven to near extinction by a rutheless warlord who sought to test that theory."] = "这些极稀有的龙人曾被认为免疫火焰，一位想验证此说的残暴军阀几乎将他们灭绝。",
+    ["The loose fitting clothing of a Jackal Cult Priestess of the \"Broodmare\" chapter. These priestesses seek an endless cycle of impregnation and birth."] = "“母马”分支胡狼教女祭司的宽松衣袍。这些女祭司追求受孕与生育的无尽循环。",
+    ["Milked from the penis of a blue dragon, this tonic, despite its colour, feels cool and tastes like a white strawberry magnum. Its been known to make the user a bit rigid."] = "取自蓝龙阳具的补剂，尽管色泽如此，入口却清凉，尝起来像白草莓雪糕。据说会让使用者变得有点僵硬。",
+    ["This uncomfortable looking outfit indicates the wearer is a high-value slave of the Gilded Fold. The plates and straps bind tightly to the wearer without restricting movement."] = "这套看着就不舒服的装束表明穿戴者是镀金折笼的高价奴隶。甲片与束带紧贴身体，却不影响活动。",
+    ["This ancient fragment of papyrus seems to detail the steps in the distillation of some obscure potion. Some of the ingredients seem common enough, others are either fictional or extremely rare."] = "这片古老的纸莎草残卷似乎记载着某种冷门药剂的蒸馏步骤。其中一些材料相当常见，另一些则要么纯属虚构，要么极其罕见。",
+    ["This idol to the demi-god Sobek is in surprisingly good condition. It's gemmed eyes glimmer with something peculiar. It would no doubt fetch a high price, if you were willing to part with it...."] = "这尊索贝克半神像保存得出奇完好。它镶宝的眼睛闪着某种异样的光。若你舍得放手，它无疑能卖个好价钱……",
+    ["These carefully placed studs and rings help to better tether the void daughter to the mortal realm. The bindings allow them to more fully experience time and other physical sensations of the material world."] = "这些精心安放的钉与环能更好地将虚空之女系于凡界。束带让她们得以更充分地体验时间，以及物质世界的其他感官。",
+    ["A practical hairstyle with little decoration or flair. Plaits are worn by many whose forms sport long enough hair. The distinctive coiled locks are commonly seen in the streets and alleyways of smaller settlements."] = "一种实用、几无装饰与花巧的发型。许多头发够长的形态都会编这种辫子，那独特的盘卷发辫常见于小聚落的街巷。",
+    ["This intricately wired collection of gilded beads is synonymous with members of the Jackal Cult. The design of the garment ensures that no erogenous zone is obsucred, enabling maximum access for the pleasurable rituals of the Anubites."] = "这串工艺繁复的镀金珠饰是胡狼教成员的标志。这种设计确保没有任何敏感部位被遮挡，便于阿努比斯人进行享乐仪式。",
+    ["These ornate piercings reflect the crest of the merchant's guild, the Minoan-run monopoly. Originally worn solely by those unlucky enough to become the \"livestock\" of the guild, they have long since become a fashion symbol in some circles. They now serve as a shorthand for the debauchery and sexual availability of the wearer."] = "这些华丽穿孔呈现商人公会的徽记——那是米诺斯人垄断的组织。最初只有不幸沦为公会“牲口”的人才会佩戴，如今早已在某些圈子里成为时尚象征，也成为佩戴者放荡与性可得的代名词。",
+    ["DEV ONLY"] = "开发者专用",
+    ["NOT FOR PLAYER USE"] = "非玩家用",
+}
+for k, v in pairs(EXTRA13) do MAP[k] = v end
+
+-- ===== 批次14：地图/标记/方位词 =====
+local EXTRA14 = {
+    ["Custom Location"] = "自定义地点",
+    ["Enemy Location"] = "敌人位置",
+    ["Intimate Encounter"] = "亲密遭遇",
+    ["Legend"] = "图例",
+    ["Naga Infusion"] = "娜迦灌注",
+    ["New Quest"] = "新任务",
+    ["New Quest Available"] = "有新任务可接",
+    ["Ping"] = "标记",
+    ["Poison Resin"] = "毒树脂",
+    ["Way Point"] = "传送点",
+    ["Shine"] = "光泽",
+    ["Glow"] = "微光",
+    ["Fade"] = "淡出",
+    ["Touch"] = "触摸",
+    ["Offset"] = "偏移",
+    ["Orientation"] = "朝向",
+    ["Player Camera Location"] = "玩家镜头位置",
+    ["Player Pawn Location"] = "玩家角色位置",
+    ["Fly"] = "飞行",
+    ["Walk"] = "行走",
+    ["Run"] = "奔跑",
+    ["Swim"] = "游泳",
+    ["Dive"] = "潜水",
+    ["Sneak"] = "潜行",
+    ["Sit"] = "坐下",
+    ["Sleep"] = "睡眠",
+    ["Wait"] = "等待",
+    ["Arrive"] = "抵达",
+    ["Depart"] = "离开",
+    ["Enter"] = "进入",
+    ["Leave"] = "离开",
+    ["Outside"] = "外部",
+    ["Inside"] = "内部",
+    ["Nearby"] = "附近",
+    ["Distant"] = "远处",
+    ["North"] = "北",
+    ["South"] = "南",
+    ["East"] = "东",
+    ["West"] = "西",
+    ["Above"] = "上方",
+    ["Below"] = "下方",
+    ["Left"] = "左",
+    ["Right"] = "右",
+    ["Center"] = "中央",
+    ["Edge"] = "边缘",
+}
+for k, v in pairs(EXTRA14) do MAP[k] = v end
+
+-- ===== 批次15：形态/捏人界面（种族名·描述·捏人滑条·阳具类型）=====
+local EXTRA15 = {
+    ["Body Type"] = "体型",
+    ["masculine"] = "男性化",
+    ["Masculine"] = "男性化",
+    ["feminine"] = "女性化",
+    ["Feminine"] = "女性化",
+    ["Already Unlocked"] = "已解锁",
+    ["Unlock"] = "解锁",
+    ["Locked"] = "未解锁",
+    ["TRANSFORM AND CUSTOMISE"] = "变形与自定义",
+    ["Transform and Customise"] = "变形与自定义",
+    ["CUSTOMISE"] = "自定义",
+    ["Customise"] = "自定义",
+    ["Customize"] = "自定义",
+    ["LYBOSSAN"] = "莱博桑人",
+    ["Freshwater Crocodilian"] = "淡水鳄人",
+    ["Demi-Jackal"] = "半胡狼人",
+    ["Wild Jackal"] = "野胡狼",
+    ["Male Wild Jackal"] = "雄性野胡狼",
+    ["Demi-Felian"] = "半费利安",
+    ["Plains Felian"] = "平原费利安",
+    ["Demi-Draconid"] = "半龙人",
+    ["Coastal Lesser Draconid"] = "沿海小型龙人",
+    ["Male Coastal Lesser Draconid"] = "雄性沿海小型龙人",
+    ["Void Daughter"] = "虚空之女",
+    ["Minoan Formless"] = "米诺斯无形者",
+    ["Male Formless"] = "雄性无形者",
+    ["Male Demi-Draconid"] = "雄性半龙人",
+    ["Male Demi-Jackal"] = "雄性半胡狼人",
+    ["Common Jackal"] = "普通胡狼",
+    ["Male Common Jackal"] = "雄性普通胡狼",
+    ["Temple-Bred Jackal"] = "神庙培育胡狼",
+    ["Male Temple-Bred Jackal"] = "雄性神庙培育胡狼",
+    ["Taroth Felian"] = "塔罗斯费利安",
+    ["Urban Felian"] = "城市费利安",
+    ["Dahmur Lesser Draconid"] = "达穆尔小型龙人",
+    ["Northern Lesser Draconid"] = "北方小型龙人",
+    ["Celestial Lesser Draconid"] = "天界小型龙人",
+    ["Male Dahmur Lesser Draconid"] = "雄性达穆尔小型龙人",
+    ["Male Northern Lesser Draconid"] = "雄性北方小型龙人",
+    ["Celestial Male Lesser Draconid"] = "天界雄性小型龙人",
+    ["Saltwater Crocodilian"] = "咸水鳄人",
+    ["Nubian Crocodilian"] = "努比亚鳄人",
+    ["Human Male Sabuthi"] = "人类男性·萨布提",
+    ["Human Male Narthossi"] = "人类男性·纳索西",
+    ["Human Male Lybossan"] = "人类男性·莱博桑",
+    ["Human Male Nubian"] = "人类男性·努比亚",
+    ["Human Male Sumari"] = "人类男性·苏马里",
+    ["Bald Felian"] = "无毛费利安",
+    ["Sekhru Felian"] = "塞克鲁费利安",
+    ["Male Human"] = "人类男性",
+    ["Female Human"] = "人类女性",
+    ["Whether native to Sabu or brought from elsewhere, many human peoples can be found living in the kingdom of the God Queen. Their complexion and features may vary, but all humans are descended from a single ancestral bloodline. Lacking the natural weapons or defences of the other races, the true power of humans comes from their ability to adapt and rise together as one. Many creation myths hold that humans are predisposed to temptation, a trait that ensures few humans shy away from the path of ascension."] = "无论是萨布的原住民还是来自他方，神后之国度里都聚居着众多人类族群。他们的肤色与容貌各有不同，但所有人类都源自同一支血脉。人类没有其他种族天生的武器与防御，真正的力量来自他们随遇而安、团结共进的能力。许多创世神话认为人类天生易于受诱惑——正因如此，很少有人在升华之路上退却。",
+    ["A relatively rare subtype of Lesser Canid, Jackals are found with surprising frequency in positions of power and wealth throughout Sabu. Despite belonging to the same family as other Lesser Canids the Jackals are seen as a distinct people, primarily due to their physical likeness to the Demigod Anubis. A Jackal's keen hearing and extraordinary sense of smell make them naturally effective at detecting stealthy opponents, whilst their association with Anubis benefits their charisma and aids them in leading others. An obsession with maintaining the purity of the bloodline means that Jackals are particularly inbred and that no significant subtypes exist."] = "胡狼人是小型犬科中相当罕见的一支，却在萨布各地的权贵之中出人意料地常见。虽与其他小型犬科同源，胡狼人却被视为一个独特的族群，主要因为他们外形酷似半神阿努比斯。胡狼人听觉敏锐、嗅觉出众，天生擅长察觉潜行的对手；而与阿努比斯的渊源又增益了他们的魅力，有助于领导他人。对血统纯正的执念使他们近亲繁衍严重，因而没有明显的亚种分化。",
+    ["The origins of the Void Daughters and other dwellers of the void, if they exist at all, are shrouded in mystery. Rituals are rumoured to exist that allow the passage of such beings into this reality, such creatures are said only to reside in the physical world by the use of enchanted bindings. Legend suggests that Void Daughters draw power from realms beyond ours, manipulating space and time. A single fragment of an antediluvian tome made the entirely unsubstantiated claim that Void Daughters could consume the souls of other beings. These are likely, however, to be mere fabrications of primitive peoples seeking to scare one another beside the campfire."] = "虚空之女与其他虚空居民（如果它们真的存在）的来历笼罩在迷雾之中。传说存在能让这类存在进入现实的仪式，而它们据说只能借附魔束带停留在物质世界。传说虚空之女从我们之外的领域汲取力量，操纵空间与时间。一册上古残卷中有一句毫无根据的说法，称虚空之女能吞噬其他存在的灵魂。不过这些很可能只是原始民族围坐篝火互相吓唬时编造的故事。",
+    ["Found in all towns and villages throughout Sabu, the formless occupy the lowest possible rung in the social ladder. With no marks of the goddess to speak of, their very appearance is taboo. The wraps and mask which cover the formless are woven with enchantments, preventing their removal by the wearer. Only a powerful release of essence, or extensive rituals, can otherwise rid the formless of their bindings."] = "无形者遍布萨布的大小城镇与村落，处在社会阶梯的最底层。他们身上没有丝毫女神的印记，光是这副模样便已是禁忌。覆盖无形者的缠布与面具织入了附魔，佩戴者自己无法取下。唯有强大的精华释放，或繁复的仪式，才能让他们摆脱束缚。",
+    ["Chest Size"] = "胸部大小",
+    ["Nipple Protrusion"] = "乳头突出",
+    ["Nipple Radius"] = "乳头半径",
+    ["Bodyfat (Arms)"] = "体脂（手臂）",
+    ["Bodyfat (Abdomen)"] = "体脂（腹部）",
+    ["Bodyfat (Butt)"] = "体脂（臀部）",
+    ["Bodyfat (Legs)"] = "体脂（腿部）",
+    ["Waist Width"] = "腰宽",
+    ["Hips Width"] = "臀宽",
+    ["Labia"] = "阴唇",
+    ["Preg"] = "怀孕",
+    ["Brow"] = "眉",
+    ["Eye"] = "眼",
+    ["Bridge"] = "鼻梁",
+    ["Nose Bridge"] = "鼻梁",
+    ["Nose"] = "鼻子",
+    ["Ear Shape"] = "耳形",
+    ["Cheek"] = "脸颊",
+    ["Lip"] = "唇",
+    ["Lips"] = "嘴唇",
+    ["Jaw"] = "下颌",
+    ["Hooves"] = "蹄",
+    ["Paws"] = "爪",
+    ["Upper Body"] = "上半身",
+    ["Lower Body"] = "下半身",
+    ["Ethinicity"] = "族裔",
+    ["Flaccid"] = "疲软",
+    ["Member Glans"] = "龟头",
+    ["Balls Arrangement"] = "睾丸排列",
+    ["Balls Size"] = "睾丸大小",
+    ["Titty"] = "乳房",
+    ["Height"] = "身高",
+    ["Muscle"] = "肌肉",
+    ["Weight"] = "体重",
+    ["Age"] = "年龄",
+    ["Equine"] = "马形",
+    ["Dark Equine"] = "深色马形",
+    ["Mottled Equine"] = "斑驳马形",
+    ["Pale Equine"] = "苍白马形",
+    ["Natural Equine"] = "自然马形",
+    ["Serpent's Tail"] = "蛇尾",
+    ["\"Wer\" Member"] = "「兽」形",
+    ["\"Wer\" Member Dark"] = "「兽」形（深色）",
+    ["\"Wer\" Member Purple"] = "「兽」形（紫色）",
+    ["Natural \"Drake\" Member"] = "自然「龙」形",
+    ["Venomous \"Drake\" Member"] = "剧毒「龙」形",
+    ["Ashen \"Drake\" Member"] = "灰烬「龙」形",
+    ["Inquisitor's Rod"] = "审判官之杖",
+    ["Void's Temptation"] = "虚空的诱惑",
+    ["Member of Pure Essence"] = "纯净精华之躯",
+    ["Leucistic \"Reptilian\" Member"] = "白化「爬行」形",
+    ["Orchid \"Reptilian\" Member"] = "兰花「爬行」形",
+    ["Natural \"Felian\" Member"] = "自然「费利安」形",
+    ["Alpha \"Felian\" Member"] = "首领「费利安」形",
+    ["Natural \"Dragon\" Member"] = "自然「龙」形",
+    ["Frost \"Dragon\" Member"] = "霜寒「龙」形",
+    ["Banded \"Dragon\" Member"] = "环纹「龙」形",
+    ["Goliath Human Member"] = "巨人人类形",
+}
+for k, v in pairs(EXTRA15) do MAP[k] = v end
+
+-- ===== 批次16：种族大类名 + 形态界面固定文本 =====
+local EXTRA16 = {
+    ["FORMLESS"] = "无形者",
+    ["FELINE"] = "猫科",
+    ["CANINE"] = "犬科",
+    ["DRACONID"] = "龙人",
+    ["VOID"] = "虚空",
+    ["REPTILIAN"] = "爬行类",
+    ["MONSTROUS"] = "怪物",
+    ["MISC"] = "杂项",
+    ["BALADIQ"] = "巴拉迪克",
+    ["HUMAN"] = "人类",
+    ["Draconid"] = "龙人",
+    ["Feline"] = "猫科",
+    ["Canine"] = "犬科",
+    ["Reptilian"] = "爬行类",
+    ["Monstrous"] = "怪物",
+    ["Baladiq"] = "巴拉迪克",
+    ["Body Type"] = "体型",
+    ["Already Unlocked"] = "已解锁",
+    ["TRANSFORM AND CUSTOMISE"] = "变形与自定义",
+    ["UNLOCK"] = "解锁",
+    ["LOCKED"] = "未解锁",
+    ["FORM"] = "形态",
+    ["COSMETICS"] = "外观",
+    ["GENITALS"] = "生殖器",
+    ["FORMLESS & HUMAN"] = "无形者与人类",
+    ["FORM + HUMAN"] = "形态 + 人类",
+    ["MALE"] = "男性",
+    ["FEMALE"] = "女性",
+    ["Masculine"] = "男性化",
+    ["Feminine"] = "女性化",
+}
+for k, v in pairs(EXTRA16) do MAP[k] = v end
+
+-- ===== 批次17：容器/库存类标签 =====
+local EXTRA17 = {
+    ["VENDOR INVENTORY"] = "商人库存",
+    ["Vendor Inventory"] = "商人库存",
+    ["VENDOR"] = "商人",
+    ["Vendor"] = "商人",
+    ["INVENTORY"] = "背包",
+    ["CONTAINER"] = "容器",
+    ["STORAGE"] = "储物",
+    ["STORAGE CHEST"] = "储物箱",
+    ["CHEST"] = "箱子",
+    ["LOOT"] = "战利品",
+    ["Loot"] = "战利品",
+    ["TAKE ALL"] = "全部拿取",
+    ["PUT ALL"] = "全部存入",
+    ["SORT"] = "整理",
+    ["FILTER"] = "筛选",
+    ["SEARCH"] = "搜索",
+    ["EQUIP"] = "装备",
+    ["UNEQUIP"] = "卸下",
+    ["USE"] = "使用",
+    ["DROP"] = "丢弃",
+    ["SELL"] = "出售",
+    ["BUY"] = "购买",
+    ["SELL ALL"] = "全部出售",
+    ["REPAIR"] = "修理",
+    ["UPGRADE"] = "升级",
+    ["COMPARE"] = "对比",
+    ["DETAILS"] = "详情",
+    ["Description"] = "描述",
+    ["Stats"] = "属性",
+    ["Requirements"] = "需求",
+    ["QUANTITY"] = "数量",
+    ["Quantity"] = "数量",
+    ["Selected"] = "已选择",
+    ["SELECTED"] = "已选择",
+    ["Empty Slot"] = "空栏位",
+    ["No Items"] = "无物品",
+    ["Full"] = "已满",
+    ["Locked"] = "已锁定",
+    ["Unlocked"] = "已解锁",
+    ["NEW"] = "新",
+    ["EQUIPPED"] = "已装备",
+    ["Equipped"] = "已装备",
+}
+for k, v in pairs(EXTRA17) do MAP[k] = v end
+
+-- ===== 批次18：互动提示 / 环形菜单 =====
+local EXTRA18 = {
+    ["Rest"] = "休息",
+    ["REST"] = "休息",
+    ["Campfire"] = "篝火",
+    ["CAMPFIRE"] = "篝火",
+    ["Shrine of Ascension"] = "升华神殿",
+    ["Touch"] = "触摸",
+    ["TOUCH"] = "触摸",
+    ["Interact"] = "互动",
+    ["INTERACT"] = "互动",
+    ["Open"] = "打开",
+    ["OPEN"] = "打开",
+    ["Pick Up"] = "拾取",
+    ["PICK UP"] = "拾取",
+    ["Talk"] = "交谈",
+    ["TALK"] = "交谈",
+    ["Mount"] = "骑乘",
+    ["MOUNT"] = "骑乘",
+    ["Enter"] = "进入",
+    ["ENTER"] = "进入",
+    ["Use"] = "使用",
+    ["USE"] = "使用",
+    ["Read"] = "阅读",
+    ["READ"] = "阅读",
+    ["Sit"] = "坐下",
+    ["SIT"] = "坐下",
+    ["Sleep"] = "睡觉",
+    ["SLEEP"] = "睡觉",
+    ["Pray"] = "祈祷",
+    ["PRAY"] = "祈祷",
+    ["Search"] = "搜索",
+    ["SEARCH"] = "搜索",
+    ["Harvest"] = "采集",
+    ["HARVEST"] = "采集",
+    ["SORCERY"] = "法术",
+    ["TORCH"] = "火把",
+    ["FISHING"] = "钓鱼",
+    ["Masturbate"] = "自慰",
+    ["MASTURBATE"] = "自慰",
+    ["SHADE SIGHT"] = "暗影视觉",
+    ["CANOPIC CAPTURE"] = "卡诺匹斯捕获",
+    ["SUMMON AADI"] = "召唤阿迪",
+    ["KORVOTH'S SCEPTRE"] = "科尔沃斯权杖",
+    ["Korvoth's Sceptre"] = "科尔沃斯权杖",
+    ["SUMMON MOUNT"] = "召唤坐骑",
+    ["HEAL"] = "治疗",
+    ["HEALING"] = "治疗",
+    ["TRANSFORM"] = "变形",
+    ["COSMETICS"] = "外观",
+    ["GENITALS"] = "生殖器",
+    ["INVENTORY"] = "背包",
+    ["MAP"] = "地图",
+    ["QUESTS"] = "任务",
+    ["SETTINGS"] = "设置",
+    ["CAMP"] = "营地",
+    ["This is the description for the hovered item."] = "这是所悬停物品的描述。",
+    ["Hover over an item to see its description."] = "将鼠标悬停在物品上以查看描述。",
+    ["No description available."] = "暂无描述。",
+    ["Right click to use."] = "右键使用。",
+    ["Left click to select."] = "左键选择。",
+}
+for k, v in pairs(EXTRA18) do MAP[k] = v end
+-- ===== 批次19：形态界面描述 / 交互提示补漏（v32 抓到：v31 已能读到这些控件的文本）=====
+local EXTRA19 = {
+    ["Congratulations! \r\nYou’ve given birth to a healthy baby.\r\nThis screen will soon be replaced with a cinematic - but please bear with us in this pre alpha build of the game."] = "恭喜！\r\n你诞下了一个健康的婴儿。\r\n这个界面稍后会被过场动画取代——但这仍是 pre-alpha 版本的游戏，还请多多包涵。",
+    ["Aspect of the Human I am a human"] = "人类之相：我是人类",
+    ["Not a true species at all, Demi-Felians are one of several human subtypes. Having insufficient essence to ascend to a greater form, these peoples have sewn shards of essence into simple neckwear. The Lybossan patterns embossed upon the collar hint at the origins of the magics used to sustain the limited transformation. A Demi-Felian lacks most of the agility of it’s parent species whilst retaining almost all of their human vulnerabilities. Their first step towards ascension does make owning them as slaves somewhat taboo however, meaning that they often avoid the clutches of the slave traders cartel."] = "严格来说，他们根本算不上一个真正的物种——半费利安人是若干人类亚种之一。由于精华不足以升格为更高的形态，这些人把精华碎片缝进简陋的颈饰之中。项圈上压印的利博桑纹样，暗示着维系这种有限变形所用魔法的由来。半费利安人失去了母种的大部分敏捷，却几乎保留了人类所有的脆弱之处。不过，迈出升格的第一步也让他们在奴隶交易中略显犯忌，因此这些人往往能躲开奴隶贩子集团的手掌。",
+    ["Not a true species at all, Demi-Draconids are one of several human subtypes. Having insufficient essence to ascend to a greater form, these peoples have sewn shards of essence into simple neckwear. The Lybossan patterns embossed upon the collar hint at the origins of the magics used to sustain the limited transformation. A Demi-Draconid lacks most of the hardened scales of it’s parent species whilst retaining almost all of their human vulnerabilities. Their first step towards ascension does make owning them as slaves somewhat taboo however, meaning that they often avoid the clutches of the slave trader's cartel."] = "严格来说，他们根本算不上一个真正的物种——半龙人是若干人类亚种之一。由于精华不足以升格为更高的形态，这些人把精华碎片缝进简陋的颈饰之中。项圈上压印的利博桑纹样，暗示着维系这种有限变形所用魔法的由来。半龙人失去了母种的大部分硬化鳞甲，却几乎保留了人类所有的脆弱之处。不过，迈出升格的第一步也让他们在奴隶交易中略显犯忌，因此这些人往往能躲开奴隶贩子集团的手掌。",
+    ["Night Eye Racial Ability for the Felian. Increases movement speed for 30 seconds."] = "费利安种族的夜视能力。提升移动速度，持续 30 秒。",
+    ["The Masculine Body-Type for this Form is unavailable."] = "该形态的男性体型不可用。",
+    ["Discover this Form in the World or via completing Quests."] = "在世界中探索或完成任务即可解锁该形态。",
+    ["Aspect of the Jackal I am a Jackal"] = "胡狼之相：我是胡狼",
+    ["Touch your own genitals."] = "触碰自己的生殖器。",
+    ["Select to equip/unequip the Canopic Capture jar."] = "选择装备/卸下卡诺匹斯之罐。",
+    ["Equip your Torch."] = "装备你的火把。",
+    ["Change minor cosmetics at the Shrine of Ascension."] = "在升格神殿更改次要外观。",
+    ["Highlight Interactables."] = "高亮可交互物。",
+    ["Sorcery\r\n..."] = "法术\n...",
+    ["Fishing"] = "钓鱼",
+    ["Torch"] = "火把",
+    ["ABILITIES"] = "能力",
+    ["For best performance/quality - we recommend a maximum of 70% resolution scale."] = "为获得最佳性能/画质，建议分辨率缩放最高不超过 70%。",
+    ["Extras"] = "附加",
+    ["Toggle Camera Controls"] = "切换摄像机控制",
+    ["Clean Up Semen"] = "清理精液",
+    ["Show Clothing Options"] = "显示服装选项",
+    ["Toggle POV"] = "切换视角",
+    ["Reset to default"] = "恢复默认",
+}
+for k, v in pairs(EXTRA19) do MAP[k] = v end
+
+-- ===== 批次20：鳄人族 / 半胡狼人 描述 + 快捷法术栏（v32 第二轮收割）=====
+local EXTRA20 = {
+    ["A vanishingly rare race in Sabu, Crocodilians are never found far from the banks of the Euphoris river. A particularly primal race, Crocodilians are more closely aligned to their kin species than other peoples of the desert kingdom. This closeness to their animal kin has led to Crocodilians being referred to simply as ‘Crocodiles’ in common parlance. A Crocodilian is unmatched in the water, being both a naturally capable swimmer and capable of holding their breath for an extended duration. Their cold-blooded nature often dictates their station, known for being particularly capable at concealing their emotions."] = "在萨布，鳄人是极为罕见的一支，他们从不远离尤弗里斯河的河岸。作为格外原始的一支种族，鳄人与自己的兽类亲族，比沙漠王国的其他族群更为亲近。这种亲近，让他们在日常口语中干脆被叫作“鳄鱼”。鳄人在水中无人能敌——既是天生的游泳好手，也能长时间屏住呼吸。冷血的习性常常左右他们的处境，他们以极善于掩藏情绪而闻名。",
+    ["Not a true species at all, Demi-Jackals are one of several human subtypes. Having insufficient essence to ascend to a greater form, these peoples have sewn shards of essence into simple neckwear. The Lybossan patterns embossed upon the collar hint at the origins of the magics used to sustain the limited transformation. A Demi-Jackal lacks most of the enhanced senses of it’s parent species whilst retaining almost all of their human vulnerabilities. Their first step towards ascension and shared likeness with Anubis makes owning them as slaves very taboo, however this taboo itself is enough to make them particularly sought after in secret auctions held by the slave traders cartel."] = "严格来说，他们根本算不上一个真正的物种——半胡狼人是若干人类亚种之一。由于精华不足以升格为更高的形态，这些人把精华碎片缝进简陋的颈饰之中。项圈上压印的利博桑纹样，暗示着维系这种有限变形所用魔法的由来。半胡狼人失去了母种大部分的敏锐感官，却几乎保留了人类所有的脆弱之处。迈出升格的第一步、以及与阿努比斯相似的外貌，使拥有他们作奴隶极为犯忌——而这份犯忌本身，又让他们在奴隶贩子集团举办的秘密拍卖中格外抢手。",
+    ["One with the Water Racial Ability for Crocadilians. Increases swim speed for 30 seconds."] = "鳄人族种族能力「与水合一」。提升游泳速度，持续 30 秒。",
+    ["Select to change your active Sorcery."] = "选择以更换当前启用的法术。",
+    ["Throw a sphere of raw void at your enemies, harming them."] = "向敌人投掷一枚未经塑形的虚空之球，对其造成伤害。",
+    ["Unlocked via \"The Avarice of Birds\""] = "通过「飞鸟的贪婪」解锁",
+}
+for k, v in pairs(EXTRA20) do MAP[k] = v end
+
+-- ===== 批次21：任务/目标空状态 + 地名 + 法律声明（v32 第三轮收割）=====
+local EXTRA21 = {
+    ["No quests."] = "暂无任务。",
+    ["No objectives."] = "暂无目标。",
+    ["No description."] = "暂无描述。",
+    ["Objective updated"] = "目标已更新",
+    ["Mehden Village Temple"] = "梅登村神殿",
+    ["Raqote"] = "拉科特",
+    ["Amhak"] = "阿姆哈克",
+    ["Carnal Instinct is a trademark of Team Carnal Instinct. All other trademarks are properties of their respective owners. Developed and published by Team Carnal Instinct. All rights reserved. Team Carnal Instinct are registered trademarks of Team Carnal Instinct. The ratings icon is a Trade Mark \r\nof the Entertainment Software Association. All other Trademarks and marks are the property of their respective owners."] = "Carnal Instinct 是 Carnal Instinct 团队的商标。其他所有商标均为其各自所有者的财产。由 Carnal Instinct 团队开发并发行。保留所有权利。Carnal Instinct 团队是 Carnal Instinct 团队的注册商标。分级图标是娱乐软件协会（ESA）的商标。\r\n其他所有商标与标识均为其各自所有者的财产。",
+}
+for k, v in pairs(EXTRA21) do MAP[k] = v end
+-- ===== 批次22：捏人界面标签 / 阳具皮肤与描述 / 药剂与鱼线提示（v32 第四轮收割）=====
+local EXTRA22 = {
+    ["Toss out your fishing line."] = "抛出鱼线。",
+    ["Complexion"] = "肤色",
+    ["Hide Clothes?"] = "隐藏衣物？",
+    ["Body Hair Style"] = "体毛样式",
+    ["Markings"] = "印记",
+    ["Pigmentation"] = "色素",
+    ["Face"] = "面部",
+    ["BODYHAIR"] = "体毛",
+    ["APPEARANCE"] = "外观",
+    ["Skin: \"Wer\" Member"] = "皮肤：「兽」形",
+    ["The huge, knotted shaft of the Jackal god's lineage."] = "胡狼神血脉那巨大、带结的阳具。",
+    ["Hide Scrotum?"] = "隐藏阴囊？",
+    ["Skin: Banded \"Dragon\" Member"] = "皮肤：环纹「龙」形",
+    ["This weighty member serves the same purpose as the real thing, with the flared hood helping to secure it in place. Though cast from solid gold, the head of the snake seems warm and almost pliable to the touch, sliding in with surprising ease."] = "这件沉甸甸的器具与真物用途相同，外扩的伞缘能帮它固定到位。虽由纯金铸成，蛇头却温热得仿佛可以弯折，滑入时出奇地顺畅。",
+    ["Skin: Dark Equine"] = "皮肤：深色马形",
+    ["The obscenely large, flared member of a male Equine."] = "雄性马那大得离谱、伞状外扩的阳具。",
+    ["Flacid"] = "疲软",
+    ["Skin: Equine"] = "皮肤：马形",
+    ["Skin: Natural Equine"] = "皮肤：自然马形",
+    ["HAIR & HORNS"] = "毛发与犄角",
+    [" Like snakes, but hairy."] = " 形似蛇，只不过覆着毛发。",
+    ["HIDE ALL COLOURS"] = "隐藏所有颜色",
+    ["Instant"] = "立即",
+    ["A rare marine-crafted intimate oil inspired by ancient ritual and oceanic mystique. Derived from refined fish oils for an exceptionally smooth, luxurious glide."] = "一款稀有的海工秘制润体油，灵感源自古老仪式与海洋的神秘气息。以精炼鱼油调制，带来异常顺滑奢华的滑动感。",
+    ["Duration: 50 seconds"] = "持续时间：50 秒",
+    ["Crafted with the eye of a subaq, this elixir makes the skin of whoever imbibes it as tough as stone for a short period of time."] = "以苏巴克之眼调制而成的灵药，饮下者的皮肤会在短时间内坚硬如石。",
+    ["Duration: 30 seconds"] = "持续时间：30 秒",
+    ["A purer, rare batch of Akkadew."] = "一批更纯净、更稀有的阿卡杜。",
+    ["A sticky-sweet elixir that closes wounds and numbs pain."] = "一种黏甜的灵药，能愈合伤口、麻痹疼痛。",
+    ["A petrified heart imbued with leftover essence."] = "一颗石化的心脏，仍残留着精华。",
+}
+for k, v in pairs(EXTRA22) do MAP[k] = v end
+-- ===== 批次23：快速旅行 / 场景提示 / 人名地名（v32 第五轮收割）=====
+local EXTRA23 = {
+    ["Subaq"] = "苏巴克",
+    ["Open [World Map] to fast travel"] = "打开【世界地图】以快速旅行",
+    ["CAMPFIRE DISCOVERED"] = "发现篝火",
+    ["New Fast Travel Location Unlocked"] = "已解锁新的快速旅行地点",
+    ["Khito"] = "基托",
+    ["Docks of Anubis"] = "阿努比斯码头",
+    ["PROGRESS"] = "进度",
+    ["Your partner likes that"] = "你的伴侣喜欢这样",
+    ["CONFIRM"] = "确认",
+    ["LEAVING SCENE"] = "离开场景",
+    ["Havar"] = "哈瓦尔",
+    ["Havar's Note"] = "哈瓦尔的字条",
+    ["Deliver Havar's note to Mehlva"] = "把哈瓦尔的字条交给梅尔瓦",
+}
+for k, v in pairs(EXTRA23) do MAP[k] = v end
+-- ===== 批次24：属性/术语表补漏（CommonTermsUI 那批，运行时兜底）=====
+local EXTRA24 = {
+    ["Fire Resistance"] = "火焰抗性",
+    ["Cold Resistance"] = "寒冰抗性",
+    ["Void Resistance"] = "虚空抗性",
+    ["Void Damage"] = "虚空伤害",
+    ["Range Damage"] = "远程伤害",
+    ["Range Weapon"] = "远程武器",
+    ["Melee Weapon"] = "近战武器",
+    ["Required Level"] = "需要等级",
+    ["Requires Level"] = "需要等级",
+    ["Target Enemy"] = "锁定敌人",
+    ["Transfer Item"] = "转移物品",
+    ["Activate Ability"] = "激活能力",
+    ["Open Inventory"] = "打开背包",
+    ["Close Inventory"] = "关闭背包",
+    ["Close Crafting"] = "关闭制作",
+    ["Close Storage"] = "关闭储物箱",
+    ["New Stat Points Available"] = "有新的属性点可用",
+    ["Sorting Menu"] = "排序菜单",
+    ["Item cannot be Removed."] = "该物品无法移除。",
+    ["Can be used in crafting."] = "可用于制作。",
+    ["RESET DEFAULTS"] = "恢复默认",
+    ["PREVIOUS"] = "上一步",
+    ["OPTION"] = "选项",
+    ["Ethnicity"] = "族裔",
+    ["Corruption"] = "腐蚀",
+    ["CORRUPTION"] = "腐蚀",
+    ["Bandages"] = "绷带",
+    ["Carnal Instinct Vision"] = "Carnal Instinct 视效",
+    ["Anubite Warrior Bra"] = "阿努比斯战士胸衣",
+    ["Lesser Draconid"] = "小型龙人",
+    ["Lesser Jackal"] = "小型胡狼",
+    ["Northern Horns"] = "北方犄角",
+    ["Simple wrappings of worn rags, marked with dirt, sweat, and the stains of lust."] = "破布简单缠成的衣物，沾着尘土、汗水与情欲的痕迹。",
+    ["This will take you back to the Main Menu. Continue?"] = "这将返回主菜单。要继续吗？",
+    ["Collect"] = "采集",
+    ["Gather"] = "采集",
+    ["Armor"] = "护甲",
+    ["Fire Resistance "] = "火焰抗性",
+}
+for k, v in pairs(EXTRA24) do MAP[k] = v end
+-- ===== 批次25：任务目标 / 物品描述 / 词典补充 =====
+local EXTRA25 = {
+    ["Havar has asked me to take a note to Mehlva north of the docks in the fishing village, I've been sworn to secrecy."] = "哈瓦尔让我把一张字条送到渔村码头以北的梅尔瓦手上，我发誓保密。",
+    ["SECRET ADMIRER"] = "秘密仰慕者",
+    ["A love note to Mehlva from Havar. Maybe I shouldn't read this."] = "哈瓦尔写给梅尔瓦的情书。也许我不该读它。",
+    ["Adept"] = "术士",
+    ["RESTART"] = "重新开始",
+}
+for k, v in pairs(EXTRA25) do MAP[k] = v end
+-- ===== 批次26：属性变体 + Steam 统计 =====
+local EXTRA26 = {
+    ["Steam Stats"] = "Steam 统计",
+    ["Ranged Damage"] = "远程伤害",
+    ["Cold Damage"] = "寒冰伤害",
+}
+for k, v in pairs(EXTRA26) do MAP[k] = v end
+
+-- ===== 批次27：截图漏译（任务日志 / 环形菜单提示 / 高级统计页），v43 hook 生效后补齐 =====
+local EXTRA27 = {
+    ["QUEST OBJECTIVES:"] = "任务目标：",
+    ["JOURNAL ENTRY:"] = "日志条目：",
+    ["Changes the radial menu selection to either be:"] = "改变环形菜单的选择方式：",
+    ["Press the key to open the radial menu. Move the mouse to select an option, then click to confirm."] = "按键打开环形菜单，移动鼠标选择一项，然后点击确认。",
+    ["Hold the key to open the radial menu. Move the mouse to select an option, then release the key to confirm."] = "按住按键打开环形菜单，移动鼠标选择一项，然后松开按键确认。",
+    ["Quests Completed"] = "已完成任务",
+    ["Forms Unlocked"] = "已解锁形态",
+    ["Sorceries Unlocked"] = "已解锁法术",
+    ["Total Essence"] = "总精华",
+    ["Total Gold"] = "总金币",
+    ["Total Pure Essence"] = "总纯净精华",
+    ["Pregnancy"] = "怀孕",
+    ["Fertility"] = "生育力",
+    ["Times Pregnant"] = "怀孕次数",
+    ["Times Impregnating"] = "授孕次数",
+    ["Gilded Fold Reputation"] = "镀金之褶声望",
+    ["Enabled"] = "已启用",
+    ["Neutral"] = "中立",
+    ["N/A"] = "无",
+    ["Arcana"] = "奥秘",
+    ["Presence"] = "存在感",
+    ["Melee Weapon Damage"] = "近战武器伤害",
+    ["Range Weapon Damage"] = "远程武器伤害",
+    ["Sorcery Damage"] = "法术伤害",
+    ["Crit Damage"] = "暴击伤害",
+    ["Bleed Damage"] = "流血伤害",
+    ["Poison Damage"] = "中毒伤害",
+    ["Points Available:"] = "可用点数：",
+    ["Points Available"] = "可用点数",
+    ["Exp:"] = "经验：",
+    ["Total Playtime"] = "总游戏时长",
+    ["Distance Travelled"] = "旅行距离",
+    ["Enemies Defeated"] = "击败敌人",
+    ["Times Defeated"] = "被击败次数",
+    ["Reputation"] = "声望",
+}
+for k, v in pairs(EXTRA27) do MAP[k] = v end
+
+-- ===== 批次28：地标 / 交互物名称（v43 hook 生效后，来自 BP_UnlockAbilityShrine 等）=====
+local EXTRA28 = {
+    ["Shrine of Ascension"] = "升华神殿",
+    ["Shrine of Ascension remotely"] = "远程激活升华神殿",
+    ["CosmeticShrine"] = "外观神殿",
+    ["RitualVessel"] = "仪式容器",
+    ["Display on Map"] = "在地图上显示",
+    ["Remove Interaction"] = "移除交互",
+    ["UnlockAbilityShrine"] = "解锁能力神殿",
+}
+for k, v in pairs(EXTRA28) do MAP[k] = v end
+
+-- ===== 批次29：漏译收割（v45 [MISS]，设置菜单升频器说明等）=====
+local EXTRA29 = {
+    ["Restart required (FILLED OUT IN WB_Master_SettingsMenu)"] = "需要重启游戏才能生效",
+    ["Caps Lock"] = "大写锁定",
+    ["Pleasure Island"] = "极乐岛",
+    ["Sotema"] = "索特玛",
+    ["Temporal Super Resolution, a high-quality upscaler built directly into the game engine. Works on all graphics cards. It provides a reliable balance of performance and stability without requiring specific hardware or third-party drivers."] = "时间超分辨率（TSR），直接内建于引擎的高质量升频技术。支持所有显卡，无需特定硬件或第三方驱动，即可稳定兼顾性能与画质。",
+    ["Intel XeSS"] = "Intel XeSS",
+    ["Intel XeSS 2, an advanced AI-based upscaler designed for high motion clarity. Works on almost all modern GPUs. While optimized for Intel Arc and the latest Core Ultra processors, it provides an excellent AI-driven alternative for NVIDIA GTX and AMD Radeon users."] = "Intel XeSS 2，基于 AI 的先进升频技术，专为高动态清晰度设计，几乎所有现代 GPU 都可用。虽针对 Intel Arc 与最新 Core Ultra 处理器优化，也为 NVIDIA GTX 与 AMD Radeon 用户提供了出色的 AI 升频方案。",
+    ["AMD FSR"] = "AMD FSR",
+    ["AMD FSR Redstone has universal compatibility. The cutting-edge AI features are optimized for the Radeon RX 9000 series, while owners of older Radeon, NVIDIA, or integrated graphics will automatically use the highly-compatible analytical fallback."] = "AMD FSR Redstone 具备通用兼容性。前沿 AI 特性针对 Radeon RX 9000 系列优化，而较旧的 Radeon、NVIDIA 或集成显卡用户将自动使用兼容性极佳的解析式回退方案。",
+    ["NVIDIA DLSS 4.5 uses a state-of-the-art AI Transformer model to reconstruct ultra-sharp images. Requires an NVIDIA GeForce RTX GPU. Owners of RTX 20 and 30 series cards will automatically use the high-fidelity compatibility model, while RTX 40 and 50 series benefit from the latest hardware acceleration."] = "NVIDIA DLSS 4.5 使用先进的 AI Transformer 模型重建超清晰画面，需要 NVIDIA GeForce RTX 显卡。RTX 20/30 系列用户将自动使用高保真兼容模型，RTX 40/50 系列则可享受最新硬件加速。",
+    ["Disables all AI-driven upscaling. The game will render at your monitor's full native resolution using traditional methods. Choose this for the most 'raw' image. It may requires a powerful GPU to maintain high frame rates."] = "禁用所有 AI 升频。游戏将以显示器原生分辨率、使用传统方式渲染。想要最“原始”的画面可选此项，但可能需要强劲的 GPU 才能维持高帧率。",
+    ["UltraPerformance"] = "极致性能",
+    ["Performance"] = "性能",
+    ["Balanced"] = "平衡",
+}
+for k, v in pairs(EXTRA29) do MAP[k] = v end
+-- 【v32 修正】PREFIX/LOWER/COMPACT 原来在各 EXTRA 批次合并「之前」就建好了（文件上方），
+-- 导致批次 2~20 的词条享受不到忽略大小写/空白/标点的兜底匹配（多行文本尤其吃亏：
+-- 游戏里长文本用 \r\n，而日志收割时按 \n 记录，键就差一个字符）。
+-- 这里在全部分批并入之后再补建一次 LOWER/COMPACT；先到先得，不覆盖已有值。
+for k, v in pairs(MAP) do
+    if not LOWER[k:lower()] then LOWER[k:lower()] = v end
+    local ck = compact_key(k)
+    if not COMPACT[ck] then COMPACT[ck] = v end
+end
+
+
+
+local POLL_MISS_SEEN, POLL_MISS_N = {}, 0
+-- ============ 应用逻辑 ============
+local stats = { scans = 0, hits = 0, writes = 0, write_fail = 0 }
+local unseen = {}
+
+-- 判断是否像"该翻译的 UI 文本"（过滤人名/碎片/纯符号）
+local function looks_translatable(s)
+    if not s or #s < 3 then return false end
+    if not s:find("%a") then return false end
+    if s:find("[\228-\233]") then return false end                          -- 已含中文，说明已替换
+    if s:match("^[a-z0-9_%.%-]+$") then return false end                   -- 全小写 → 标识符/资产名
+    if s:find("_") then return false end                                   -- 含下划线 → 资产名/属性名
+    -- 人名样式 "Jacob Zielesch"；但属性名/界面词（两三个词、含常见术语）不能当人名滤掉
+    if s:match("^%u%l+%s+%u%l+$") or s:match("^%u%l+%s+%u%l+%s+%u%l+$") then
+        if not s:find("Resistance") and not s:find("Damage") and not s:find("Weapon")
+           and not s:find("Level") and not s:find("Menu") and not s:find("Item")
+           and not s:find("Inventory") and not s:find("Ability") and not s:find("Armour")
+           and not s:find("Crafting") and not s:find("Storage") and not s:find("Stat") then
+            return false
+        end
+    end
+    if s:match("^%d") then return false end                                -- 以数字开头
+    if s:match("^https?://") then return false end
+    if s:find("twitter.com") or s:find("Twitch") or s:find("youtube") then return false end
+    if s:find("FILLED OUT IN") or s:find("NPC Manager") then return false end  -- 开发者备注
+    if s:find("^Fixed a") or s:find("^Optimized the") then return false end    -- 更新日志
+    if s:find("sample player dialog box") or s:find("tutorial text which takes place") then return false end
+    if s:find("very and very long") or s:find("very wide") or s:find("wrap test") then return false end
+    if s:find("This is the description for") or s:find("Text Info hovered") then return false end
+    if s:find("^Rum qui") or s:find("MISSING STRING TABLE") then return false end
+    -- UMG/Slate 类型名，不是界面文本
+    if s:match("^(Widget|Panel|Box|Slot|Text|Image|Button|Border|Overlay|Canvas|Scroll|Spacer|Check|Slider|Combo|Editable|Rich|Progress|Background|Scale|Grid|Wrap|Uniform|Throbber|Named|Root|Content|Child|Parent|User|Actor|Object|Class|Struct|Enum|Interface|Function|Property|Delegate|Material|Texture|Mesh|Sound|Anim|Skeleton|Static|Skeletal|Camera|Light|Component)") then
+        return false
+    end
+    return true
+end
+
+local function safe(fn, ...)
+    local ok, res = pcall(fn, ...)
+    if ok then return res end
+    return nil
+end
+
+-- 覆盖所有承载文本的 UMG 控件类型（原先只扫 TextBlock，导致 RichTextBlock 等漏网）
+local TEXT_CLASSES = {
+    "TextBlock",
+    "RichTextBlock",
+    "EditableText",
+    "EditableTextBox",
+    "MultiLineEditableText",
+    "MultiLineEditableTextBox",
+}
+
+local read_text  -- 前向声明
+local write_text
+
+-- 常见文本属性名候选。本作有自定义控件（互动提示 "E 触摸 XXX"、环形菜单条目等），
+-- 其文本属性名不叫 Text，导致 obj.Text 与 GetText() 都读不到。
+-- 【v32】名单保持 21 个不变（怕砍错丢掉已能读到的形态描述），改用类级缓存把探测压到"每类一次"。
+local TEXT_PROPS = {
+    "text", "m_text", "TextContent", "ContentText",
+    "PromptText", "InteractionText", "DisplayText", "LabelText",
+    "TitleText", "DescText", "DescriptionText", "ActionText",
+    "KeyText", "MessageText", "BodyText", "NameText", "ValueText",
+    "ItemName", "ItemNameText", "HoverText", "TooltipText",
+}
+local stat_props = {}
+
+-- ============ v32 崩溃加固：类级缓存 ============
+-- 证据：crash_2026_10_15_03_20_08.dmp = 0xC0000005，读地址 0x18，故障点在 UE4SS.dll 内部。
+-- 即"对无效 UObject 做原生属性访问"会直接访问违例，Lua 的 pcall/safe 拦不住。
+-- 所以加固方向是【减少对可疑对象的原生调用次数】，而不是多包一层 pcall：
+--   1) 每个类只探测一次属性名，命中后固定复用（之后开销 = 1 次属性访问）
+--   2) 判定"不承载文本"的类彻底跳过，连 obj.Text 都不再读
+--   3) 非全量轮次只扫"已确认承载文本的类"，不再每轮遍历全部 7089 个 Widget
+--   4) 未收录记录合并进同一遍遍历（原版每轮全表读两遍，暴露面翻倍）
+-- v35：钩子状态必须在 apply 之前声明（v34 声明在 apply 之后 → apply 里读到 nil，心跳报错被 pcall 吞掉）
+local HOOK_ENABLE = false          -- v38：钩子暂时关闭（反射调用引发过 UE4SS 内部崩溃，收益为0）
+local hook_busy = false
+local hook_calls, hook_writes = 0, 0
+local hook_enabled = true
+local HOOK_CALL_LIMIT = 500000
+local seen_log, seen_n = {}, 0
+
+local CACHE = {}                 -- 类名 -> { prop=属性名, gt=是否有GetText, miss=连续未命中, no_text=已判定无文本 }
+local PROBE_MISS_LIMIT = 3
+local TEXT_LIKE = { "Text", "Prompt", "Interact", "Hint", "Label", "Tooltip", "Slot", "Button", "Entry" }
+local TEXT_CLASS_SET = {}
+for _, cn in ipairs(TEXT_CLASSES) do TEXT_CLASS_SET[cn] = true end
+
+-- 未收录文本落盘
+-- 【v32 修正】原路径 "ue4ss/Mods/UIZh/missing.txt" 是错的：UE4SS 的工作目录本身就是 ...\Win64\ue4ss，
+-- 于是被解析成不存在的 ue4ss\ue4ss\Mods\...，文件从未写出来过（日志却一直打印"落盘成功"）。
+local MISSPATH = "Mods/UIZh/missing.txt"
+local miss_logged = {}
+local miss_count = 0
+local miss_write_ok = nil
+local io_ok = (type(io) == "table" and io.open) and true or false
+
+local function log_missing(s)
+    if not io_ok or miss_logged[s] then return end
+    miss_logged[s] = true
+    miss_count = miss_count + 1
+    local ok = pcall(function()
+        local f = io.open(MISSPATH, "a")
+        if not f then error("open failed: " .. MISSPATH) end
+        f:write(s:gsub("[\r\n]+", " ") .. "\n")
+        f:close()
+    end)
+    if miss_write_ok == nil then
+        miss_write_ok = ok
+        print(string.format("%s未收录落盘%s: %s\n", MOD, ok and "可用" or "失败", MISSPATH))
+    end
+end
+
+local function is_ftext(v)
+    return v ~= nil and (type(v) == "userdata" or type(v) == "table") and v.ToString ~= nil
+end
+
+local function text_like(cls)
+    for _, kw in ipairs(TEXT_LIKE) do
+        if cls:find(kw, 1, true) then return true end
+    end
+    return false
+end
+
+local function cache_of(cls)
+    local c = CACHE[cls]
+    if not c then c = { miss = 0 }; CACHE[cls] = c end
+    return c
+end
+
+read_text = function(obj)
+    if obj == nil then return nil end
+    -- 0) 对象自身校验；无效对象一律不碰
+    local valid = safe(function() return obj:IsValid() end)
+    if valid == false then return nil end
+
+    local cls = safe(function() return obj:GetClass():GetFName():ToString() end)
+    if not cls or cls == "" then return nil end
+    local c = cache_of(cls)
+
+    -- 1) 已确定属性名：只读这一个（缓存命中后的主路径）
+    if c.prop then
+        local v = safe(function() return obj[c.prop] end)
+        if is_ftext(v) then
+            local s = safe(function() return v:ToString() end)
+            if s and #s > 0 then return s, cls end
+        end
+        return nil, cls
+    end
+
+    -- 2) 已判定该类不承载文本：直接跳过，不再做任何属性访问
+    if c.no_text then return nil, cls end
+
+    -- 3) 标准 Text 属性（TextBlock / EditableText 等）
+    local txt = safe(function() return obj.Text end)
+    if is_ftext(txt) then
+        c.prop = "Text"                       -- 该类确实用 Text，固定下来
+        local s = safe(function() return txt:ToString() end)
+        if s and #s > 0 then return s, cls end
+        return nil, cls
+    end
+
+    -- 4) GetText() 方法：没有该函数的类记住，避免每轮反复抛错
+    if c.gt ~= false then
+        local ok, ftext = pcall(function() return obj:GetText() end)
+        if not ok then
+            c.gt = false
+        elseif is_ftext(ftext) then
+            c.gt = true
+            local s = safe(function() return ftext:ToString() end)
+            if s and #s > 0 then return s, cls end
+            return nil, cls
+        end
+    end
+
+    -- 5) 变体属性名探测：只对名字像文本控件的类做，且每类有次数上限
+    if not text_like(cls) then
+        c.no_text = true
+        return nil, cls
+    end
+    if c.miss >= PROBE_MISS_LIMIT then
+        c.no_text = true
+        return nil, cls
+    end
+    for _, p in ipairs(TEXT_PROPS) do
+        local v = safe(function() return obj[p] end)
+        if is_ftext(v) then
+            c.prop = p                                    -- 该类固定使用这个属性名
+            stat_props[p] = (stat_props[p] or 0) + 1
+            safe(function() obj.__uizh_prop = p end)      -- 记住命中的属性名，写入时复用
+            local s = safe(function() return v:ToString() end)
+            if s and #s > 0 then return s, cls end
+            return nil, cls
+        end
+    end
+    c.miss = c.miss + 1
+    if c.miss >= PROBE_MISS_LIMIT then c.no_text = true end
+    return nil, cls
+end
+
+write_text = function(obj, cls)
+    return function(ftext)
+        -- 1) 标准路径：UFunction SetText（必须走它才能通知 Slate 刷新）
+        if safe(function() obj:SetText(ftext); return true end) then return true end
+        if safe(function() obj.Text = ftext; return true end) then return true end
+        -- 2) 复用类级缓存 / 读取时命中的属性名
+        local c = cls and CACHE[cls]
+        local p = (c and c.prop) or safe(function() return obj.__uizh_prop end)
+        if p and p ~= "Text" and safe(function() obj[p] = ftext; return true end) then
+            safe(function() obj.__uizh_prop = p end)
+            return true
+        end
+        -- 3) 兜底：仅在该类属性名尚未确定时逐个试写（21 次写入只发生一次/类）
+        if not (c and c.prop) then
+            for _, q in ipairs(TEXT_PROPS) do
+                if safe(function() obj[q] = ftext; return true end) then
+                    if c then c.prop = q end
+                    safe(function() obj.__uizh_prop = q end)
+                    return true
+                end
+            end
+        end
+        return false
+    end
+end
+
+-- v33：取消"只扫已知类"的窄化。实测那种做法会把单轮对象数放大到 2 万以上（同一批控件被
+-- 多个类重复枚举），于是撞上保险丝被截断，反而漏掉尾部控件 —— 世界交互提示很可能就在尾部。
+-- 现在固定每轮遍历：标准文本类 + 全部 Widget（约 8000 个），开销由类级缓存压住。
+local discovered = {}
+
+local function gather(full)
+    local out, seen = {}, {}
+    local function push(list)
+        if not list then return end
+        for _, o in ipairs(list) do
+            if o ~= nil and not seen[o] then
+                seen[o] = true
+                out[#out + 1] = o
+            end
+        end
+    end
+    for _, cn in ipairs(TEXT_CLASSES) do
+        push(safe(function() return FindAllOf(cn) end))
+    end
+    if full then
+        push(safe(function() return FindAllOf("Widget") end))
+    end
+    return out
+end
+
+local MAX_PER_SCAN = 60000       -- 保险丝：单轮扫描绝不无界（正常每轮约 8000 个对象）
+local warned_trunc = false
+
+local function apply(full)
+    stats.scans = stats.scans + 1
+    local list = gather(full)
+    local n = #list
+    if n == 0 then return end
+    if n > MAX_PER_SCAN then
+        for i = n, MAX_PER_SCAN + 1, -1 do list[i] = nil end
+        n = MAX_PER_SCAN
+        if not warned_trunc then
+            warned_trunc = true
+            print(string.format("%s警告：单轮对象数超上限 %d 已截断（可能漏扫尾部控件）\n", MOD, MAX_PER_SCAN))
+        end
+    end
+    local hits, writes, fails = 0, 0, 0
+    for i = 1, n do
+        local obj = list[i]
+        local s, cls = nil, nil
+        pcall(function() s, cls = read_text(obj) end)   -- 单个对象出 Lua 错不拖垮整轮
+        if cls and not TEXT_CLASS_SET[cls] then discovered[cls] = true end
+        if s then
+            -- v47：轮询侧漏译收割（前缀 MISSP，用于与 hook 侧 MISS 区分）
+            if #s >= 4 and s:find("%a%a%a") and not POLL_MISS_SEEN[s] and POLL_MISS_N < 2000 then
+                if lookup(s) == nil then
+                    POLL_MISS_SEEN[s] = true
+                    POLL_MISS_N = POLL_MISS_N + 1
+                    print(string.format("%s[MISSP] %s\n", MOD, (s:gsub("[\r\n]+", " "))))
+                end
+            end
+            qt_emit("W", s)      -- v41：界面上读到的文本全部记录（含未翻译），供任务文本收割
+            local zh = lookup(s)
+            if zh then
+                hits = hits + 1
+                local ftext = safe(function() return FText(zh) end)
+                if ftext and write_text(obj, cls)(ftext) then
+                    writes = writes + 1
+                else
+                    fails = fails + 1
+                end
+            elseif not unseen[s] and looks_translatable(s) then
+                -- v32：未收录记录合并进同一遍，不再额外全表复扫一次
+                unseen[s] = true
+                print("MISS|" .. s .. "\n")
+                log_missing(s)
+            end
+        end
+    end
+    stats.hits = stats.hits + hits
+    stats.writes = stats.writes + writes
+    stats.write_fail = stats.write_fail + fails
+    if hits > 0 then
+        print(string.format("%s扫描%d: 命中%d 写入%d 失败%d 对象%d%s\n",
+            MOD, stats.scans, hits, writes, fails, n, full and " 全量" or " 热区"))
+    end
+    if HOOK_ENABLE and stats.scans % 30 == 0 then
+        print(string.format("%s[HOOK] 调用%d 改写%d（启用=%s）\n", MOD, hook_calls, hook_writes, tostring(hook_enabled)))
+    end
+end
+
+local function count_keys(t)
+    local n = 0
+    for _ in pairs(t) do n = n + 1 end
+    return n
+end
+
+print(MOD .. "UI 汉化 mod 已加载，映射表 " .. tostring(count_keys(MAP)) .. " 条\n")
+
+-- （未收录落盘相关定义已上移到 read_text 之前：原版 log_missing 是后声明的 local，
+--   在 apply 里实际解析成全局 nil，导致每轮记到第 1 条 MISS 就报错中止，日志里才是一条/轮。）
+
+local function is_cjk(s)
+    return s and s:find("[\228-\233]") ~= nil
+end
+
+-- 【诊断】枚举所有 Widget 的实际类名分布，找出承载文本的自定义控件类。
+-- 背景：TextBlock 只找到 779 个（曾 dump 到 1869），RichTextBlock 为 0，
+-- 说明描述类文本挂在别的类上（本作有自研 MSL 本地化系统，可能自带文本控件）。
+ExecuteWithDelay(20000, function()
+    for _, cn in ipairs(TEXT_CLASSES) do
+        local l = safe(function() return FindAllOf(cn) end)
+        print(string.format("[STAT] %s = %d\n", cn, l and #l or 0))
+    end
+    local ws = safe(function() return FindAllOf("Widget") end)
+    if ws then
+        local byclass = {}
+        for _, o in ipairs(ws) do
+            local c = safe(function() return o:GetClass():GetFName():ToString() end)
+            if c then byclass[c] = (byclass[c] or 0) + 1 end
+        end
+        print(string.format("[STAT] Widget 总数 = %d，类数 = %d\n", #ws, (function()
+            local n = 0; for _ in pairs(byclass) do n = n + 1 end; return n end)()))
+        -- 只打印名字里带 Text/Label/Title/Desc 的类（最可能是文本控件）
+        for c, n in pairs(byclass) do
+            if c:find("Text") or c:find("Label") or c:find("Title") or c:find("Desc") or c:find("Rich") then
+                print(string.format("[WIDGET] %-46s %d\n", c, n))
+            end
+        end
+    end
+end)
+
+-- 【架构说明】此前把全量扫描 apply() 直接挂在 SetText 这类高频函数上，
+-- 导致每帧重入多次全表扫描，最终拖垮引擎（crash_2026_10_15_*.dmp 系列）。
+-- 现在改为最保守结构：
+--   1) 不再 hook 高频函数（SetText 已移除）
+--   2) 界面构建 hook 只置一个脏标记，绝不直接执行扫描
+--   3) 统一由低频轮询执行，且带重入保护，永不并发
+local busy = false
+local dirty = true
+local last_full = 0
+local FULL_SWEEP_BUDGET = 6      -- 热身期做 6 轮全量
+local FULL_SWEEP_GAP = 10        -- 两次全量至少隔 10 轮（30 秒），压制崩溃暴露面
+
+local function apply_safe(full)
+    if busy then
+        dirty = true
+        return
+    end
+    busy = true
+    pcall(apply, full)
+    busy = false
+    dirty = false
+end
+
+-- 界面重建时只做标记（不执行），避免高频重入
+for _, path in ipairs({
+    "/Script/UMG.UserWidget:Construct",
+    "/Script/UMG.UserWidget:NativeConstruct",
+    "/Script/UMG.UserWidget:OnWidgetRebuilt",
+}) do
+    pcall(function()
+        RegisterHook(path, function(...)
+            dirty = true
+        end)
+    end)
+end
+print(MOD .. "已挂载界面构建标记（轻量，不执行扫描）\n")
+
+-- ===== v34：定向轻量钩子 —— 在游戏 SetText 的瞬间替换（只查表，绝不扫描）=====
+-- 背景：物品名/品类、交互提示这类文本是蓝图在显示时反复重设的，3 秒轮询追不上，
+-- 写进去就被刷回英文。文档里那批崩溃是"在钩子里跑全表扫描"（每帧几万次遍历），
+-- 这里改为 O(1) 查表：命中词条才改写，未命中立刻返回，代价与 SetText 本身同量级。
+local function uizh_settext(self, in_text)
+    if not hook_enabled then return nil end
+    hook_calls = hook_calls + 1
+    if hook_calls > HOOK_CALL_LIMIT then
+        hook_enabled = false
+        print(string.format("%s[HOOK] 调用量超上限，钩子已自动停用（调用%d 改写%d）\n", MOD, hook_calls, hook_writes))
+        return nil
+    end
+    if hook_busy or self == nil then return nil end
+    -- 【v37】UE4SS 钩子传的是 RemoteUnrealParam 包装对象，必须 :get() 解包后才能取值
+    local function unwrap(v)
+        if v == nil then return nil end
+        -- 不同 UE4SS 版本对 RemoteUnrealParam 的取值方法名可能不同，逐个试
+        for _, m in ipairs({ "get", "get_value", "Get", "GetValue" }) do
+            local ok, inner = pcall(function() return v[m]() end)
+            if ok and inner ~= nil and type(inner) ~= "function" then return inner end
+        end
+        return v
+    end
+    local obj = unwrap(self)
+    local arg = unwrap(in_text)
+    local tp = type(arg)
+    local s = nil
+    if tp == "string" then
+        s = arg
+    elseif tp == "userdata" or tp == "table" then
+        s = safe(function() return arg:ToString() end)
+        if (not s or #s == 0) and tp == "table" then
+            s = safe(function() return arg[1] end) or safe(function() return arg.Text end)
+        end
+    end
+    if hook_calls <= 6 then
+        print(string.format("[HKDBG2] call%d self:%s->%s class=%s | arg:%s->%s text=%s\n",
+            hook_calls, type(self), type(obj),
+            tostring(safe(function() return obj:GetClass():GetFName():ToString() end)),
+            type(in_text), tp,
+            tostring(s or ""):sub(1, 50)))
+    end
+    if not s or #s == 0 then return nil end
+    -- 【诊断 v35】抓一批经过 SetText 的真实文本，确认标题类是否走这条路
+    if seen_n < 80 and #s >= 4 and #s <= 90 and not seen_log[s] then
+        seen_log[s] = true; seen_n = seen_n + 1
+        print("[SEEN] " .. (s:gsub("[\r\n]+", " ")) .. "\n")
+    end
+    local zh = lookup(s)
+    if not zh or zh == s then return nil end
+    hook_busy = true
+    safe(function() obj:SetText(FText(zh)) end)
+    hook_busy = false
+    hook_writes = hook_writes + 1
+    return true      -- 若引擎把 pre 回调的返回值当作"跳过原函数"，英文原文就不会写进去
+end
+
+if HOOK_ENABLE then
+    local ok = pcall(function()
+        RegisterHook("/Script/UMG.TextBlock:SetText", { pre = uizh_settext, post = uizh_settext })
+    end)
+    if not ok then
+        ok = pcall(function() RegisterHook("/Script/UMG.TextBlock:SetText", uizh_settext) end)
+    end
+    print(string.format("%s已挂载 TextBlock:SetText 轻量钩子: %s\n", MOD, ok and "成功" or "失败"))
+else
+    print(MOD .. "钩子已关闭（v38：反射调用曾导致 UE4SS 内部崩溃）\n")
+end
+
+
+
+-- ===== v41：任务文本全量导出（只读诊断；无 hook、无写操作）=====
+local qt_seen, qt_n, QT_MAX = {}, 0, 4000
+local QT_PROPS = { "Text", "text", "m_text", "m_Text", "TextContent", "DisplayText", "Description",
+    "DescriptionText", "DescText", "Title", "TitleText", "NameText", "Objective", "ObjectiveText",
+    "QuestText", "QuestName", "SubObjective", "Summary", "Body", "BodyText", "QuestDescription",
+    "JournalText", "MessageText", "LabelText", "QuestObjective", "ObjectiveDescription" }
+local function qt_emit(tag, s)
+    if type(s) ~= "string" or #s < 4 or qt_n >= QT_MAX then return end
+    if qt_seen[s] then return end
+    qt_seen[s] = true; qt_n = qt_n + 1
+    print("[QT" .. tag .. "] " .. (s:gsub("[\r\n]+", " ")) .. "\n")
+end
+
+ExecuteWithDelay(60000, function()
+    -- A) DataTable 路线
+    local dts = safe(function() return FindAllOf("DataTable") end)
+    print(string.format("%s[QT] DataTable %d 个\n", MOD, dts and #dts or 0))
+    if dts then
+        for i, dt in ipairs(dts) do
+            local nm = safe(function() return dt:GetFName():ToString() end)
+            if nm and (nm:find("Quest") or nm:find("quest") or nm:find("Objective") or nm:find("dqst")) then
+                local rows = safe(function() return dt:GetRowNames() end)
+                local rn = rows and #rows or 0
+                print(string.format("[QT] DataTable %s 行数 %d\n", nm, rn))
+                for j = 1, math.min(rn, 400) do
+                    local rowname = rows[j]
+                    local row = safe(function() return dt:GetRow(nm, rowname) end)
+                    if not row then row = safe(function() return dt[rowname] end) end
+                    if row then
+                        for _, p in ipairs(QT_PROPS) do
+                            local v = safe(function() return row[p] end)
+                            if is_ftext(v) then qt_emit("D", safe(function() return v:ToString() end) or "") end
+                        end
+                    end
+                    if type(rowname) == "string" then qt_emit("R", rowname) end
+                end
+            end
+        end
+    end
+    -- B) 任务相关类实例的 FText 属性
+    local cls = safe(function() return FindAllOf("Class") end)
+    local hitn = 0
+    if cls then
+        for _, c in ipairs(cls) do
+            local nm = safe(function() return c:GetFName():ToString() end)
+            if nm and (nm:find("Quest") or nm:find("Objective") or nm:find("Journal") or nm:find("Dqst")) then
+                local objs = safe(function() return FindAllOf(nm) end)
+                if objs and #objs > 0 then
+                    hitn = hitn + 1
+                    print(string.format("[QT] 类 %s 实例 %d\n", nm, #objs))
+                    for k = 1, math.min(#objs, 30) do
+                        local o = objs[k]
+                        for _, p in ipairs(QT_PROPS) do
+                            local v = safe(function() return o[p] end)
+                            if is_ftext(v) then qt_emit("C", safe(function() return v:ToString() end) or "") end
+                        end
+                    end
+                end
+            end
+        end
+    end
+    print(string.format("%s[QT] 类命中 %d 个，累计导出文本 %d 条\n", MOD, hitn, qt_n))
+end)
+
+-- 【诊断 v33】① 列出全部控件类名与实例数 ② 对"提示类"控件做宽名单属性探测
+-- 目的：世界交互提示（截图里的 "E  Rest Campfire"）运行时读不到文本，
+-- 需要先确定它到底是哪个控件类、文本挂在哪个属性名上，再决定怎么翻。
+ExecuteWithDelay(30000, function()
+    local ws = safe(function() return FindAllOf("Widget") end)
+    if not ws then return end
+    local byclass = {}
+    for _, o in ipairs(ws) do
+        local c = safe(function() return o:GetClass():GetFName():ToString() end)
+        if c then byclass[c] = (byclass[c] or 0) + 1 end
+    end
+    local list = {}
+    for c, n in pairs(byclass) do list[#list + 1] = { c, n } end
+    table.sort(list, function(a, b) return a[2] > b[2] end)
+    print(string.format("%s[CLS] Widget 实例 %d 个，类 %d 个\n", MOD, #ws, #list))
+    for _, e in ipairs(list) do
+        print(string.format("[CLS] %-46s %d\n", e[1], e[2]))
+    end
+    -- 宽名单属性探测：只对名字像"交互提示"的类，每类最多 3 个实例
+    local WIDE = {
+    "Text",
+    "text",
+    "m_text",
+    "m_Text",
+    "TextContent",
+    "ContentText",
+    "Content",
+    "PromptText",
+    "InteractionText",
+    "InteractText",
+    "ActionText",
+    "ActionName",
+    "ActionLabel",
+    "LabelText",
+    "Label",
+    "TitleText",
+    "Title",
+    "DescText",
+    "DescriptionText",
+    "Description",
+    "KeyText",
+    "KeyLabel",
+    "KeyName",
+    "Key",
+    "InputText",
+    "InputKey",
+    "MessageText",
+    "BodyText",
+    "NameText",
+    "ValueText",
+    "ItemName",
+    "ItemNameText",
+    "HoverText",
+    "TooltipText",
+    "DisplayText",
+    "DisplayName",
+    "InfoText",
+    "HintText",
+    "TipText",
+    "SubText",
+    "MainText",
+    "HeaderText",
+    "m_TextContent",
+    "m_LabelText",
+    "m_DisplayText",
+    "m_TitleText",
+    "m_Description",
+    "StringValue",
+    "String",
+    "TextValue",
+    "m_TextValue",
+    "LocalizedText",
+    "LocalizedString",
+    "Message",
+    "m_Prompt",
+    "Prompt",
+    "m_Action",
+    "InteractPrompt",
+    "InteractionPrompt",
+    "m_InteractionText",
+    }
+    local KEY = { "Interact", "Prompt", "KeyInfo", "Hint", "Tip", "Action", "Notif", "Toast", "Campfire", "ToolTip", "Tooltip", "ItemInfo" }
+    for _, e in ipairs(list) do
+        local c = e[1]
+        local want = false
+        for _, k in ipairs(KEY) do
+            if c:find(k, 1, true) then want = true; break end
+        end
+        if want then
+            local objs = safe(function() return FindAllOf(c) end)
+            local n = 0
+            if objs then
+                for _, o in ipairs(objs) do
+                    n = n + 1
+                    if n > 3 then break end
+                    local found = {}
+                    for _, p in ipairs(WIDE) do
+                        local v = safe(function() return o[p] end)
+                        if is_ftext(v) then
+                            local s = safe(function() return v:ToString() end) or ""
+                            found[#found + 1] = p .. "=" .. s:gsub("[\r\n]+", " ")
+                        end
+                    end
+                    local path = safe(function() return o:GetFullName() end) or "?"
+                    print(string.format("[PROBE] %s #%d :: %s\n[PROBE]   FText 属性: %s\n",
+                        c, n, tostring(path):sub(1, 150),
+                        #found > 0 and table.concat(found, " ; ") or "(无)"))
+                end
+            end
+        end
+    end
+end)
+
+-- v39：快慢双层轮询
+--   热区：每 0.7 秒只扫标准文本控件（约 780 个对象，开销极小）→ 物品/交互提示最多 0.7 秒变中文
+--   全量：每 12 个 tick（约 8.4 秒）扫全部控件（约 4.5 万对象）→ 兜底覆盖自定义控件
+local TICK_MS, FULL_EVERY, TICKS = 700, 12, 1700
+local tick = 0
+local function tick_fn()
+    tick = tick + 1
+    local full = (tick <= 2) or (tick % FULL_EVERY == 0)
+    apply_safe(full)
+end
+for i = 1, TICKS do
+    ExecuteWithDelay(i * TICK_MS, tick_fn)
+end
+print(string.format("%s双层轮询已启动：热区 %dms，全量每 %d 轮\n", MOD, TICK_MS, FULL_EVERY))
+
+-- 【诊断】报告从"非标准文本控件"里读到的文本样例，确认自定义控件能否读取
+ExecuteWithDelay(26000, function()
+    local ws = safe(function() return FindAllOf("Widget") end)
+    if not ws then return end
+    local samples, n = {}, 0
+    for _, o in ipairs(ws) do
+        local c = safe(function() return o:GetClass():GetFName():ToString() end)
+        if c and c ~= "TextBlock" and c ~= "EditableText" and c ~= "EditableTextBox" then
+            local s = read_text(o)
+            if s and #s > 3 then
+                n = n + 1
+                if #samples < 20 then
+                    samples[#samples + 1] = string.format("[CUST] %-34s %s", c, s:sub(1, 70))
+                end
+            end
+        end
+    end
+    print(string.format("[STAT] 非标准控件可读文本数 = %d\n", n))
+    for _, l in ipairs(samples) do
+        print(l .. "\n")
+    end
+end)
+ExecuteWithDelay(400 * 3000 + 6000, function()
+    print(string.format("%s=== 结束统计: 扫描%d 命中%d 写入%d 失败%d 未收录%d ===\n",
+        MOD, stats.scans, stats.hits, stats.writes, stats.write_fail, miss_count))
+    local ncache, ntext, lines = 0, 0, {}
+    for cls, c in pairs(CACHE) do
+        ncache = ncache + 1
+        if c.prop then
+            ntext = ntext + 1
+            lines[#lines + 1] = cls .. "=" .. c.prop
+        end
+    end
+    table.sort(lines)
+    print(string.format("%s类缓存 %d 个，其中已确定文本属性 %d 个\n", MOD, ncache, ntext))
+    print(MOD .. "类→属性: " .. table.concat(lines, ", ") .. "\n")
+    local pd = {}
+    for p, cnt in pairs(stat_props) do pd[#pd + 1] = p .. ":" .. cnt end
+    table.sort(pd)
+    print(MOD .. "探测命中统计: " .. table.concat(pd, " ") .. "\n")
+    print(string.format("%s[HOOK] 累计调用%d 改写%d\n", MOD, hook_calls, hook_writes))
+    print(string.format("%s未收录清单: %s (io可用=%s)\n", MOD, MISSPATH, tostring(io_ok)))
+end)
+-- ===== v49：绑定枚举诊断（周期）+ 定向 TextBlock 读取（周期）+ SetText hook（尽早注册重试）=====
+local FN_TARGETS = {
+    "WB_Stats_Full_C", "WB_Stats_Main_Slot_C", "WB_Stats_Main_C", "WB_StatBar_C",
+    "WB_ToolTipItemStatsSlot_C", "WB_ToolTipItemStats_C", "WB_ToolTip_C", "WB_ToolTipItemInfo_C",
+    "WB_T3_StaticSettingInfo_C", "WB_QuestObjectiveName_C", "WB_QuestObjectiveDescription_C",
+    "WB_T3_OptionSwitcher_C", "WB_T3_SettingsMenu_C", "WB_OptionNoti_C",
+}
+local fn_done, fn_rounds = {}, 0
+local function fn_scan()
+    fn_rounds = fn_rounds + 1
+    local found = 0
+    for _, cn in ipairs(FN_TARGETS) do
+        if not fn_done[cn] then
+            local objs = safe(function() return FindAllOf(cn) end)
+            if objs and #objs > 0 then
+                fn_done[cn] = true
+                found = found + 1
+                local cls = safe(function() return objs[1]:GetClass() end)
+                local xname = "?"
+                if cls ~= nil then xname = tostring(safe(function() return cls:GetFName():ToString() end)) end
+                print(string.format("%s[FN] %s 实例%d 类=%s\n", MOD, cn, #objs, xname))
+                if cls ~= nil then
+                    local fns = {}
+                    local okf = pcall(function()
+                        cls:ForEachFunction(function(f)
+                            if #fns < 80 then fns[#fns+1] = f:GetFName():ToString() end
+                        end)
+                    end)
+                    print(string.format("%s[FN]   函数(%s): %s\n", MOD, tostring(okf), table.concat(fns, ", ")))
+                    local props = {}
+                    local okp = pcall(function()
+                        cls:ForEachProperty(function(p)
+                            if #props < 80 then props[#props+1] = p:GetFName():ToString() end
+                        end)
+                    end)
+                    print(string.format("%s[FN]   属性(%s): %s\n", MOD, tostring(okp), table.concat(props, ", ")))
+                end
+            end
+        end
+    end
+    if found > 0 then print(string.format("%s[FN] 第%d轮新命中 %d\n", MOD, fn_rounds, found)) end
+    if fn_rounds < 20 then ExecuteWithDelay(30000, fn_scan) end
+end
+ExecuteWithDelay(30000, fn_scan)
+
+-- ===== v43：UMG SetText hook（pre 改参数；尽早注册 + 失败重试）=====
+local hk3_n, hk3_hit, hk3_set, hk3_printed = 0, 0, 0, 0
+local HK3_PRINT_MAX = 20
+local hk3_cache = {}
+local hk3_miss_seen, hk3_miss_n = {}, 0
+local hk3_TL = nil
+pcall(function()
+    local UH = require("UEHelpers")
+    if UH and UH.GetKismetTextLibrary then hk3_TL = UH.GetKismetTextLibrary() end
+end)
+local function hk3_make(zh)
+    local ok1, t1 = pcall(function() return FText(zh) end)
+    if ok1 and t1 ~= nil then return t1, "FText" end
+    if hk3_TL ~= nil then
+        local ok2, t2 = pcall(function() return hk3_TL:Conv_StringToText(zh) end)
+        if ok2 and t2 ~= nil then return t2, "Conv" end
+    end
+    return nil, "none"
+end
+local function hk3_cb(self, in_text)
+    hk3_n = hk3_n + 1
+    local okp, param = pcall(function() return in_text:get() end)
+    if not okp or param == nil then return end
+    local ok1, s = pcall(function() return param:ToString() end)
+    if not ok1 or type(s) ~= "string" or #s == 0 then return end
+    local zh = hk3_cache[s]
+    if zh == nil then
+        local z = lookup(s)
+        zh = z or false
+        hk3_cache[s] = zh
+        if zh == false and #s >= 4 and s:find("%a%a%a") and not hk3_miss_seen[s] and hk3_miss_n < 2000 then
+            hk3_miss_seen[s] = true
+            hk3_miss_n = hk3_miss_n + 1
+            print(string.format("%s[MISS] %s\n", MOD, (s:gsub("[\r\n]+", " "))))
+        end
+    end
+    if zh == false or zh == s then return end
+    hk3_hit = hk3_hit + 1
+    local nt, how = hk3_make(zh)
+    if nt ~= nil then
+        hk3_set = hk3_set + 1
+        pcall(function() in_text:set(nt) end)
+        if hk3_printed < HK3_PRINT_MAX then
+            hk3_printed = hk3_printed + 1
+            print(string.format("%s[HK3] 改写[%d/%s] %s → %s\n", MOD, hk3_printed, how, s:sub(1, 46), zh:sub(1, 24)))
+        end
+    end
+    if hk3_n % 5000 == 0 then
+        print(string.format("%s[HK3] 调用%d 命中%d 改写%d\n", MOD, hk3_n, hk3_hit, hk3_set))
+    end
+end
+local hk3_tries = 0
+local function hk3_try()
+    hk3_tries = hk3_tries + 1
+    local ok, err = pcall(function() RegisterHook("/Script/UMG.TextBlock:SetText", hk3_cb) end)
+    if ok then
+        print(string.format("%s[HK3] hook 已挂载（第 %d 次尝试）\n", MOD, hk3_tries))
+        return
+    end
+    if hk3_tries < 90 then
+        ExecuteWithDelay(1000, hk3_try)
+    else
+        print(string.format("%s[HK3] hook 挂载失败 90 次: %s\n", MOD, tostring(err)))
+    end
+end
+ExecuteWithDelay(3000, hk3_try)
