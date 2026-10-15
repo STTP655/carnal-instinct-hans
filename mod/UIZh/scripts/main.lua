@@ -1584,7 +1584,7 @@ local EXTRA12 = {
     ["Sailor"] = "水手",
     ["Captain"] = "队长",
     ["Commander"] = "指挥官",
-    ["General"] = "将军",
+    ["General"] = "通用",
     ["King"] = "国王",
     ["Queen"] = "女王",
     ["Prince"] = "王子",
@@ -2453,6 +2453,17 @@ local EXTRA29 = {
     ["Balanced"] = "平衡",
 }
 for k, v in pairs(EXTRA29) do MAP[k] = v end
+
+-- ===== 批次30：用户反馈修正 + 同类缺口（v51）=====
+local EXTRA30 = {
+    ["General"] = "通用",              -- 物品分类；原先误作「将军」（与 GENERAL 冲突）
+    ["Miscellaneous"] = "杂项",
+    ["Item Type"] = "物品类型",
+    ["Discard"] = "丢弃",
+    ["Confirm Destroy"] = "确认销毁",
+    ["Are you sure you want to DESTROY?"] = "确定要销毁吗？",   -- 宿主 WB_ConfirmationPopup（通用确认弹窗）
+}
+for k, v in pairs(EXTRA30) do MAP[k] = v end
 -- 【v32 修正】PREFIX/LOWER/COMPACT 原来在各 EXTRA 批次合并「之前」就建好了（文件上方），
 -- 导致批次 2~20 的词条享受不到忽略大小写/空白/标点的兜底匹配（多行文本尤其吃亏：
 -- 游戏里长文本用 \r\n，而日志收割时按 \n 记录，键就差一个字符）。
