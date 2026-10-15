@@ -2891,6 +2891,15 @@ local EXTRA33 = {
     ["确定要销毁吗？"] = "确定要这样做吗？",   -- 通用确认弹窗的历史错译
 }
 for k, v in pairs(EXTRA33) do MAP[k] = v end
+
+-- ===== 批次34：物品名补漏（带重音符号的 UTF-16 名等）=====
+local EXTRA34 = {
+    ["BEADED RED NÉGLIGÉE"] = "珠饰红睡裙",
+    ["Burning Wood Pole"] = "燃烧的木杆",
+    ["Beaded Red Negligee"] = "珠饰红睡裙",
+    ["BEADED RED NEGLIGEE"] = "珠饰红睡裙",
+}
+for k, v in pairs(EXTRA34) do MAP[k] = v end
 -- 【v32 修正】PREFIX/LOWER/COMPACT 原来在各 EXTRA 批次合并「之前」就建好了（文件上方），
 -- 导致批次 2~20 的词条享受不到忽略大小写/空白/标点的兜底匹配（多行文本尤其吃亏：
 -- 游戏里长文本用 \r\n，而日志收割时按 \n 记录，键就差一个字符）。
