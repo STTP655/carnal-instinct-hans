@@ -2721,6 +2721,19 @@ end
 local MAX_PER_SCAN = 60000       -- 保险丝：单轮扫描绝不无界（正常每轮约 8000 个对象）
 local warned_trunc = false
 
+-- ===== v50 修复：qt_emit 必须声明在 apply 之前（否则 apply 内引用被编译成全局 nil）=====
+local qt_seen, qt_n, QT_MAX = {}, 0, 4000
+local QT_PROPS = { "Text", "text", "m_text", "m_Text", "TextContent", "DisplayText", "Description",
+    "DescriptionText", "DescText", "Title", "TitleText", "NameText", "Objective", "ObjectiveText",
+    "QuestText", "QuestName", "SubObjective", "Summary", "Body", "BodyText", "QuestDescription",
+    "JournalText", "MessageText", "LabelText", "QuestObjective", "ObjectiveDescription" }
+local function qt_emit(tag, s)
+    if type(s) ~= "string" or #s < 4 or qt_n >= QT_MAX then return end
+    if qt_seen[s] then return end
+    qt_seen[s] = true; qt_n = qt_n + 1
+    print("[QT" .. tag .. "] " .. (s:gsub("[\r\n]+", " ")) .. "\n")
+end
+
 local function apply(full)
     stats.scans = stats.scans + 1
     local list = gather(full)
@@ -2929,18 +2942,6 @@ end
 
 
 -- ===== v41：任务文本全量导出（只读诊断；无 hook、无写操作）=====
-local qt_seen, qt_n, QT_MAX = {}, 0, 4000
-local QT_PROPS = { "Text", "text", "m_text", "m_Text", "TextContent", "DisplayText", "Description",
-    "DescriptionText", "DescText", "Title", "TitleText", "NameText", "Objective", "ObjectiveText",
-    "QuestText", "QuestName", "SubObjective", "Summary", "Body", "BodyText", "QuestDescription",
-    "JournalText", "MessageText", "LabelText", "QuestObjective", "ObjectiveDescription" }
-local function qt_emit(tag, s)
-    if type(s) ~= "string" or #s < 4 or qt_n >= QT_MAX then return end
-    if qt_seen[s] then return end
-    qt_seen[s] = true; qt_n = qt_n + 1
-    print("[QT" .. tag .. "] " .. (s:gsub("[\r\n]+", " ")) .. "\n")
-end
-
 ExecuteWithDelay(60000, function()
     -- A) DataTable 路线
     local dts = safe(function() return FindAllOf("DataTable") end)
@@ -3274,3 +3275,18 @@ local function hk3_try()
     end
 end
 ExecuteWithDelay(3000, hk3_try)
+
+-- ===== v50：补挂其余可用 SetText hook 点（C 清单；均 pcall 包裹，缺失即跳过）=====
+local HK_EXTRA = {
+    "/Script/UMG.RichTextBlock:SetText",
+    "/Script/UMG.EditableText:SetText",
+    "/Script/UMG.EditableTextBox:SetText",
+    "/Script/UMG.MultiLineEditableText:SetText",
+    "/Script/UMG.MultiLineEditableTextBox:SetText",
+}
+ExecuteWithDelay(5000, function()
+    for _, path in ipairs(HK_EXTRA) do
+        local ok = pcall(function() RegisterHook(path, hk3_cb) end)
+        print(string.format("%s[HK4] %s : %s\n", MOD, path, ok and "已挂载" or "不可用(跳过)"))
+    end
+end)
