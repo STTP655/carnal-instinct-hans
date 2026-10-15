@@ -2461,9 +2461,21 @@ local EXTRA30 = {
     ["Item Type"] = "物品类型",
     ["Discard"] = "丢弃",
     ["Confirm Destroy"] = "确认销毁",
-    ["Are you sure you want to DESTROY?"] = "确定要销毁吗？",   -- 宿主 WB_ConfirmationPopup（通用确认弹窗）
+    ["Are you sure you want to DESTROY?"] = "确定要这样做吗？",   -- 宿主 WB_ConfirmationPopup：背包销毁与退出场景共用，取中性问法
 }
 for k, v in pairs(EXTRA30) do MAP[k] = v end
+
+-- ===== 批次31：通用确认 / 退出类文案（v52）=====
+local EXTRA31 = {
+    ["Are you sure you want to DESTROY?"] = "确定要这样做吗？",
+    ["Are you sure you want to remove?"] = "确定要移除吗？",
+    ["Are you sure you want to quit?"] = "确定要退出吗？",
+    ["Are you sure you wish to continue?"] = "确定要继续吗？",
+    ["Are you sure to rebind it? The old binding will get lost."] = "确定要重新绑定吗？原绑定将会丢失。",
+    ["DESTROY"] = "销毁",
+    ["Remove"] = "移除",
+}
+for k, v in pairs(EXTRA31) do MAP[k] = v end
 -- 【v32 修正】PREFIX/LOWER/COMPACT 原来在各 EXTRA 批次合并「之前」就建好了（文件上方），
 -- 导致批次 2~20 的词条享受不到忽略大小写/空白/标点的兜底匹配（多行文本尤其吃亏：
 -- 游戏里长文本用 \r\n，而日志收割时按 \n 记录，键就差一个字符）。
