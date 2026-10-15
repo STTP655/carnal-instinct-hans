@@ -45,7 +45,7 @@
 
 ```
 mod/UIZh/                  运行时可挂载的 mod（scripts/main.lua + enabled.txt）
-data/glossary.csv          词条表（原文,译文）—— 2099 条，可复用于其他工具
+data/glossary.csv          词条表（原文,译文）—— 2107 条，可复用于其他工具
 data/dt_jobs.json          数据表补丁替换数据（英文→中文，按资产分组）
 data/meta.json             本包统计与校验值
 tools/install_mod.ps1      一键安装 / 备份
