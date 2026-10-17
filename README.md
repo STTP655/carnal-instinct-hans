@@ -1,140 +1,157 @@
-# Carnal Instinct 简体中文汉化补丁
+# Carnal Instinct 简体中文汉化补丁（静态主线）
 
-> 三条通道并行：**locres 注入**（UI 蓝图内联文本，不依赖 mod）+ 运行时 UE4SS Lua mod + 数据表补丁，覆盖游戏内**绝大部分界面文本**。
-> 本仓库**不包含任何游戏原始资产**，只包含翻译成果与可复现脚本 —— 使用者需自备正版游戏。
+> 目标游戏：**Carnal Instinct**（Steam appid `1495320`，Unreal Engine 5.5）
+> 验证环境：Steam 正版 buildid `25690079`（2026-10 实测）
+> 方案性质：**纯静态**——只替换游戏容器/pak 内的文本资源，不依赖 UE4SS、不注入任何运行时代码。
+> 仓库不含游戏原始资产，只包含**翻译成果、逻辑键保护清单与可复现脚本**；使用者需自备正版游戏。
 
 ---
 
-## 一、当前汉化覆盖
+## 一、这套方案做了什么（2026-10 主线）
 
-| 内容 | 机制 | 表现 |
+两条静态通道：
+
+| 层 | 做法 | 规模 | 产物 |
+|---|---|---|---|
+| **NPC 对话**（MSL_Toolkit） | 解包 `pakchunk1013` 的 raw Zen chunk → 文本改 UTF-16 中文（允许变长）→ 完整重建容器（保留原 `ContainerHeader`、`container_id` 改回原值）→ 替换 `.utoc/.ucas` | 249 资产 / **9,092 条** | `pakchunk1013-Windows.utoc/.ucas` |
+| **UI 文本**（UMG 内联 FText） | 向 `pakchunk0.pak` 内的 `Game.locres` 注入 `(空ns, 32hex GUID) → 中文`；脚本按原参数重打包 | 14,106 条中 **12,632 条中文**；**1,422 条逻辑键保持英文** | `pakchunk0-Windows.pak` |
+
+字体：**不替换**，依赖引擎自带 CJK 回退（实测正常）。
+
+> ⚠️ 不同 build 的容器布局可能不同：本 build 的 `Game.locres` 在 **`pakchunk0.pak`**；
+> 旧机器（另一 build）在 `pakchunk1013.pak`。使用前先确认自己游戏里 locres 的实际位置。
+> repak 重打包的 path hash seed 也**必须与你本机 pak 一致**（`repak info` 可读；本 build 为 `0x464517FC`）。
+
+---
+
+## 二、覆盖情况
+
+**已汉化**：NPC 对话/任务对话、主菜单、设置菜单、按键设置、背包、物品名与描述、技能/法术、属性界面（属性名）、HUD、提示与通知、教程、存档界面（存档类型标签）、大部分物品提示文本。
+
+**保持英文（有意为之，翻必坏）**：
+
+- 全部 **UserDefinedEnum 显示名**（189 个枚举资产 / 1,189 条）——枚举显示名会被代码反读当逻辑键，典型：`E_InputBufferKey.LightAttack`、`E_CombatType.Melee`（翻了 → 站定普通攻击失效）；
+- **环形菜单数据 `DT_Menu`**（138 条）+ `E_Menus`（3 条）——翻了 → 环形菜单失效（实测确认）；
+- **80 个「文本参与逻辑比较」资产内的 92 条文本**（`Conv_TextToString` / `EqualEqual_TextText` 等，含 `W_MenuItem` 占位文本）。
+
+完整名单见 [`data/protect_list.json`](data/protect_list.json)（1,422 条，含英文原文/分类/所属资产）。
+
+**静态方案覆盖不到的（已知边界）**：
+
+- **字面量 FText**（无本地化键、flags `0x1FF`）：如 `Points Available:`、物品提示属性名（`Physical Damage` 等）、解锁形态弹窗（`UNLOCK "{0}" FORM?`）。旧机器是靠 UE4SS 运行时 SetText 钩子翻的；纯静态需「控件资产字面量补丁」（可做，风险中等，尚未实施）；
+- **Slate 渲染层文本**：角色属性页部分标签等，需 C++/运行时钩子；
+- 形态界面约 10 段种族描述（`pakchunk1014` 的 DataTable，待补）。
+
+---
+
+## 三、安装
+
+> 通用前提：**完全退出游戏**；先备份下面列出的文件；只替换列出的文件，不要动同目录其他容器。
+
+### 方式 A：使用本地构建产物（推荐）
+
+1. 备份游戏 `Content\Paks\` 下的：
+   - `pakchunk0-Windows.pak`（UI）
+   - `pakchunk1013-Windows.utoc` / `pakchunk1013-Windows.ucas`（对话）
+2. 用本仓库脚本本地构建（见「四、自建」），得到：
+   - `pakchunk0-Windows.pak`（UI 中文）
+   - `pakchunk1013-Windows.utoc/.ucas`（对话中文）
+3. 覆盖进游戏 `Paks` 目录，启动游戏验证。
+
+### 方式 B：仓库维护者发布的 Release 补丁包（若提供）
+
+按 Release 说明覆盖同样 3 个文件即可（非官方分发时请遵守游戏 EULA）。
+
+### 回滚
+
+把备份的 3 个文件复制回 `Paks` 目录即可恢复英文原版。
+Steam「验证文件完整性」也会还原官方文件（汉化随之消失，重跑构建即可恢复）。
+
+---
+
+## 四、自建（从零复现）
+
+前置：正版游戏、完全退出；`retoc`、`repak`、`oo2core_9_win64.dll`（Oodle，加入 PATH）、游戏 AES key、Python 3.10+。
+
+### 1) 对话层
+
+```powershell
+# 解包原始 1013 容器（只需一次；输出 build/zenmod-work/pakchunk1013-Windows）
+retoc -a <AES_KEY> unpack-raw <Paks>\pakchunk1013-Windows.utoc work\zen1013
+
+# 用译文重建完整容器（脚本内路径按本机修改）
+python tools\mainline\build_zenmod_safe.py --full-1013
+# 产物：pakchunk1013-Windows.utoc/.ucas（已离线复核：chunk 293 / 头部保真 / retoc verify）
+```
+
+关键点：保留原 Zen 头、只改「导出数据长度」一个 int32；中文写 UTF-16；**必须带上原 `ContainerHeader` chunk，并把 TOC `container_id` 改回原值**（否则引擎 `packages:0` 看不见容器）。
+
+### 2) UI 层
+
+```powershell
+# 生成最终 locres（把保护清单里的 1,422 条回退英文）
+python tools\mainline\build_protected_locres.py `
+  --fix1 data\Game.locres.fix1 --protect data\protect_list.json `
+  --out data\Game.locres.mainline
+
+# 注入 pakchunk0.pak（脚本内路径按本机修改）
+python tools\mainline\build_ui_pak.py `
+  --locres data\Game.locres.mainline --out-pak work\pakchunk0-Windows.mainline.pak
+```
+
+`build_ui_pak.py` 会做四项离线复核（文件清单一致 / 除 locres 外逐字节相同 / 包内 locres SHA 一致 / pak 参数一致），全部通过才建议部署。
+注意：打包是**非确定性**的——判断等价性看「包内 locres 的 SHA256」，不要看 pak 的 SHA256。
+
+---
+
+## 五、禁翻规则（重要，翻必坏功能）
+
+**原则：显示文本可能被代码反读回来当逻辑键/做字符串比较的，必须保持英文。**
+
+| 类别 | 规模 | 证据 |
 |---|---|---|
-| 主菜单、设置菜单、按钮、提示、通知等「主动设置文本」的控件 | **UE4SS Lua SetText hook** | 直接中文、**不闪烁**、零性能开销、**实测稳定** |
-| 对话、任务文本、部分界面 | MSL 文本表（游戏自研本地化系统） | 中文 |
-| 物品 / 技能 / 属性 / 术语 | DataTable 容器补丁 | 中文 |
-| 中文字形 | 字体包 | 正常 |
-| 蓝图内联文本 + 菜单/框架级文本（**14,106 条**：主菜单 / 设置 / 背包 / 属性等） | **locres 注入**（`data/Game.locres.fix1`，蓝图零改动） | 中文 |
+| UserDefinedEnum 显示名 | 189 资产 / 1,189 条 | 翻了 → 站定普通攻击失效（`E_InputBufferKey.LightAttack`、`E_MontageAction`、`E_CombatType`、`E_State` 等） |
+| 环形菜单 `DT_Menu` + `E_Menus` | 141 条 | `AC_RadialMenu`/`W_Menu`/`W_MenuItem` 内有 `Conv_TextToString`+`EqualEqual_StrStr`+`SwitchString`；翻了 → 环形菜单失效 |
+| 文本逻辑资产内文本 | 80 资产 / 92 条 | 全库扫描：头部出现 `Conv_TextToString` / `EqualEqual_TextText` / `NotEqual_TextText` / `TextIsEmpty` / `GetDisplayNameTextByValue` |
 
-**尚未覆盖**（原因已定位，详见 `docs/技术报告.md` 与 `docs/路线E_UI扫描报告.md`）：
+识别脚本：`tools/mainline/scan_text_logic.py`（全库 raw chunk 扫描）+ `tools/mainline/protect_all_enums.py`（枚举识别）。
 
-- **Slate 渲染层文本**：角色属性页标签（`Arcana` / `Presence` / `Crit Damage` …）、物品提示里的属性名（`Fire Resistance`）与部分物品名/品类。它们既不经过 UMG 的 `TextBlock:SetText`，也不存在于 UMG 的 FText 属性中，需写 UE4SS **Slate 层 C++ mod**（hook `STextBlock::SetText`），属工程级投入；
-- 形态界面约 10 段种族描述（位于 pakchunk1014 的 DataTable，待确认是否同样可走 locres 注入）；
-- 103 条疑似裸展示字符串（多在未挂载的旧模板里，待人工确认）。
+**坑**：枚举识别不能只匹配路径 `/Enums/`——`/Enumerations/`、`/09_enums/`、`ENUMS` 等目录同样有枚举（本项目曾漏 108 个，导致攻击 bug 多排查一轮）。
 
 ---
 
-## 二、快速安装
-
-> 汉化机制 = 把 `data\Game.locres.fix1`（14,106 条中文）注入你自己游戏的
-> `pakchunk1013-Windows.pak` 内的 `Carnal_Instinct_UE5/Content/Localization/Game/en/Game.locres`，
-> pak 内其余文件原样保留；**只写 `.pak` 这一个文件，绝不碰同目录的 `.utoc` / `.ucas`**。
-
-### 方式一：一键脚本（推荐）
-
-前置：**完全退出游戏**（脚本会检测 `Carnal*` 进程）；备好 [repak](https://github.com/trumank/repak)
-（放到 `tools\repak\repak.exe`，或用 `-RepakPath` 指定）。
-
-```powershell
-$G = "K:\SteamLibrary\steamapps\common\CarnalInstinct\Carnal_Instinct_UE5"
-
-# 1) 先干跑：只做只读检查并打印将要执行的每一步，不写任何文件
-.\tools\一键汉化.ps1 -GamePath $G -DryRun
-
-# 2) 正式安装：备份 -> 注入 locres -> 复核 -> 覆盖 -> 可选装 mod
-.\tools\一键汉化.ps1 -GamePath $G
-
-# 3) 回退：从 tools\backup\<时间戳>\ 还原原版 pak（多个备份时按提示选序号）
-.\tools\回退汉化.ps1 -GamePath $G
-```
-
-脚本做的事：检测游戏进程 → 探测 repak → 校验 `data\Game.locres.fix1` 的 SHA256 →
-备份当前 pak 到 `tools\backup\<时间戳>\`（含 `backup.json`）→ 解包游戏 pak → **只**替换其中的
-`Game.locres` → 按原参数重新打包（`-m "../../../" --version V11 --compression Oodle -p 1048239905`）→
-解包复核新 pak（文件清单与游戏原 pak 一致 / 除 locres 外逐字节相同 / 包内 locres SHA256 相符）→
-覆盖游戏 pak → 可选安装 `UIZh` mod（没装 UE4SS 则跳过并提示）→ 清理临时目录。
-
-常用参数：`-SkipMod`（只注 locres、不装 mod）、`-RepakPath`、`-BackupRoot`、`-KeepTemp`；
-回退脚本：`-Latest`（直接用最新备份）、`-RemoveMod`（移走 mod 目录，默认只把 `enabled.txt` 改名关闭）。
-
-> 打包是**非确定性**的（每次 pak 的 SHA256 都不同），所以校验口径是**解包后 locres 的 SHA256**
-> 必须等于 `85F28F91…2CDC`，不要拿 pak 的哈希判等。
-
-### 方式二：手动（简述）
-
-不跑脚本、自己动手时，核心只有一步：用 repak 把 `data\Game.locres.fix1` 替换进
-`pakchunk1013-Windows.pak` 内的 `Carnal_Instinct_UE5/Content/Localization/Game/en/Game.locres`，
-再用原参数打包回去（完整命令见 `tools\locres_inject\README.md`）。这样**不装任何 mod**，
-全部静态 UI 文本（菜单 / 设置 / 背包 / 属性等）即为中文——即纯净版。想再覆盖运行时动态文本，
-装好 UE4SS（`Binaries/Win64/` 下放注入代理 `dwmapi.dll` 与 `ue4ss/`）后跑：
-
-```powershell
-.\tools\install_mod.ps1   -GamePath $G   # 装 mod（自动备份已有 mod）
-.\tools\uninstall_mod.ps1 -GamePath $G   # 撤 mod
-```
-
-启动游戏后看日志确认出现「UI 汉化 mod 已加载」：`<游戏>\Binaries\Win64\ue4ss\UE4SS.log`。
-
----
-
-## 三、目录结构
+## 六、仓库结构
 
 ```
-mod/UIZh/                  运行时可挂载的 mod（scripts/main.lua + enabled.txt）
-data/glossary.csv          词条表（原文,译文）—— 2107 条，可复用于其他工具
-data/dt_jobs.json          数据表补丁替换数据（英文→中文，按资产分组）
-data/meta.json             本包统计与校验值
-data/Game.locres.fix1      一键脚本用的 locres 注入成品（14,106 条；环形菜单修复版）
-data/Game.locres.full      上一代 locres 注入成品（2065 条，留档）
-data/locres_全量翻译对照表.csv  全部注入条目的 key/原文/译文对照（审校用）
-tools/一键汉化.ps1          一键安装（备份 → 注入 locres → 复核 → 覆盖 → 可选装 mod，支持 -DryRun）
-tools/回退汉化.ps1          一键回退（从 tools/backup/<时间戳>/ 还原原版 pak、关闭/移除 mod）
-tools/install_mod.ps1       只装 mod / 备份（手动模式用）
-tools/uninstall_mod.ps1     只撤 mod（手动模式用）
-tools/patch_containers.py  在**你自己的**游戏容器上原地打数据表补丁
-tools/locres_inject/       路线 E 工具链：locres 读写 / 注入 / 验证 + 复现说明
-汉化操作速查.md             AI agent 速查：两处目录 / 三条通道 / 证伪清单 / 常见任务 / 铁律
-docs/技术报告.md            技术结论与实证（含已证伪路线，避免重复踩坑）
-docs/路线E_UI扫描报告.md     WB_* 蓝图文本全解析报告（结构、假阳性规避、基线）
-docs/复现指南.md            从零复现当前汉化状态的完整步骤
-接力文档.md                项目交接文档（新会话先读这一份）
+data/
+  Game.locres.v7b_save_stat   最终主线 UI locres（14,106 条；12,632 中文 + 1,422 英文保护）
+  dialogue_zh_safe.json       对话译文（249 资产 / 9,092 条，UTF-16 注入用）
+  protect_list.json           1,422 条逻辑键保护清单（键/英文原文/分类/资产）
+  Game.locres.fix1            上游第三方全量 locres（数据源，SHA256 85F28F91…2CDC）
+  Game.locres.full            最保守安全基线（2,065 条，实测功能正常）
+  glossary.csv / locres_…csv  术语表与对照表
+docs/
+  archive/                    历史文档（旧机器路线/旧结论，已标注归档）
+  主线_对话+UI汉化方案.md       完整技术细节：原理/步骤/失效顺序/验证
+  经验总结.md                  本次踩坑与排查方法论
+tools/
+  mainline/                   主线脚本（见该目录 README）
+  archive/                    旧机器脚本（一键汉化/回退/UE4SS mod 等）
+  locres_inject/              locres 读写库（v3 CityHash64_UTF16）
+mod/UIZh/                     旧路线的 UE4SS Lua mod（历史，保留参考）
 ```
 
 ---
 
-## 四、关键依赖
+## 七、历史与致谢
 
-| 依赖 | 版本 / 说明 |
-|---|---|
-| UE4SS | `v3.0.1-1176-g1ba38db4`（官方最新 experimental，已实测可在 UE5.5 Shipping 注入） |
-| 游戏 | Carnal Instinct（UE 5.5 Shipping） |
-| Python | 3.10+（容器补丁脚本） |
-| retoc / repak | 容器 / pak 解包与打包（打数据表补丁、注入 locres 时需要） |
+- `docs/archive/` 保存了旧机器时期的全部结论与工具（等长路线、UE4SS 运行时 mod、`pakchunk1013.pak` 一键替换等）。其中「变长必卡死」等结论**已被证伪**，真实原因是：容器重建缺少 `ContainerHeader`、译文混入二进制误判条目、编码错误三条（详见主线文档）。
+- UI locres 数据源来自社区第三方 locres（`data/Game.locres.fix1`）；本仓库在其基础上修复了逻辑键保护，并把方案整理为可复现脚本。
+- 本项目仅包含翻译文本与工具，**不包含游戏原始资产**。请支持正版。
 
----
-
-## 稳定性（重要）
-
-本补丁**只使用 SetText hook 通道**。
-
-- ✅ hook 改参数：实测 16000+ 次调用零崩溃，属性绑定也生效；
-- ❌ 轮询批量写入：实测会导致 `EXCEPTION_ACCESS_VIOLATION`（三次对照实验），已永久关闭；
-- ❌ 用 Lua 遍历/写入 UObject 属性：会导致崩溃，**任何扩展都不要这样做**。
-
-详见 `docs/技术报告.md` 第七节。
-
----
-
-## 五、合规声明
+## 八、合规声明与许可
 
 - 本仓库**不含**任何未修改的游戏原始文件（`.ucas` / `.utoc` / `.pak` / 原始游戏资产）。
-  `data/Game.locres.fix1`、`data/Game.locres.full` 是本项目修改过的本地化数据（翻译成果），不包含游戏其他内容。
-- 所有脚本都在**使用者本地的正版游戏文件**上运行，产物仅供个人使用。
-- 翻译成果为本项目所有；若分发字体请遵循其原始许可（如 Noto Sans SC，SIL OFL 1.1）。
-- 请勿将本仓库与游戏本体打包分发。
-
----
-
-## 六、许可
-
-本仓库的**脚本与翻译文本**采用 MIT 许可（见 `LICENSE`）。
-游戏《Carnal Instinct》的一切权利归其开发者所有。
+  `data/Game.locres.*` 是本项目修改过的本地化数据（翻译成果），不含游戏其他内容。
+- 所有脚本都在**使用者本地的正版游戏文件**上运行，产物仅供个人使用；请勿将本仓库与游戏本体打包分发。
+- 脚本与翻译文本采用 MIT 许可（见 [LICENSE](LICENSE) / [NOTICE.md](NOTICE.md)）；游戏《Carnal Instinct》的一切权利归其开发者所有。
